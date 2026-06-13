@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>CNN International | CNN</title>
+<meta name="description" content="-">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CNN International | CNN">
+<meta property="og:url" content="https://www.exemplo.com/">
+<meta property="og:image" content="">
+
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  MAPA DE EDIÇÃO — VSL estilo "notícia" (CNN) + comentários FB ║
+     ╠══════════════════════════════════════════════════════════════╣
+     ║  1. LOGO        → [HEADER]   → <div class="logo">           ║
+     ║  2. HEADLINE    → [HEADLINE] → <h1 class="headline">        ║
+     ║  3. VÍDEO       → [VIDEO]    → cole o embed da VTurb        ║
+     ║  4. CTA (botão) → [CTA OVERLAY] → <a class="cta-btn">       ║
+     ║  5. CONTADOR    → [VIEWERS]  → "X personas mirando" (auto)  ║
+     ║  6. LOGOS MÍDIA → [LOGOS]    → troque o placeholder pela img║
+     ║  7. COMENTÁRIOS → [COMENTARIOS] → cada .comment (.answer)  ║
+     ║  8. TRACKING    → [TRACKING] → UTM forwarding (no fim)      ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+
+<style>
+  :root{ --news-bg:#020202; --red:#b42d1f; --fb-blue:#385898; --fb-link:#4267b2; --fb-time:#90949c; --ink:#1c1e21; --gray:#efefef; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);line-height:1.4;background:#e4e6eb;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;height:auto;display:block}
+  /* DEVICE: coluna mobile fixa — PC/tablet renderiza IGUAL ao celular */
+  .device{max-width:440px;margin:0 auto;background:#fff;min-height:100vh;box-shadow:0 0 26px rgba(0,0,0,.10);overflow:hidden}
+  .wrap{max-width:100%;margin:0 auto;padding:0 16px}
+
+  /* ── [HEADER] barra de notícias ── */
+  .news-bar{background:var(--news-bg);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 16px}
+  .news-bar .nav-icon{background:none;border:none;color:#fff;cursor:pointer;display:inline-flex;align-items:center;padding:4px}
+  .news-bar .nav-icon svg{height:22px;width:auto;fill:currentColor}
+  .news-bar .menu svg{height:20px}
+  .news-bar .logo{flex:1;display:flex;justify-content:center;font-weight:800;font-size:22px;letter-spacing:-.5px}
+  .news-bar .logo .ph{border:1px dashed #555;color:#777;font-weight:500;font-size:12px;padding:8px 22px;border-radius:4px}
+  .news-bar .logo img{height:30px;width:auto;display:block}
+  /* header sempre em modo mobile: hambúrguer visível + logo centralizado (sem override de desktop) */
+
+  /* ── [HEADLINE] copy principal ── */
+  .headline{font-size:21px;font-weight:800;line-height:1.25;margin:18px 0 8px;letter-spacing:-.3px;color:#111}
+  .headline .red,.disclaimer .red{color:var(--red)}
+  .disclaimer{font-size:11px;color:#555;margin-bottom:2px}
+
+  /* ── [VIDEO] + [CTA OVERLAY] ── */
+  .vsl{padding:16px 0 6px}
+  .player{position:relative;width:100%;max-width:400px;margin:0 auto;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden}
+  .player .ph-note{position:absolute;bottom:10px;left:0;right:0;text-align:center;color:#555;font-size:11px}
+  .cta-overlay{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);background:#e10600;padding:14px 14px;text-align:center;color:#fff;z-index:2}
+  .cta-overlay .warn{width:46px;height:42px;display:block;margin:0 auto 7px}
+  .cta-warn{font-size:12.5px;font-weight:600;font-style:italic;line-height:1.3;margin-bottom:11px;text-transform:uppercase}
+  .cta-line{display:flex;align-items:center;justify-content:center;gap:8px}
+  .cta-line .arrow{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+  .cta-btn{display:inline-block;background:#ffd400;color:#111;font-weight:700;font-size:12.5px;padding:10px 15px;border-radius:24px;text-decoration:none;text-transform:uppercase;letter-spacing:.2px;line-height:1.15}
+
+  /* ── [VIEWERS] ── */
+  .viewers{text-align:center;font-size:16px;margin-top:16px}
+  .viewers b{color:var(--red);font-weight:700}
+
+  /* ── [LOGOS] "Fue noticia también en" ── */
+  .media-row{margin:26px auto 0;max-width:420px}
+  .media-cap{display:flex;align-items:center;gap:12px;color:#999;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+  .media-cap span{flex:1;height:1px;background:#ddd}
+  .media-logos .ph{aspect-ratio:1080/185;background:#f4f6f8;border:1px dashed #ccc;border-radius:6px;display:grid;place-items:center;color:#999;font-size:12px;text-align:center;padding:8px}
+
+  /* ── [COMENTARIOS] estilo Facebook NOVO (CSS oficial da referência, adaptado) ── */
+  .comments{background:#fff;padding:8px 0 36px;margin-top:20px}
+  #fb-comments{font-family:"Segoe UI Historic","Segoe UI",Helvetica,Arial,sans-serif;font-size:16px;width:100%;margin:auto}
+  #fb-comments .comments-container{display:flex;flex-direction:column;gap:1.25em;border:.0625em solid #e9ebee;border-radius:1.25em;padding:1.25em 1.25em 0}
+  #fb-comments .comment{display:flex;align-items:flex-start;justify-content:flex-start;position:relative;width:100%;max-width:100%;gap:.625em}
+  #fb-comments .comment.answer{margin-left:3.625em;max-width:calc(100% - 3.625em);margin-bottom:.75em}
+  #fb-comments .comment.answer + .answer{margin-top:-.75em}
+  #fb-comments .comment .user-avatar{max-width:3em;max-height:3em;border-radius:1.5625em;object-fit:cover}
+  #fb-comments .comment .comment-data{width:100%}
+  #fb-comments .comment .comment-data .user{font-weight:400;color:#050505;border-radius:.75em;background-color:#f0f2f5;padding:.375em .75em .75em}
+  #fb-comments .comment .comment-data .user .name{margin:0;color:#365899;text-decoration:none;font-weight:700;font-size:16px;cursor:pointer;max-width:max-content}
+  #fb-comments .comment .comment-data .user .text{margin:0;font-weight:400;font-size:16px;color:#050505;width:fit-content;text-align:left}
+  #fb-comments .comment .comment-data .user .text span{color:#365899;font-weight:600}
+  #fb-comments .comment .comment-data .buttons{margin:.125em 0 0 .75em;display:flex;align-items:center;justify-content:flex-start;gap:.3125em}
+  #fb-comments .comment .comment-data .buttons time,
+  #fb-comments .comment .comment-data .buttons like,
+  #fb-comments .comment .comment-data .buttons answer,
+  #fb-comments .comment .comment-data .buttons span{font-size:.8em;color:#888;user-select:none}
+  #fb-comments .comment .comment-data .buttons like,
+  #fb-comments .comment .comment-data .buttons answer{font-weight:600;cursor:pointer}
+  #fb-comments .comment .comment-data .buttons like[liked]{color:#365899}
+  #fb-comments .comment .comment-data .buttons answer{cursor:default;position:relative}
+  #fb-comments .comment .comment-data .buttons answer:hover::after{content:"No puedes comentar en esta publicación";position:absolute;left:50%;top:-.625em;width:11.25em;background-color:#f0f2f5;color:#4c4c4c;transform:translate(-50%,-100%);z-index:10;border-radius:.25em;padding:.375em;text-align:center;font-weight:400;box-shadow:.125em .125em .5em .125em rgba(0,0,0,.18)}
+  #fb-comments .comment .comment-data .buttons answer:hover::before{content:"";position:absolute;left:50%;top:-.625em;width:0;height:0;border-left:.5em solid transparent;border-right:.5em solid transparent;border-top:.5em solid #f0f2f5;z-index:11;transform:translateX(-50%);filter:drop-shadow(0 .1875em .125em rgba(0,0,0,.1))}
+  #fb-comments .comment likes{position:absolute;bottom:0;right:0;background-color:#fff;border:.125em solid #eaebef;display:flex;align-items:center;font-size:.875em;line-height:1;color:#888;border-radius:6.25em;padding:.0625em .25em .0625em 0}
+  #fb-comments .comment likes::before{content:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%2738%27%20height%3D%2720%27%20viewBox%3D%270%200%2040%2020%27%3E%3Cdefs%3E%3ClinearGradient%20id%3D%27gb%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%2318AFFF%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%230064E0%27/%3E%3C/linearGradient%3E%3ClinearGradient%20id%3D%27gr%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%3Cstop%20offset%3D%270%27%20stop-color%3D%27%23FF7CA3%27/%3E%3Cstop%20offset%3D%271%27%20stop-color%3D%27%23E0203B%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle%20cx%3D%2726%27%20cy%3D%2710%27%20r%3D%279.4%27%20fill%3D%27%23fff%27/%3E%3Ccircle%20cx%3D%2726%27%20cy%3D%2710%27%20r%3D%278.4%27%20fill%3D%27url%28%23gr%29%27/%3E%3Cpath%20fill%3D%27%23fff%27%20transform%3D%27translate%2820.5%2C4.7%29%20scale%280.46%29%27%20d%3D%27M12%2021.35l-1.45-1.32C5.4%2015.36%202%2012.28%202%208.5%202%205.42%204.42%203%207.5%203c1.74%200%203.41.81%204.5%202.09C13.09%203.81%2014.76%203%2016.5%203%2019.58%203%2022%205.42%2022%208.5c0%203.78-3.4%206.86-8.55%2011.54L12%2021.35z%27/%3E%3Ccircle%20cx%3D%2711%27%20cy%3D%2710%27%20r%3D%279.4%27%20fill%3D%27%23fff%27/%3E%3Ccircle%20cx%3D%2711%27%20cy%3D%2710%27%20r%3D%278.4%27%20fill%3D%27url%28%23gb%29%27/%3E%3Cpath%20fill%3D%27%23fff%27%20transform%3D%27translate%285.7%2C5%29%20scale%280.44%29%27%20d%3D%27M1%2021h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17%201%207.59%207.59C7.22%207.95%207%208.45%207%209v10c0%201.1.9%202%202%202h9c.83%200%201.54-.5%201.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z%27/%3E%3C/svg%3E");cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- ╔═══ DISPOSITIVO: coluna mobile centralizada (PC/tablet = mesmo layout do celular) ═══╗ -->
+<div class="device">
+
+<!-- ═══════════ [HEADER] ═══════════ -->
+<header class="news-bar">
+  <button class="nav-icon menu" aria-label="Menu"><svg viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"/></svg></button>
+  <!-- [LOGO] -->
+  <div class="logo"><img src="img/logo-cnn.webp" alt="CNN" width="150" height="150"></div>
+  <button class="nav-icon search" aria-label="Buscar"><svg viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></button>
+</header>
+
+<div class="wrap">
+
+  <!-- ═══════════ [HEADLINE] — copy principal ═══════════ -->
+  <h1 class="headline"><b>Experto de renombre revela:</b> "Gelatina Bariátrica" con solo 3 ingredientes <span class="red">derrite la grasa obstinada mientras duermes!</span></h1>
+  <p class="disclaimer">Esta presentación se retira hoy. <b class="red">Por CNN Notícias</b></p>
+
+  <!-- ═══════════ [VIDEO] — cole o embed da VTurb aqui (substitua o placeholder) ═══════════ -->
+  <div class="vsl">
+    <div class="player">
+      <div class="ph-note">[ VSL / vídeo aqui ]</div>
+      <!-- [CTA OVERLAY] faixa vermelha — o botão amarelo é o CTA (→ link de checkout) -->
+      <div class="cta-overlay">
+        <svg class="warn" viewBox="0 0 48 44"><path fill="#ffd400" stroke="#1a1a1a" stroke-width="2.4" stroke-linejoin="round" d="M24 3 45 40H3z"/><rect x="22" y="15" width="4" height="13" rx="1.5" fill="#1a1a1a"/><circle cx="24" cy="33.5" r="2.4" fill="#1a1a1a"/></svg>
+        <p class="cta-warn">Este vídeo será eliminado en cualquier momento...<br><b>¡Esta es su última oportunidad de verlo!</b></p>
+        <div class="cta-line">
+          <svg class="arrow" viewBox="0 0 48 48"><path d="M8 7C10 30 24 35 37 32"/><path d="M29 26l9 6-10 5"/></svg>
+          <a class="cta-btn" href="#">Haga clic aquí para seguir viendo</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- [VIEWERS] número automático (400–700) -->
+    <p class="viewers"><b id="viewers">430</b> personas están mirando ahora.</p>
+
+    <!-- [LOGOS] "Fue noticia también en" — a legenda já vem embutida na própria imagem -->
+    <div class="media-row">
+      <div class="media-logos"><img src="img/logo-emissoras.webp" alt="Fue noticia también en" width="1080" height="185"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ [COMENTARIOS] estilo Facebook NOVO (bolha) ═══════════
+     Estrutura por comentário:
+       .comment            -> linha (avatar + dados)   | + classe .answer = resposta (indentada)
+       .user-avatar        -> foto redonda (img/av-N-*.webp)
+       .user-background    -> bolha cinza: .name (nome) + .text (texto)
+       .buttons            -> Me gusta · Responder · tempo
+       <likes>N</likes>    -> badge de reações (👍❤) + número
+     Menção (responder citando alguém): <span style="color:#385898">Nome</span> no início do .text  -->
+<section class="comments">
+  <div class="wrap">
+    <div id="fb-comments">
+      <div class="comments-container">
+
+      <!-- Georgia Pontual -->
+      <div class="comment">
+        <img class="user-avatar" src="img/av-1-georgia.webp" alt="" width="48" height="48">
+        <div class="comment-data">
+          <div class="user user-background">
+            <p class="name">Georgia Pontual</p>
+            <p class="text">Sofía, empecé a tomar la receta que me preparaste. He estado tomando por 15 días consecutivos, perdí 16 kilos y reduje mi cintura en 10 cm. Voy a seguir tomándolo, es delicioso.</p>
+          </div>
+          <div class="buttons"><like>Me gusta</like><span>·</span><answer>Responder</answer><span>·</span><time>12 M</time></div>
+        </div>
+        <likes>13</likes>
+      </div>
+
+      <!-- resposta: Leila Portugal -->
+      <div class="comment answer">
+        <img class="user-avatar" src="img/av-2-leila.webp" alt="" width="48" height="48">
+        <div class="comment-data">
+          <div class="user user-background">
+            <p class="name">Leila Portugal</p>
+            <p class="text">FINALMENTE, ALGUIEN QUE NO SE QUEDA POR AHÍ PARA PEDIR DINERO AL FINAL, ¡GRACIAS! HE EMPEZADO HOY</p>
+          </div>
+          <div class="buttons"><like>Me gusta</like><span>·</span><answer>Responder</answer><span>·</span><time>6 m</time></div>
+        </div>
+        <likes>4</likes>
+      </div>
+
+      <!-- resposta: Jennifer Davis -->
+      <div class="comment answer">
+        <img class="user-avatar" src="img/av-3-jennifer.webp" alt="" width="48" height="48">
+        <div class="comment-data">
+          <div class="user user-background">
+            <p class="name">Jennifer Davis</p>
+            <p class="text">Usted explica muy bien, es lo que nosotros, los laicos, necesitamos. Voy a empezar a usar este truco hoy mismo.</p>
+          </div>
+          <div class="buttons"><like>Me gusta</like><span>·</span><answer>Responder</answer><span>·</span><time>1 h</time></div>
+        </div>
+        <likes>15</likes>
+      </div>
+
+      <!-- Rita andrade montreal -->
+      <div class="comment">
+        <img class="user-avatar" src="img/av-4-rita.webp" alt="" width="48" height="48">
+        <div class="comment-data">
+          <div class="user user-background">
+            <p class="name">Rita andrade montreal</p>
+            <p class="text">He estado haciendo este truco durante 17 días, en la escala solo perdí 23 kilos, pero con la cinta métrica incluso me sorprendí, perdí 9 centímetros. ¡Me encanta eso!</p>
+          </div>
+          <div class="buttons"><like>Me gusta</like><span>·</span><answer>Responder</answer><span>·</span><time>1 h</time></div>
+        </div>
+        <likes>9</likes>
+      </div>
+
+      <!-- Silene Braga -->
+      <div class="comment">
+        <img class="user-avatar" src="img/av-5-silene.webp" alt="" width="48" height="48">
+        <div class="comment-data">
+          <div class="user user-background">
+            <p class="name">Silene Braga</p>
+            <p class="text">Video muy bien explicado y directo, sin rodeos, felicitaciones Sofía</p>
+          </div>
+          <div class="buttons"><like>Me gusta</like><span>·</span><answer>Responder</answer><span>·</span><time>2 h</time></div>
+        </div>
+        <likes>22</likes>
+      </div>
+
+      <!-- Elzanir Magnolia -->
+      <div class="comment">
+        <img class="user-avatar" src="img/av-6-elzanir.webp" alt="" width="48" height="48">
+        <div class="comment-data">
+          <div class="user user-background">
+            <p class="name">Elzanir Magnolia</p>
+            <p class="text">Sofía, tú me has ayudado mucho. Hace unos años pasé por el peor momento de mi vida, empecé a rezar, a leer la Biblia y encontré este vídeo, qué bendición. He estado haciendo este truco durante 5 días y ya me siento otra persona, más dispuesta, con más ganas de vivir, y ya he perdido unos 6,6 kilos.</p>
+          </div>
+          <div class="buttons"><like>Me gusta</like><span>·</span><answer>Responder</answer><span>·</span><time>5 h</time></div>
+        </div>
+        <likes>18</likes>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- ╚═══ /.device ═══╝ -->
+
+<!-- ═══════════ [TRACKING] ═══════════ -->
+<script>
+  // contador "personas mirando" — número aleatório 400–700 (atualiza devagar)
+  (function(){
+    var el=document.getElementById('viewers');
+    function rnd(){ return Math.floor(Math.random()*(700-400+1))+400; }
+    var n=rnd(); el.textContent=n;
+    setInterval(function(){ n+=(Math.random()<.5?-1:1)*Math.floor(Math.random()*4); if(n<400)n=400; if(n>700)n=700; el.textContent=n; },6000);
+  })();
+
+  // UTM forwarding (merge sem sobrescrever) — passa os params da URL pros links
+  (function(){
+    function fwd(root){
+      var qs=window.location.search; if(!qs) return;
+      var src=new URLSearchParams(qs);
+      (root||document).querySelectorAll('a').forEach(function(a){
+        var href=a.getAttribute('href')||'';
+        if(!href||href[0]==='#'||/^(javascript:|mailto:|tel:)/i.test(href)) return;
+        var url; try{ url=new URL(href,location.origin); }catch(e){ return; }
+        src.forEach(function(v,k){ if(!url.searchParams.has(k)) url.searchParams.set(k,v); });
+        var abs=/^[a-z][a-z0-9+.-]*:/i.test(href)||href.slice(0,2)==='//';
+        a.setAttribute('href', abs ? url.toString() : url.pathname+url.search+url.hash);
+      });
+    }
+    document.addEventListener('DOMContentLoaded',function(){
+      fwd();
+      new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(n){
+        if(n.nodeType===1){ n.tagName==='A' ? fwd(n.parentNode||document) : (n.querySelectorAll&&fwd(n)); }
+      });});}).observe(document.body,{childList:true,subtree:true});
+    });
+  })();
+</script>
+</body>
+</html>
