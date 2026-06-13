@@ -10,7 +10,13 @@
      │   • GTM  → o <script>...googletagmanager.com/gtm.js...</script>    │
      │   • GA4  → o <script async src="...gtag/js?id=G-XXXX"> + config    │
      └──────────────────────────────────────────────────────────────────┘ -->
-
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TNLBBT5G');</script>
+<!-- End Google Tag Manager -->
 <title>CNN International | CNN</title>
 <meta name="description" content="-">
 <meta property="og:type" content="website">
@@ -120,7 +126,10 @@
      │  (é o <noscript><iframe ...gtm... ></noscript> — só o GTM tem)    │
      │  GA4 puro NÃO precisa desta parte.                                │
      └──────────────────────────────────────────────────────────────────┘ -->
-
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNLBBT5G"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <!-- ╔═══ DISPOSITIVO: coluna mobile centralizada (PC/tablet = mesmo layout do celular) ═══╗ -->
 <div class="device">
 
@@ -279,8 +288,21 @@
      │  É este o "footer de scripts": a base do pixel vai aqui,    │
      │  logo antes do </body>. Os eventos disparam sozinhos.       │
      └────────────────────────────────────────────────────────────┘ -->
-
-
+<script>
+  window.pixelId = "6a2dc2d082a16462e33bd463";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
 <script>
   // contador "personas mirando" — número aleatório 400–700 (atualiza devagar)
   (function(){
