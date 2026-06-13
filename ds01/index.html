@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  DS01 — PÁGINA DE DOWNSELL 1 · "Next-Gen Menopause" (50% OFF + bônus)  ║
+  ║                                                                        ║
+  ║  O QUE É: a tela que aparece quando a pessoa RECUSA a oferta anterior. ║
+  ║  Aqui você oferece a mesma coisa com desconto (50%) + um bônus grátis. ║
+  ║  Não tem vídeo — é texto + imagem do bônus + botão da Hotmart.         ║
+  ║                                                                        ║
+  ║  COMO MEXER: edite só o texto entre as tags. Não apague as < >.       ║
+  ║  Pontos de troca marcados com [ ... ].                                 ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>¡Última oportunidad! 50% de descuento</title>
+<link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
+
+<!-- [ OPCIONAL ] cole aqui Pixel/GTM/UTMify se usar. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- ╔═══════════════════════════════════════════════════════════════════╗
+     ║  ESTILOS (CSS) — aparência. Para trocar cor, mude o código (#...). ║
+     ╚═══════════════════════════════════════════════════════════════════╝ -->
+<style>
+  :root{
+    --rose:#E84070;   /* rosa da marca           */
+    --red:#fd0000;    /* vermelho de urgência    */
+    --cream:#FFF8F3;  /* fundo creme             */
+    --text:#2D1B1B;   /* texto escuro            */
+    --muted:#9B8B8A;  /* cinza textos pequenos   */
+    --card:#FEF0E7;   /* fundo do cartão de bônus*/
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;height:auto;display:block}
+
+  /* ── BARRA DE AVISO (topo, vermelha) ── */
+  .alert-bar{background:var(--red);color:#fff;text-align:center;padding:12px 16px;font-size:15px;font-weight:800;line-height:1.35}
+  @media(max-width:480px){ .alert-bar{font-size:13px} }
+
+  /* ── COLUNA CENTRAL ── */
+  .wrap{max-width:560px;margin:0 auto;padding:30px 20px 40px;text-align:center}
+
+  /* ── CHAMADA "PRESTA ATENCIÓN" ── */
+  .attn{font-size:22px;font-weight:900;margin-bottom:18px}
+  @media(max-width:480px){ .attn{font-size:18px} }
+
+  /* ── BLOCO DE TEXTO (parágrafos da oferta) ── */
+  .copy{font-size:17px;margin-bottom:14px}
+  .copy .red{color:var(--red);font-weight:800}     /* destaque vermelho */
+  .copy strong{font-weight:800}
+  @media(max-width:480px){ .copy{font-size:15px} }
+
+  /* ── CARTÃO DO BÔNUS (caixa com a imagem da guia) ── */
+  .bonus{background:var(--card);border-radius:20px;padding:22px 18px;margin:22px 0;box-shadow:0 4px 16px rgba(45,27,27,.10)}
+  .bonus .tag{display:inline-block;background:var(--rose);color:#fff;font-size:13px;font-weight:800;padding:5px 12px;border-radius:999px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
+  .bonus h3{font-size:20px;font-weight:900;margin-bottom:12px}
+  .bonus img{border-radius:12px;margin:0 auto 12px;max-width:260px}
+  .bonus p{font-size:15px;color:#6b5b59}
+
+  /* ── CHAMADA FINAL (antes do botão) ── */
+  .final{font-size:17px;font-weight:700;margin:6px 0 18px}
+  .final .red{color:var(--red);font-weight:800}
+  @media(max-width:480px){ .final{font-size:15px} }
+
+  /* ── CAIXA DA OFERTA (botão da Hotmart) ── */
+  .offer{background:#fff;border-radius:20px;padding:22px 18px;box-shadow:0 6px 20px rgba(45,27,27,.12)}
+
+  /* ── RODAPÉ ── */
+  .foot{text-align:center;padding:24px 20px;color:var(--muted)}
+  .foot .disclaimer{font-size:12px;line-height:1.6;max-width:520px;margin:0 auto 8px}
+  .foot .copy-txt{font-size:12px;line-height:1.7}
+</style>
+</head>
+<body>
+
+  <!-- ═══ SEÇÃO 1 — BARRA DE AVISO (topo) ═══ -->
+  <div class="alert-bar">
+    ¡Atención! ¡Si cierras esta página, te perderás el mayor descuento de la historia!
+  </div>
+
+  <!-- ═══ COLUNA CENTRAL ═══ -->
+  <div class="wrap">
+
+    <!-- ─── SEÇÃO 2 — CHAMADA DE ATENÇÃO ─── -->
+    <p class="attn">👇 ¡PRESTA ATENCIÓN AQUÍ! 👇</p>
+
+    <!-- ─── SEÇÃO 3 — TEXTO DA OFERTA ─── -->
+    <p class="copy"><span class="red">¡Te voy a dar un bono que normalmente cuesta $47.00 DÓLARES!</span></p>
+    <p class="copy">Pero, ¿por qué hago esto?</p>
+    <p class="copy">Simplemente porque quiero ayudarte a deshacerte de la <span class="red">MENOPAUSA</span> de una vez por todas y convertirte en una mujer más segura, confiada y realizada con su cuerpo.</p>
+    <p class="copy">Por eso tendrás acceso a...</p>
+
+    <!-- ─── SEÇÃO 4 — CARTÃO DO BÔNUS ───
+         Para trocar a imagem, substitua o endereço em src="...". -->
+    <div class="bonus">
+      <span class="tag">Bônus grátis</span>
+      <h3>GUÍA RECETAS LOWCARB</h3>
+      <img src="https://media.atomicatmedia.net/u/6h0Mu8Ri9zO6UxYT9wmzRHxrabl1/Pictures/MbgDdb6155398.png?quality=75" alt="Guía Recetas LowCarb">
+      <p>Su guía definitiva con más de 20 recetas LowCarbs para complementar aún más sus resultados dentro de nuestro programa, haciendo que su cuerpo esté más limpio y sano.</p>
+      <p style="color:var(--red);font-weight:700;margin-top:10px">Con la "GUÍA RECETAS LOWCARBS", estarás libre de impurezas en tu cuerpo, ¡con una piel más sana y joven!</p>
+    </div>
+
+    <!-- ─── SEÇÃO 5 — CHAMADA FINAL ─── -->
+    <p class="final"><strong>Haz clic en el botón de abajo</strong> para obtener el <strong>NEXT-GEN MENOPAUSE</strong> con <span class="red">50% de descuento</span> y obtén <span class="red">GRATIS</span> la <strong>GUÍA RECETAS LOWCARBS:</strong></p>
+
+    <!-- ─── SEÇÃO 6 — OFERTA (BOTÃO DA HOTMART) ───
+         Widget "Funil de Vendas" (Sí/No automáticos). Não altere. -->
+    <div class="offer">
+      <div id="hotmart-sales-funnel"></div>
+      <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+      <script>checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')</script>
+    </div>
+
+  </div>
+
+  <!-- ═══ SEÇÃO 7 — RODAPÉ ═══ -->
+  <footer class="foot">
+    <p class="disclaimer">
+      Gelatin App ofrece contenido educativo e informativo y no sustituye el consejo,
+      diagnóstico o tratamiento médico profesional. Los resultados varían según cada persona.
+    </p>
+    <p class="copy-txt">Copyright 2026 — GELATIN APP ®<br>Todos os Direitos Reservados<br>CNPJ: 42.875.819/0001-42</p>
+  </footer>
+
+</body>
+</html>

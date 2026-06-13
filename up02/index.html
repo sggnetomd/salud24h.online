@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  UP02 — PÁGINA DE UPSELL 2 (oferta pós-compra) · "Anti-Drowsiness"     ║
+  ║                                                                        ║
+  ║  Mesma ideia do up01: tela pós-compra com aviso, vídeo de venda        ║
+  ║  (VTurb) e o botão de oferta da Hotmart (widget "Funil de Vendas").    ║
+  ║                                                                        ║
+  ║  COMO MEXER (procure pelos colchetes [ ... ] no código):               ║
+  ║   • [ ID DO VÍDEO VTURB ] e [ CÓDIGO DA CONTA ] → dados do seu vídeo   ║
+  ║   • textos: edite só o que está entre as tags. Não apague as < >.     ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- noindex = não aparecer no Google (página de funil). -->
+<meta name="robots" content="noindex, nofollow">
+<title>¡Espera! Un último mensaje para ti</title>
+<link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
+
+<!-- [ OPCIONAL ] cole aqui Pixel/GTM/UTMify se usar. -->
+
+<!-- Fonte Nunito (mesma do site). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- ╔═══════════════════════════════════════════════════════════════════╗
+     ║  ESTILOS (CSS) — aparência. Para trocar cor, mude o código (#...). ║
+     ╚═══════════════════════════════════════════════════════════════════╝ -->
+<style>
+  :root{
+    --rose:#E84070;     /* rosa da marca            */
+    --green:#00ff86;    /* verde de destaque        */
+    --orange:#ff9500;   /* laranja do "¡Alto!"      */
+    --dark:#0c2f21;     /* fundo verde escuro       */
+    --cream:#FFF8F3;    /* creme (rodapé)           */
+    --muted:#9B8B8A;    /* cinza textos pequenos    */
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--dark);color:#fff;line-height:1.5;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;height:auto;display:block}
+
+  /* ── BARRA DE AVISO (topo, gradiente roxo→laranja) ── */
+  .alert-bar{
+    background:linear-gradient(83deg,#6c00ff,#ff5400);
+    color:#fff;text-align:center;padding:12px 16px;
+    font-size:14px;font-weight:800;line-height:1.35;
+  }
+  @media(max-width:480px){ .alert-bar{font-size:12px} }
+
+  /* ── COLUNA CENTRAL ── */
+  .wrap{max-width:560px;margin:0 auto;padding:34px 20px 40px;text-align:center}
+
+  /* ── ÍCONE (a "mãozinha" de pare) ── */
+  .icon{font-size:64px;line-height:1;margin-bottom:14px}
+  @media(max-width:480px){ .icon{font-size:44px} }
+
+  /* ── "¡Alto!" (laranja) ── */
+  .stop{color:var(--orange);font-size:24px;font-weight:800;margin-bottom:8px}
+  @media(max-width:480px){ .stop{font-size:18px} }
+
+  /* ── TÍTULO PRINCIPAL ── */
+  .title{font-size:30px;font-weight:800;line-height:1.2;margin-bottom:24px}
+  .title .green{color:var(--green)}  /* parte verde do título */
+  @media(max-width:480px){ .title{font-size:20px} }
+
+  /* ── CAIXA DO VÍDEO ── */
+  .video-box{background:rgba(255,255,255,.06);border-radius:16px;padding:14px;margin:0 auto 26px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+
+  /* ── CAIXA DA OFERTA (botão da Hotmart) ── */
+  .offer{background:#fff;color:#2D1B1B;border-radius:20px;padding:24px 20px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+  /* ── RODAPÉ ── */
+  .foot{background:var(--cream);color:var(--muted);text-align:center;padding:26px 20px}
+  .foot a{color:var(--rose);font-weight:700;text-decoration:none}
+  .foot .disclaimer{font-size:12px;line-height:1.6;max-width:520px;margin:0 auto 8px}
+  .foot .copy{font-size:12px}
+</style>
+</head>
+<body>
+
+  <!-- ═══ SEÇÃO 1 — BARRA DE AVISO (topo) ═══ -->
+  <div class="alert-bar">
+    ⚠️ ATENCIÓN: NO CIERRES ESTA PÁGINA — esta oferta no se repetirá.
+  </div>
+
+  <!-- ═══ COLUNA CENTRAL ═══ -->
+  <div class="wrap">
+
+    <!-- ─── SEÇÃO 2 — ÍCONE ─── -->
+    <div class="icon">✋</div>
+
+    <!-- ─── SEÇÃO 3 — "¡Alto!" ─── -->
+    <div class="stop"><strong>¡Alto!</strong></div>
+
+    <!-- ─── SEÇÃO 4 — TÍTULO ─── -->
+    <h1 class="title">
+      NECESITAS ESCUCHAR ESTE <span class="green">¡ÚLTIMO MENSAJE!</span>
+    </h1>
+
+    <!-- ─── SEÇÃO 5 — VÍDEO (VTurb) ───
+         Troque [ ID DO VÍDEO VTURB ] e [ CÓDIGO DA CONTA ] pelos seus dados. -->
+    <div class="video-box">
+      <div style="aspect-ratio:1.7777">
+        <vturb-smartplayer id="vid-6a1abd170be01eeda6f145bf"
+          style="display:block;margin:0 auto;width:100%"></vturb-smartplayer>
+        <script type="text/javascript">
+          var s = document.createElement("script");
+          s.src = "https://scripts.converteai.net/33bda5bc-5ffb-458c-b871-b4e8283f6ad3/players/vid-6a1abd170be01eeda6f145bf/v4/player.js";
+          s.async = true;
+          document.head.appendChild(s);
+        </script>
+      </div>
+    </div>
+
+    <!-- ─── SEÇÃO 6 — OFERTA (BOTÃO DA HOTMART) ───
+         Widget "Funil de Vendas". Não precisa de ID; basta configurar
+         esta página no seu funil da Hotmart. Não altere o código abaixo. -->
+    <div class="offer">
+      <div id="hotmart-sales-funnel"></div>
+      <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+      <script>checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')</script>
+    </div>
+
+  </div>
+
+  <!-- ═══ SEÇÃO 7 — RODAPÉ ═══ -->
+  <footer class="foot">
+    <p class="disclaimer">
+      Gelatin App ofrece contenido educativo e informativo y no sustituye el consejo,
+      diagnóstico o tratamiento médico profesional. Los resultados varían según cada persona.
+    </p>
+    <p class="copy">Copyright 2026 — GELATIN APP ® · Todos os Direitos Reservados · CNPJ: 42.875.819/0001-42</p>
+  </footer>
+
+</body>
+</html>
