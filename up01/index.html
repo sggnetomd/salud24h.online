@@ -184,17 +184,8 @@
          │  Dica: o ID costuma parecer com "vid-xxxxxxxxxxxxxxxxxxxx".   │
          └────────────────────────────────────────────────────────────┘ -->
     <div class="video-box">
-      <!-- aspect-ratio mantém o vídeo na proporção certa (não distorce). -->
-      <div style="aspect-ratio:1.7777">
-        <vturb-smartplayer id="[ ID DO VÍDEO VTURB ]"
-          style="display:block;margin:0 auto;width:100%"></vturb-smartplayer>
-        <script type="text/javascript">
-          var s = document.createElement("script");
-          s.src = "https://scripts.converteai.net/[ CÓDIGO DA CONTA ]/players/[ ID DO VÍDEO VTURB ]/v4/player.js";
-          s.async = true;
-          document.head.appendChild(s);
-        </script>
-      </div>
+      <!-- [ VÍDEO / VSL ] — estrutura mantida (sem player). Cole aqui o embed do seu vídeo. -->
+      <div style="aspect-ratio:1.7777;background:#000;border-radius:10px;display:grid;place-items:center;color:#777;font-size:13px">[ VÍDEO / VSL aquí ]</div>
     </div>
 
     <!-- ─── SEÇÃO 6 — AVISO ABAIXO DO VÍDEO ─── -->
@@ -214,11 +205,8 @@
          │  upsell no seu funil da Hotmart. Não altere o código abaixo. │
          └────────────────────────────────────────────────────────────┘ -->
     <div class="offer">
-      <!-- caixa onde o botão da Hotmart vai aparecer -->
-      <div id="hotmart-sales-funnel"></div>
-      <!-- carrega o sistema da Hotmart -->
-      <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
-      <script>checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')</script>
+      <!-- [ OFERTA / GATEWAY ] — estrutura mantida (sem gateway). Cole aqui o botão de upsell do seu gateway. -->
+      <div style="border:2px dashed #d9c7bd;border-radius:12px;padding:22px;color:#9B8B8A;font-weight:700;font-size:14px">[ BOTÓN DE OFERTA aquí ]</div>
     </div>
 
   </div>
