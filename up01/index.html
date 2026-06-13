@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  UP01 — PÁGINA DE UPSELL (oferta pós-compra) · Gelatin App (ES)        ║
+  ║                                                                        ║
+  ║  O QUE É ESTA PÁGINA?                                                   ║
+  ║  É a tela que aparece LOGO DEPOIS que a pessoa comprou. Aqui você       ║
+  ║  oferece um produto extra ("regalo"/oferta especial) com 1 clique.     ║
+  ║  Ela tem: aviso no topo, um vídeo de venda e o botão de oferta da       ║
+  ║  Hotmart (o widget "Funil de Vendas").                                 ║
+  ║                                                                        ║
+  ║  COMO MEXER (procure pelos colchetes [ ... ] no código):               ║
+  ║   • [ ID DO VÍDEO VTURB ]  → troque pelo ID do SEU vídeo de venda      ║
+  ║   • [ E-MAIL DE SUPORTE ]  → soporte@tudominio.com                     ║
+  ║   • (opcional) cole pixels/GTM/UTMify na área marcada no <head>        ║
+  ║                                                                        ║
+  ║  REGRA DE OURO: só altere o texto entre as tags. NÃO apague as < >.    ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="es">
+<head>
+<!-- charset = define os caracteres (acentos, ñ). Deixe sempre UTF-8. -->
+<meta charset="UTF-8">
+<!-- viewport = faz o site se ajustar bem no celular. Não mexa. -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- noindex = pede ao Google para NÃO mostrar esta página nas buscas
+     (páginas de upsell não devem aparecer no Google). -->
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Título que aparece na aba do navegador. -->
+<title>¡Espera! Una oferta especial para ti</title>
+
+<!-- Ícone da aba (favicon). Usa o logo que já está na pasta /assets/. -->
+<link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
+
+<!-- ┌──────────────────────────────────────────────────────────────┐
+     │  [ OPCIONAL ] ÁREA DE RASTREAMENTO                             │
+     │  Se você usa Pixel do Facebook, Google Tag Manager (GTM) ou    │
+     │  UTMify, cole os códigos AQUI, logo abaixo deste comentário.   │
+     └──────────────────────────────────────────────────────────────┘ -->
+
+
+<!-- Carrega a fonte "Nunito" (mesma fonte do resto do site). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  ESTILOS (CSS) = a "aparência" da página: cores, tamanhos, etc.    ║
+     ║  Cada bloco abaixo tem um comentário dizendo o que ele controla.   ║
+     ║  Para mudar uma COR, troque o código de cor (ex.: #E84070).        ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<style>
+  /* PALETA DE CORES — mude aqui e muda no site inteiro.
+     (são os mesmos tons da marca usados nas outras páginas) */
+  :root{
+    --rose:#E84070;     /* rosa principal da marca   */
+    --rose-dark:#C22D60;/* rosa mais escuro          */
+    --dark:#1A1014;     /* fundo escuro do vídeo      */
+    --dark-2:#241319;   /* caixa escura interna       */
+    --cream:#FFF8F3;    /* creme (fundo do rodapé)    */
+    --text:#2D1B1B;     /* cor do texto escuro        */
+    --muted:#9B8B8A;    /* cinza para textos pequenos */
+    --yellow:#FFD43B;   /* amarelo de destaque        */
+  }
+
+  /* Reset básico: tira margens padrão e facilita o cálculo de tamanhos. */
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  /* Corpo da página: fonte Nunito, fundo escuro, texto claro. */
+  body{
+    font-family:'Nunito',ui-rounded,system-ui,sans-serif;
+    background:var(--dark);
+    color:#fff;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;height:auto;display:block}
+
+  /* ── BARRA DE AVISO (topo, vermelha/rosa) ──
+     É a faixa que diz "NO CIERRES ESTA PÁGINA". Serve para a pessoa
+     não fechar o navegador antes de ver a oferta. */
+  .alert-bar{
+    background:var(--rose);
+    color:#fff;
+    text-align:center;
+    padding:12px 16px;
+    font-size:14px;
+    font-weight:800;
+    line-height:1.35;
+  }
+  .alert-bar .hl{color:var(--yellow)} /* destaque amarelo na palavra "ATENCIÓN" */
+  @media(max-width:480px){ .alert-bar{font-size:12px} } /* menor no celular */
+
+  /* ── COLUNA CENTRAL ──
+     Centraliza o conteúdo e limita a largura (fica bom no celular e no PC). */
+  .wrap{max-width:560px;margin:0 auto;padding:34px 20px 40px;text-align:center}
+
+  /* ── LOGO ── */
+  .brand img{width:96px;margin:0 auto 22px}
+
+  /* ── TÍTULO PRINCIPAL ("IMPORTANTE...") ── */
+  .title{font-size:30px;font-weight:800;line-height:1.2;margin-bottom:10px}
+  .title .pink{color:var(--rose)}  /* deixa parte do título em rosa */
+  @media(max-width:480px){ .title{font-size:22px} }
+
+  /* ── SUBTÍTULO (instrução para assistir o vídeo) ── */
+  .subtitle{font-size:17px;font-weight:700;color:var(--rose);font-style:italic;margin-bottom:24px}
+  @media(max-width:480px){ .subtitle{font-size:14px} }
+
+  /* ── CAIXA DO VÍDEO ──
+     "Moldura" arredondada em volta do player de vídeo. */
+  .video-box{
+    background:var(--dark-2);
+    border-radius:16px;
+    padding:14px;
+    margin:0 auto 22px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+  }
+
+  /* ── AVISO ABAIXO DO VÍDEO ("no salgas de esta página") ── */
+  .warn{font-size:16px;font-weight:700;color:var(--rose);font-style:italic;margin-bottom:26px}
+  @media(max-width:480px){ .warn{font-size:13px} }
+
+  /* ── CAIXA DA OFERTA (onde aparece o botão da Hotmart) ── */
+  .offer{
+    background:#fff;
+    color:var(--text);
+    border-radius:20px;
+    padding:24px 20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+
+  /* ── RODAPÉ (fundo creme, links legais + aviso médico) ── */
+  .foot{background:var(--cream);color:var(--muted);text-align:center;padding:26px 20px}
+  .foot .links{margin-bottom:10px}
+  .foot a{color:var(--rose);font-weight:700;text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+  .foot .disclaimer{font-size:12px;line-height:1.6;max-width:520px;margin:0 auto 8px}
+  .foot .copy{font-size:12px}
+</style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 1 — BARRA DE AVISO (topo)
+       Para mudar o texto, edite só o que está dentro das tags <span>/<strong>.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="alert-bar">
+    <span class="hl">ATENCIÓN:</span> NO CIERRES NI ACTUALICES ESTA PÁGINA,
+    YA QUE PODRÍA PROVOCAR ERRORES EN TU COMPRA.
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       COLUNA CENTRAL — tudo o que está aqui dentro fica centralizado.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="wrap">
+
+    <!-- ─── SEÇÃO 2 — LOGO ─── -->
+    <div class="brand">
+      <img src="/assets/logo.webp" alt="Gelatin App" width="96" height="96">
+    </div>
+
+    <!-- ─── SEÇÃO 3 — TÍTULO PRINCIPAL ───
+         "<br>" significa "quebra de linha" (pular para a linha de baixo). -->
+    <h1 class="title">
+      <span class="pink">IMPORTANTE</span><br>
+      Tu acceso a la Gelatin App se está creando.
+    </h1>
+
+    <!-- ─── SEÇÃO 4 — INSTRUÇÃO PARA ASSISTIR O VÍDEO ─── -->
+    <p class="subtitle">
+      ¡Mira el vídeo que aparece a continuación para recibir un regalo exclusivo!
+    </p>
+
+    <!-- ─── SEÇÃO 5 — VÍDEO DE VENDA (VTurb) ───
+         ┌────────────────────────────────────────────────────────────┐
+         │  COMO TROCAR O VÍDEO:                                        │
+         │  1) No painel do VTurb, copie o "ID do player" do seu vídeo. │
+         │  2) Substitua TODOS os lugares marcados com                  │
+         │     [ ID DO VÍDEO VTURB ] pelo seu ID.                       │
+         │  3) Substitua [ CÓDIGO DA CONTA ] pelo código da sua conta   │
+         │     VTurb (também copiado do mesmo painel).                  │
+         │  Dica: o ID costuma parecer com "vid-xxxxxxxxxxxxxxxxxxxx".   │
+         └────────────────────────────────────────────────────────────┘ -->
+    <div class="video-box">
+      <!-- aspect-ratio mantém o vídeo na proporção certa (não distorce). -->
+      <div style="aspect-ratio:1.7777">
+        <vturb-smartplayer id="[ ID DO VÍDEO VTURB ]"
+          style="display:block;margin:0 auto;width:100%"></vturb-smartplayer>
+        <script type="text/javascript">
+          var s = document.createElement("script");
+          s.src = "https://scripts.converteai.net/[ CÓDIGO DA CONTA ]/players/[ ID DO VÍDEO VTURB ]/v4/player.js";
+          s.async = true;
+          document.head.appendChild(s);
+        </script>
+      </div>
+    </div>
+
+    <!-- ─── SEÇÃO 6 — AVISO ABAIXO DO VÍDEO ─── -->
+    <p class="warn">
+      No salgas de esta página, ya que podrías perder el acceso.
+    </p>
+
+    <!-- ─── SEÇÃO 7 — OFERTA (BOTÃO DA HOTMART) ───
+         ┌────────────────────────────────────────────────────────────┐
+         │  Este é o WIDGET "FUNIL DE VENDAS" da Hotmart.               │
+         │  Ele mostra automaticamente os botões "Sí, quiero" e "No,    │
+         │  gracias" do upsell, de acordo com o funil que você montou   │
+         │  dentro da Hotmart.                                          │
+         │                                                              │
+         │  IMPORTANTE: você NÃO precisa colocar nenhum ID aqui.        │
+         │  Basta que esta página esteja configurada como a página de   │
+         │  upsell no seu funil da Hotmart. Não altere o código abaixo. │
+         └────────────────────────────────────────────────────────────┘ -->
+    <div class="offer">
+      <!-- caixa onde o botão da Hotmart vai aparecer -->
+      <div id="hotmart-sales-funnel"></div>
+      <!-- carrega o sistema da Hotmart -->
+      <script src="https://checkout.hotmart.com/lib/hotmart-checkout-elements.js"></script>
+      <script>checkoutElements.init('salesFunnel').mount('#hotmart-sales-funnel')</script>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 8 — RODAPÉ (links legais + aviso médico obrigatório)
+       Os links apontam para as pastas que já existem no site.
+       Troque [ E-MAIL DE SUPORTE ] pelo seu e-mail real, se quiser exibi-lo.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <footer class="foot">
+    <p class="links">
+      <a href="/reembolso/">Reembolso</a> ·
+      <a href="/terminos/">Términos</a> ·
+      <a href="/privacidad/">Privacidad</a>
+    </p>
+    <p class="disclaimer">
+      Gelatin App ofrece contenido educativo e informativo y no sustituye el consejo,
+      diagnóstico o tratamiento médico profesional. Los resultados varían según cada persona.
+      Consulta a tu médico antes de comenzar cualquier plan de alimentación o pérdida de peso.
+    </p>
+    <p class="copy">© 2026 Gelatin App · Todos los derechos reservados</p>
+  </footer>
+
+</body>
+</html>

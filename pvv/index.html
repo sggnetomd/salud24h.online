@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  PV — PÁGINA DE VENDA · "Natural Plan" (curso digital · EN)            ║
+  ║                                                                        ║
+  ║  O QUE É ESTA PÁGINA?                                                   ║
+  ║  É a página de vendas (landing page) do produto "Natural Plan".        ║
+  ║  Estrutura: topo/menu › hero › por quê › conteúdo › bônus ›            ║
+  ║  depoimentos › preço › garantia › rodapé legal.                       ║
+  ║                                                                        ║
+  ║  COMO MEXER (procure pelos colchetes [ ... ] no código):               ║
+  ║   • [ LINK HOTMART ]  → troque pelo link de pagamento do SEU produto  ║
+  ║   • [ E-MAIL DE SUPORTE ] → seu e-mail de contato                     ║
+  ║                                                                        ║
+  ║  REGRA DE OURO: edite só o TEXTO entre as tags. Não apague as < >.    ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<!-- charset = caracteres/acentos. Deixe sempre UTF-8. -->
+<meta charset="utf-8" />
+<!-- viewport = ajusta o layout no celular. Não mexa. -->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!-- Título (aba do navegador) e descrição (resultado no Google). -->
+<title>Natural GLP-1 Inspired Plan — Feel Fuller, Curb Cravings, Eat Better</title>
+<meta name="description" content="High-satiety recipes and simple routines inspired by GLP-1 science. Feel fuller naturally, reduce cravings, and build sustainable habits at home. Not medical advice.">
+
+<!-- Fonte "Inter" (a fonte usada nesta página). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  ESTILOS (CSS) = a aparência da página (cores, tamanhos, layout).  ║
+     ║  Para trocar uma cor, mude o código de cor (ex.: #16a34a = verde). ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+<style>
+  /* PALETA E MEDIDAS — mude aqui e reflete na página inteira. */
+  :root{
+    --brand:#16a34a;       /* verde principal           */
+    --brand-dark:#0e9240;  /* verde escuro              */
+    --brand-grad2:#22c55e; /* verde claro (gradiente)   */
+    --bg:#f7fff9;          /* fundo geral (verde bem claro) */
+    --panel:#ffffff;       /* fundo dos cartões         */
+    --text:#132015;        /* cor do texto              */
+    --muted:#516154;       /* cinza p/ textos de apoio  */
+    --border:#e3f3e7;      /* cor das bordas            */
+    --shadow:0 20px 60px rgba(22,163,74,.12); /* sombra dos cartões */
+    --radius:18px;         /* arredondamento dos cantos */
+    --max:1140px;          /* largura máxima do conteúdo */
+  }
+  *{box-sizing:border-box}
+
+  /* Corpo da página: fonte, cor de fundo (com 2 manchas de luz verdes). */
+  html,body{
+    margin:0;padding:0;
+    background:
+      radial-gradient(1200px 720px at 10% -10%, #dff8e7 0%, rgba(223,248,231,0) 60%),
+      radial-gradient(1000px 600px at 120% 0%, #e8fbef 0%, rgba(232,251,239,0) 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* FOLHAS DECORATIVAS (apenas enfeite de fundo, em SVG, com leve flutuação). */
+  .bg-leaves:before,.bg-leaves:after{
+    content:""; position:fixed; inset:auto auto 10% -120px;
+    width:520px;height:520px;opacity:.18;z-index:0;pointer-events:none;
+    background-image:url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">\
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">\
+<stop offset="0" stop-color="%2322c55e"/><stop offset="1" stop-color="%2316a34a"/></linearGradient></defs>\
+<g fill="url(%23g)"><path d="M290 40c90 10 160 70 170 150 16 130-130 250-250 250C120 440 60 350 70 270 90 120 210 30 290 40Z" opacity=".35"/>\
+<path d="M420 120c80 30 120 120 90 190-30 70-140 70-210 40-70-30-120-100-90-170 30-70 130-90 210-60Z" opacity=".25"/><circle cx="460" cy="200" r="60" opacity=".2"/></g></svg>');
+    filter:blur(2px); transform:rotate(-12deg); animation:float1 22s ease-in-out infinite;
+  }
+  .bg-leaves:after{ inset:-120px -140px auto auto; transform:rotate(18deg) scale(1.1); animation:float2 26s ease-in-out infinite; }
+  @keyframes float1{0%,100%{transform:translateY(0) rotate(-12deg)}50%{transform:translateY(-16px) rotate(-10deg)}}
+  @keyframes float2{0%,100%{transform:translateY(0) rotate(18deg) scale(1.1)}50%{transform:translateY(14px) rotate(20deg) scale(1.1)}}
+
+  /* CAIXA CENTRAL e MENU DO TOPO (fixo ao rolar a página). */
+  .wrap{max-width:var(--max);margin:auto;padding:28px;position:relative;z-index:1}
+  header.nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 28px; position:sticky; top:0; background:rgba(247,255,249,.8);
+    backdrop-filter:saturate(1.5) blur(8px); z-index:50; border-bottom:1px solid #dbf4e2;
+  }
+  .brand{display:flex;gap:10px;align-items:center;font-weight:800}
+  .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-grad2));display:grid;place-items:center;color:#fff;font-weight:900}
+  .navlinks{display:flex;gap:22px;align-items:center}
+
+  /* BOTÕES (o verde é o de ação principal; o branco é o secundário). */
+  .btn{display:inline-flex;align-items:center;gap:10px;border:none;border-radius:999px;padding:12px 18px;font-weight:800;cursor:pointer}
+  .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-grad2));color:#fff;box-shadow:0 10px 30px rgba(22,163,74,.25)}
+  .btn-primary:hover{filter:saturate(1.1) brightness(1.02)}
+  .btn-ghost{border:1px solid #c9ebd5;background:#fff;color:#155e2e}
+
+  /* SELOS / ETIQUETAS (as "pílulas" verdes com texto curto). */
+  .chip{display:inline-flex;align-items:center;gap:10px;background:#ebfff3;border:1px solid #c7f3d6;color:#166534;border-radius:999px;padding:8px 12px;font-weight:700}
+
+  /* HERO = primeira dobra (título grande + cartão à direita). */
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:start}
+  @media (max-width:960px){.hero{grid-template-columns:1fr}} /* vira 1 coluna no celular */
+  h1{font-size:clamp(30px,4.6vw,54px);line-height:1.12;margin:12px 0 6px}
+  .lead{color:var(--muted);font-size:clamp(16px,2.2vw,19px);max-width:60ch}
+
+  /* CARTÃO branco genérico (usado em várias seções). */
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+  .badges{display:flex;gap:10px;flex-wrap:wrap}
+  .badge{display:inline-flex;gap:8px;align-items:center;border:1px dashed #cfe9d7;background:#fff;border-radius:999px;padding:8px 12px;font-size:14px}
+
+  /* SEÇÕES e TÍTULOS internos. */
+  .section{padding:24px 0}
+  .title{font-size:clamp(24px,3vw,36px);margin:8px 0 10px}
+
+  /* GRADES de cartões: grid3 = 3 colunas, grid2 = 2 colunas. */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media (max-width:960px){.grid3,.grid2{grid-template-columns:1fr}} /* 1 coluna no celular */
+  .tile{background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+  .tile h4{margin:0 0 6px}
+  .muted{color:var(--muted)}
+
+  /* PREÇO e "pílula" de desconto. */
+  .price{font-size:44px;font-weight:900}
+  .pill{border-radius:14px;padding:8px 12px;background:#eafff2;border:1px solid #c8f3d7;color:#166534;font-weight:800}
+
+  /* BRILHO animado que passa sobre o botão "Get Started". */
+  .shine{position:relative;overflow:hidden}
+  .shine:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.6) 20%,transparent 40%);transform:translateX(-120%);animation:sheen 4.5s linear infinite}
+  @keyframes sheen{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+
+  /* RODAPÉ e texto legal. */
+  footer{border-top:1px solid #dbf4e2;margin-top:26px}
+  .legal{color:#6a7c6e;font-size:12px;margin:16px 0;line-height:1.7}
+  html{scroll-behavior:smooth} /* rolagem suave ao clicar nos links do menu */
+</style>
+</head>
+<!-- a classe "bg-leaves" liga as folhas decorativas do fundo -->
+<body class="bg-leaves">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SEÇÃO 1 — MENU DO TOPO (logo + links + botão)
+     Os links com "#" levam para as seções da própria página.
+     ═══════════════════════════════════════════════════════════════════ -->
+<header class="nav">
+  <div class="brand">
+    <div class="logo">NP</div>
+    <div>Natural <span style="color:var(--brand)">Plan</span></div>
+  </div>
+  <nav class="navlinks">
+    <a href="#content">Content</a>
+    <a href="#bonuses">Bonus</a>
+    <a href="#guarantee">Guarantee</a>
+    <a class="btn btn-primary shine" href="#pricing">Get Started</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 2 — HERO (primeira dobra: promessa principal)
+       Coluna esquerda = título + texto + botões. Coluna direita = destaques.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="hero section">
+    <div>
+      <span class="chip">🟢 Enrollment open today</span>
+      <h1>Feel fuller naturally — with green meals &amp; routines inspired by GLP-1 science.</h1>
+      <p class="lead">
+        High-satiety recipes, protein &amp; fiber timing, hydration boosts and small daily habits
+        that help tame cravings and steady your energy — no extreme diets.
+      </p>
+
+      <div class="card" style="margin-top:14px">
+        <div class="badges">
+          <span class="badge">✅ Step-by-step recipes + PDFs</span>
+          <span class="badge">✅ Grocery list &amp; swaps</span>
+          <span class="badge">✅ 21-day habit tracker</span>
+          <span class="badge">✅ Instant access</span>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:12px">
+          <a class="btn btn-primary" href="#pricing">I want better satiety</a>
+          <a class="btn btn-ghost" href="#content">See course content</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- "aside" = cartão lateral com os destaques do programa -->
+    <aside class="card">
+      <h3 class="title" style="font-size:24px;margin-top:0">Program Highlights</h3>
+      <ul style="margin:0 0 0 18px">
+        <li><b>GLP-1 inspired meals:</b> protein-forward plates with fiber &amp; healthy fats</li>
+        <li><b>Craving control:</b> simple timing for fewer spikes and steadier hunger</li>
+        <li><b>Hydration &amp; minerals:</b> easy boosts for energy &amp; focus</li>
+        <li><b>Templates:</b> breakfast + lunch + dinner &amp; snack playbook</li>
+        <li><b>Flexible:</b> vegetarian, fish, poultry and plant-based options</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 3 — "POR QUÊ" (3 motivos / argumentos)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="why">
+    <h2 class="title">Why a GLP-1 inspired approach?</h2>
+    <p class="muted">Focus on foods and habits that naturally support fullness and consistency.</p>
+    <div class="grid3" style="margin-top:12px">
+      <div class="tile"><h4>Real-world friendly</h4><p class="muted">Quick recipes and templates for busy days.</p></div>
+      <div class="tile"><h4>High satiety</h4><p class="muted">Protein, fiber and volume strategies that keep you satisfied.</p></div>
+      <div class="tile"><h4>Sustainable</h4><p class="muted">No extremes. Simple swaps and flexible portions.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 4 — CONTEÚDO DO CURSO (o que a pessoa vai aprender)
+       Cada "tile" é um módulo. Edite o título e o texto de cada um.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="content">
+    <h2 class="title">What you will learn</h2>
+    <p class="muted">Straightforward modules, checklists and support materials.</p>
+    <div class="grid3" style="margin-top:12px">
+      <div class="tile"><h4>1) Satiety Fundamentals</h4><p class="muted">Protein targets, fiber types, fats for fullness and hydration basics.</p></div>
+      <div class="tile"><h4>2) Meal Templates</h4><p class="muted">10-minute breakfast, lunch &amp; dinner frameworks + snack options.</p></div>
+      <div class="tile"><h4>3) Timing &amp; Routine</h4><p class="muted">Meal timing, gentle movement and sleep for appetite control.</p></div>
+      <div class="tile"><h4>4) Smart Swaps</h4><p class="muted">Budget-friendly ingredients with similar fullness impact.</p></div>
+      <div class="tile"><h4>5) Eating Out Guide</h4><p class="muted">How to build a high-satiety plate at restaurants.</p></div>
+      <div class="tile"><h4>6) Mindful Cravings</h4><p class="muted">Tactics for sweet/savory cravings without feeling restricted.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 5 — BÔNUS (itens extras incluídos)
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="bonuses">
+    <h2 class="title">Exclusive Bonuses</h2>
+    <div class="grid3" style="margin-top:12px">
+      <div class="tile"><h4>7-Day Sample Plan</h4><p class="muted">Plug-and-play menu with prep notes and batch ideas.</p></div>
+      <div class="tile"><h4>Satiety Grocery List</h4><p class="muted">Protein, produce &amp; pantry checklist + budget swaps.</p></div>
+      <div class="tile"><h4>Habit &amp; Hydration Tracker</h4><p class="muted">Printable tracker to build consistency in 21 days.</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 6 — DEPOIMENTOS (prova social)
+       Use depoimentos reais. Edite o texto e o nome de cada cartão.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section">
+    <h2 class="title">Student Results</h2>
+    <div class="grid3" style="margin-top:12px">
+      <div class="tile"><p>“Fewer afternoon cravings and easy lunches to repeat.” — <b>Carla S.</b></p></div>
+      <div class="tile"><p>“Templates removed the guesswork from meals.” — <b>Ana P.</b></p></div>
+      <div class="tile"><p>“Hydration + protein timing made a real difference.” — <b>Julia M.</b></p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 7 — PREÇO / OFERTA
+       ┌────────────────────────────────────────────────────────────┐
+       │  TROQUE O LINK DE PAGAMENTO:                                 │
+       │  No botão "Buy Now", substitua o endereço em href="..."      │
+       │  pelo SEU link de checkout da Hotmart  [ LINK HOTMART ].     │
+       └────────────────────────────────────────────────────────────┘
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="pricing">
+    <div class="grid2">
+      <div class="card">
+        <h2 class="title" style="margin-top:0">Launch Offer</h2>
+        <p class="muted">Full program + 3 bonuses + 30-day support.</p>
+        <div style="display:flex;align-items:baseline;gap:10px;margin:6px 0 8px">
+          <div class="price">$29</div>
+          <span class="muted">one-time</span>
+          <span class="pill">Save 45%</span>
+        </div>
+        <p class="muted">Or split in up to 6 payments (adjust via your provider).</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px">
+          <!-- [ LINK HOTMART ] — coloque aqui o link de pagamento do seu produto -->
+          <a class="btn btn-primary" href="https://pay.hotmart.com/X99719249J?off=vduxm5hm" rel="noopener">Buy Now</a>
+          <a class="btn btn-ghost" href="#guarantee">See Guarantee</a>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3 class="title" style="font-size:22px;margin-top:0">What's Included</h3>
+        <ul style="margin:0 0 0 18px">
+          <li>Full course (videos + PDFs)</li>
+          <li>3 exclusive bonuses</li>
+          <li>30-day support</li>
+          <li>Free future updates</li>
+          <li>Completion certificate</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SEÇÃO 8 — GARANTIA
+       (Esta seção veio cortada no arquivo enviado; reconstruída aqui.)
+       Ajuste o prazo/condições conforme a sua política real.
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="guarantee">
+    <div class="card" style="text-align:center">
+      <span class="chip" style="margin-bottom:6px">🛡️ Risk-free</span>
+      <h2 class="title">30-Day Money-Back Guarantee</h2>
+      <p class="muted" style="max-width:60ch;margin:0 auto">
+        Try the full program for 30 days. If it isn't the right fit for you,
+        just email us and we'll refund your purchase — no hard feelings.
+      </p>
+      <div style="margin-top:14px">
+        <a class="btn btn-primary" href="#pricing">Get Started Today</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     SEÇÃO 9 — RODAPÉ + AVISO LEGAL
+     O parágrafo "legal" é importante: deixa claro que é conteúdo
+     educativo e NÃO é aconselhamento médico. Mantenha-o.
+     Troque [ E-MAIL DE SUPORTE ] pelo seu e-mail real.
+     ═══════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <p class="legal">
+      <b>Disclaimer:</b> This is an educational program and is <b>not medical advice</b>.
+      "GLP-1 inspired" refers to food and lifestyle strategies that may support satiety —
+      it does not involve any medication and is not a substitute for professional medical
+      guidance, diagnosis or treatment. Results vary from person to person and are not
+      guaranteed. Consult your doctor before changing your diet or starting any weight-loss plan.
+    </p>
+    <p class="legal">
+      Questions? Contact us at <a href="mailto:soporte@tudominio.com" style="color:var(--brand);font-weight:700">[ E-MAIL DE SUPORTE ]</a>.
+    </p>
+    <p class="legal">© 2026 Natural Plan · All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
