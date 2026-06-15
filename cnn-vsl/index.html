@@ -86,6 +86,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .comments{background:#fff;padding:8px 0 36px;margin-top:20px}
   #fb-comments{font-family:"Segoe UI Historic","Segoe UI",Helvetica,Arial,sans-serif;font-size:13px;width:100%;margin:auto}
   #fb-comments .comments-container{display:flex;flex-direction:column;gap:1.25em;border:.0625em solid #e9ebee;border-radius:1.25em;padding:1.25em}
+  .comments-title{font-size:17px;font-weight:700;color:#1c1e21;margin:0 0 12px;padding:0 2px}
+  .cmt-write{display:flex;align-items:center;gap:8px}
+  .cmt-write .cw-av{width:32px;height:32px;border-radius:50%;background:#dcdde1;flex-shrink:0}
+  .cmt-write .cw-box{flex:1;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#f0f2f5;border-radius:16px;padding:8px 12px;color:#65676b;font-size:13px}
+  .cmt-write .cw-box svg{width:18px;height:18px;fill:#65676b;flex-shrink:0}
   #fb-comments .comment{display:flex;align-items:flex-start;justify-content:flex-start;position:relative;width:100%;max-width:100%;gap:.625em}
   #fb-comments .comment.answer{margin-left:3.625em;max-width:calc(100% - 3.625em);margin-bottom:.75em}
   #fb-comments .comment.answer + .answer{margin-top:-.75em}
@@ -174,8 +179,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      Menção (responder citando alguém): <span style="color:#385898">Nome</span> no início do .text  -->
 <section class="comments">
   <div class="wrap">
+    <h3 class="comments-title">Comentarios</h3>
     <div id="fb-comments">
       <div class="comments-container">
+
+      <!-- escrever comentário (decorativo) -->
+      <div class="cmt-write">
+        <div class="cw-av"></div>
+        <div class="cw-box"><span>Escribe un comentario…</span><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm-3.5-9c.8 0 1.5-.7 1.5-1.5S9.3 8 8.5 8 7 8.7 7 9.5 7.7 11 8.5 11zm7 0c.8 0 1.5-.7 1.5-1.5S16.3 8 15.5 8 14 8.7 14 9.5s.7 1.5 1.5 1.5zM12 18c2.3 0 4.3-1.5 5-3.5H7c.7 2 2.7 3.5 5 3.5z"/></svg></div>
+      </div>
 
       <!-- Georgia Pontual -->
       <div class="comment">
@@ -285,12 +297,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   defer
 ></script>
 <script>
-  // contador "personas mirando" — número aleatório 400–700 (atualiza devagar)
+  // contador "personas mirando" — número VIVO (varia ±1–6 a cada 1.8–4s)
   (function(){
-    var el=document.getElementById('viewers');
-    function rnd(){ return Math.floor(Math.random()*(700-400+1))+400; }
-    var n=rnd(); el.textContent=n;
-    setInterval(function(){ n+=(Math.random()<.5?-1:1)*Math.floor(Math.random()*4); if(n<400)n=400; if(n>700)n=700; el.textContent=n; },6000);
+    var el=document.getElementById('viewers'); if(!el) return;
+    var n=Math.floor(Math.random()*231)+470; el.textContent=n;   // começa 470–700
+    function tick(){
+      n += (Math.random()<.5?-1:1)*(1+Math.floor(Math.random()*6));  // ±1..6, nunca 0
+      if(n<440) n=440+Math.floor(Math.random()*12);
+      if(n>720) n=720-Math.floor(Math.random()*12);
+      el.textContent=n;
+      setTimeout(tick, 1800+Math.floor(Math.random()*2200));         // 1.8s–4s
+    }
+    setTimeout(tick, 1500);
   })();
 
   // UTM forwarding (merge sem sobrescrever) — passa os params da URL pros links
