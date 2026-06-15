@@ -297,16 +297,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   defer
 ></script>
 <script>
-  // contador "personas mirando" — número VIVO (varia ±1–6 a cada 1.8–4s)
+  // contador "personas mirando" — SÓ AUMENTA, do começo até o teto de 1600 (nunca perde views)
   (function(){
     var el=document.getElementById('viewers'); if(!el) return;
-    var n=Math.floor(Math.random()*231)+470; el.textContent=n;   // começa 470–700
+    var n=Math.floor(Math.random()*201)+450, MAX=1600;   // começa 450–650
+    el.textContent=n;
     function tick(){
-      n += (Math.random()<.5?-1:1)*(1+Math.floor(Math.random()*6));  // ±1..6, nunca 0
-      if(n<440) n=440+Math.floor(Math.random()*12);
-      if(n>720) n=720-Math.floor(Math.random()*12);
+      n += 1+Math.floor(Math.random()*4);                // +1..4 (nunca diminui)
+      if(n>=MAX){ el.textContent=MAX; return; }           // chegou em 1600 → para
       el.textContent=n;
-      setTimeout(tick, 1800+Math.floor(Math.random()*2200));         // 1.8s–4s
+      setTimeout(tick, 2000+Math.floor(Math.random()*2500)); // 2–4.5s
     }
     setTimeout(tick, 1500);
   })();
