@@ -1,22 +1,5 @@
 <!DOCTYPE html>
-<!--
-  ╔══════════════════════════════════════════════════════════════════════╗
-  ║  UP01 — PÁGINA DE UPSELL (oferta pós-compra) · Gelatin App (ES)        ║
-  ║                                                                        ║
-  ║  O QUE É ESTA PÁGINA?                                                   ║
-  ║  É a tela que aparece LOGO DEPOIS que a pessoa comprou. Aqui você       ║
-  ║  oferece um produto extra ("regalo"/oferta especial) com 1 clique.     ║
-  ║  Ela tem: aviso no topo, um vídeo de venda e o botão de oferta da       ║
-  ║  Hotmart (o widget "Funil de Vendas").                                 ║
-  ║                                                                        ║
-  ║  COMO MEXER (procure pelos colchetes [ ... ] no código):               ║
-  ║   • [ ID DO VÍDEO VTURB ]  → troque pelo ID do SEU vídeo de venda      ║
-  ║   • [ E-MAIL DE SUPORTE ]  → support.gelatinapp@gmail.com                     ║
-  ║   • (opcional) cole pixels/GTM/UTMify na área marcada no <head>        ║
-  ║                                                                        ║
-  ║  REGRA DE OURO: só altere o texto entre as tags. NÃO apague as < >.    ║
-  ╚══════════════════════════════════════════════════════════════════════╝
--->
+
 <html lang="es">
 <head>
 <!-- charset = define os caracteres (acentos, ñ). Deixe sempre UTF-8. -->
@@ -40,8 +23,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Otimizar Velocidade de Carregamento -->
 <!-- viewport = faz o site se ajustar bem no celular. Não mexa. -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- noindex = pede ao Google para NÃO mostrar esta página nas buscas
-     (páginas de upsell não devem aparecer no Google). -->
+
 <meta name="robots" content="noindex, nofollow">
 
 <!-- Título que aparece na aba do navegador. -->
@@ -50,23 +32,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Ícone da aba (favicon). Usa o logo que já está na pasta /assets/. -->
 <link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
 
-<!-- ┌──────────────────────────────────────────────────────────────┐
-     │  [ OPCIONAL ] ÁREA DE RASTREAMENTO                             │
-     │  Se você usa Pixel do Facebook, Google Tag Manager (GTM) ou    │
-     │  UTMify, cole os códigos AQUI, logo abaixo deste comentário.   │
-     └──────────────────────────────────────────────────────────────┘ -->
-
-
 <!-- Carrega a fonte "Nunito" (mesma fonte do resto do site). -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- ╔══════════════════════════════════════════════════════════════════╗
-     ║  ESTILOS (CSS) = a "aparência" da página: cores, tamanhos, etc.    ║
-     ║  Cada bloco abaixo tem um comentário dizendo o que ele controla.   ║
-     ║  Para mudar uma COR, troque o código de cor (ex.: #E84070).        ║
-     ╚══════════════════════════════════════════════════════════════════╝ -->
 <style>
   /* PALETA DE CORES — mude aqui e muda no site inteiro.
      (são os mesmos tons da marca usados nas outras páginas) */
@@ -159,18 +129,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       SEÇÃO 1 — BARRA DE AVISO (topo)
-       Para mudar o texto, edite só o que está dentro das tags <span>/<strong>.
-       ═══════════════════════════════════════════════════════════════════ -->
   <div class="alert-bar">
     <span class="hl">ATENCIÓN:</span> NO CIERRES NI ACTUALICES ESTA PÁGINA,
     YA QUE PODRÍA PROVOCAR ERRORES EN TU COMPRA.
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       COLUNA CENTRAL — tudo o que está aqui dentro fica centralizado.
-       ═══════════════════════════════════════════════════════════════════ -->
   <div class="wrap">
 
     <!-- ─── SEÇÃO 2 — LOGO ─── -->
@@ -178,8 +141,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <img src="/assets/logo.webp" alt="Gelatin App" width="96" height="96">
     </div>
 
-    <!-- ─── SEÇÃO 3 — TÍTULO PRINCIPAL ───
-         "<br>" significa "quebra de linha" (pular para a linha de baixo). -->
     <h1 class="title">
       <span class="pink">IMPORTANTE</span><br>
       Tu acceso a la Gelatin App se está creando.
@@ -200,17 +161,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       No salgas de esta página, ya que podrías perder el acceso.
     </p>
 
-    <!-- ─── SEÇÃO 7 — OFERTA (BOTÃO DA HOTMART) ───
-         ┌────────────────────────────────────────────────────────────┐
-         │  Este é o WIDGET "FUNIL DE VENDAS" da Hotmart.               │
-         │  Ele mostra automaticamente os botões "Sí, quiero" e "No,    │
-         │  gracias" do upsell, de acordo com o funil que você montou   │
-         │  dentro da Hotmart.                                          │
-         │                                                              │
-         │  IMPORTANTE: você NÃO precisa colocar nenhum ID aqui.        │
-         │  Basta que esta página esteja configurada como a página de   │
-         │  upsell no seu funil da Hotmart. Não altere o código abaixo. │
-         └────────────────────────────────────────────────────────────┘ -->
     <div class="offer">
       <!-- [ OFERTA / GATEWAY ] — estrutura mantida (sem gateway). Cole aqui o botão de upsell do seu gateway. -->
       <div style="text-align:center" id="kiwify-upsell-NkNXeg6" data-upsell-url="https://salud24h.online/up02" data-downsell-url="https://salud24h.online/ds01">
@@ -221,11 +171,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       SEÇÃO 8 — RODAPÉ (links legais + aviso médico obrigatório)
-       Os links apontam para as pastas que já existem no site.
-       Troque [ E-MAIL DE SUPORTE ] pelo seu e-mail real, se quiser exibi-lo.
-       ═══════════════════════════════════════════════════════════════════ -->
   <footer class="foot">
     <p class="links">
       <a href="/reembolso/">Reembolso</a> ·

@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
 
-<!-- ┌──────────────────────────────────────────────────────────────────┐
-     │  [ GTM / GA4 — PARTE 1 ]  COLE AQUI (o mais alto possível no head) │
-     │   • GTM  → o <script>...googletagmanager.com/gtm.js...</script>    │
-     │   • GA4  → o <script async src="...gtag/js?id=G-XXXX"> + config    │
-     └──────────────────────────────────────────────────────────────────┘ -->
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,19 +28,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:title" content="CNN International | CNN">
 <meta property="og:url" content="https://www.exemplo.com/">
 <meta property="og:image" content="">
-
-<!-- ╔══════════════════════════════════════════════════════════════╗
-     ║  MAPA DE EDIÇÃO — VSL estilo "notícia" (CNN) + comentários FB ║
-     ╠══════════════════════════════════════════════════════════════╣
-     ║  1. LOGO        → [HEADER]   → <div class="logo">           ║
-     ║  2. HEADLINE    → [HEADLINE] → <h1 class="headline">        ║
-     ║  3. VÍDEO       → [VIDEO]    → cole o embed da VTurb        ║
-     ║  4. CTA (botão) → [CTA OVERLAY] → <a class="cta-btn">       ║
-     ║  5. CONTADOR    → [VIEWERS]  → "X personas mirando" (auto)  ║
-     ║  6. LOGOS MÍDIA → [LOGOS]    → troque o placeholder pela img║
-     ║  7. COMENTÁRIOS → [COMENTARIOS] → cada .comment (.answer)  ║
-     ║  8. TRACKING    → [TRACKING] → UTM forwarding (no fim)      ║
-     ╚══════════════════════════════════════════════════════════════╝ -->
 
 <style>
   :root{ --news-bg:#020202; --red:#b42d1f; --fb-blue:#385898; --fb-link:#4267b2; --fb-time:#90949c; --ink:#1c1e21; --gray:#efefef; }
@@ -128,11 +110,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 
-<!-- ┌──────────────────────────────────────────────────────────────────┐
-     │  [ GTM — PARTE 2 (noscript) ]  COLE AQUI, logo após o <body>      │
-     │  (é o <noscript><iframe ...gtm... ></noscript> — só o GTM tem)    │
-     │  GA4 puro NÃO precisa desta parte.                                │
-     └──────────────────────────────────────────────────────────────────┘ -->
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNLBBT5G"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -170,14 +147,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
-<!-- ═══════════ [COMENTARIOS] estilo Facebook NOVO (bolha) ═══════════
-     Estrutura por comentário:
-       .comment            -> linha (avatar + dados)   | + classe .answer = resposta (indentada)
-       .user-avatar        -> foto redonda (img/av-N-*.webp)
-       .user-background    -> bolha cinza: .name (nome) + .text (texto)
-       .buttons            -> Me gusta · Responder · tempo
-       <likes>N</likes>    -> badge de reações (👍❤) + número
-     Menção (responder citando alguém): <span style="color:#385898">Nome</span> no início do .text  -->
 <section class="comments">
   <div class="wrap">
     <h3 class="comments-title">Comentarios</h3>
@@ -277,11 +246,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═══════════ [TRACKING] ═══════════ -->
 
-<!-- ┌────────────────────────────────────────────────────────────┐
-     │  [ PIXEL ] — COLE AQUI o pixel (Meta Pixel e/ou UTMify).    │
-     │  É este o "footer de scripts": a base do pixel vai aqui,    │
-     │  logo antes do </body>. Os eventos disparam sozinhos.       │
-     └────────────────────────────────────────────────────────────┘ -->
 <script>
   window.pixelId = "6a2dc2d082a16462e33bd463";
   var a = document.createElement("script");
