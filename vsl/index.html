@@ -2,17 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-TNLBBT5G');</script>
-<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Presentación exclusiva</title>
-<link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -38,33 +30,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* caixa do vídeo */
   .video-box{margin:0 auto;max-width:760px}
 
-  /* rodapé (cinza escuro) */
-  .foot{background:var(--dark);color:#fff;text-align:center;padding:32px 20px}
-  .foot p{font-size:14px;margin-top:7px}
-  .foot a{color:#fff;text-decoration:underline}
-  .foot .small{font-size:12px;opacity:.8;max-width:620px;margin:12px auto 0;line-height:1.6}
+  /* rodapé genérico (sem produto, sem links legais) */
+  .foot{background:var(--dark);color:#fff;text-align:center;padding:26px 20px}
+  .foot p{font-size:13px;opacity:.85}
 </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNLBBT5G"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
   <!-- ═══ BARRA DO TOPO ═══ -->
   <div class="topbar">
-    Tú y algunas personas de <strong>tu ciudad</strong> han sido seleccionadas para ver esta presentación.
+    Tú y algunas personas de <strong id="ciudad">tu ciudad</strong> han sido seleccionadas para ver esta presentación.
   </div>
 
   <div class="wrap">
 
-    <!-- ═══ AVISO (data) — troque [ FECHA ] pela data que quer exibir ═══ -->
+    <!-- ═══ AVISO — a data é automática (script no fim da página) ═══ -->
     <h2 class="notice">
       Mira hasta el final. Esta presentación saldrá del aire el
-      <span class="date">[ FECHA ]</span>.
+      <span class="date" id="fecha">hoy</span>.
     </h2>
 
-    <!-- ═══ VÍDEO DE VENDA (VTurb) ═══ -->
+    <!-- ═══ VÍDEO ═══ -->
     <div class="video-box">
       <!-- ▼▼▼  COLE AQUI O SCRIPT DO VTURB (o player + o <script>)  ▼▼▼ -->
 
@@ -72,28 +58,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </div>
 
-  <!-- ═══ RODAPÉ ═══ -->
+  <!-- ═══ RODAPÉ GENÉRICO ═══ -->
   <footer class="foot">
-    <p>© 2026 Gelatin App · Todos los derechos reservados</p>
-    <p><a href="/reembolso/">Reembolso</a> · <a href="/terminos/">Términos</a> · <a href="/privacidad/">Privacidad</a></p>
-    <p class="small">Este contenido tiene fines informativos y no sustituye el consejo, diagnóstico o tratamiento médico profesional. Los resultados varían según cada persona.</p>
+    <p>© 2026 · Todos los derechos reservados.</p>
   </footer>
 
-<!-- UTMify -->
+<!-- ═══════════ SCRIPTS ═══════════ -->
 <script>
-  window.pixelId = "6a2dc2d082a16462e33bd463";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-  document.head.appendChild(a);
+/* [ CIUDAD ] — troca "tu ciudad" pela cidade real do visitante (geo por IP).
+   Se a API falhar ou for bloqueada, mantém "tu ciudad". */
+(function(){
+  fetch('https://ipwho.is/').then(function(r){return r.json();}).then(function(d){
+    if(d && d.city){ document.getElementById('ciudad').textContent = d.city; }
+  }).catch(function(){});
+})();
+
+/* [ FECHA ] — mostra a data de HOJE em espanhol.
+   Para exibir AMANHÃ, descomente a linha do setDate. */
+(function(){
+  var meses=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var d=new Date();
+  /* d.setDate(d.getDate()+1); */  /* <-- descomente para AMANHÃ */
+  document.getElementById('fecha').textContent = d.getDate()+' de '+meses[d.getMonth()]+' de '+d.getFullYear();
+})();
 </script>
-<script
-  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-xcod-sck
-  data-utmify-prevent-subids
-  async
-  defer
-></script>
+
 </body>
 </html>
