@@ -65,15 +65,22 @@
 
 <!-- ═══════════ SCRIPTS ═══════════ -->
 <script>
-/* [ CIUDAD ] — troca "tu ciudad" pela cidade real do visitante (geo por IP).
-   Tenta ipwho.is; se falhar/for bloqueada, tenta geojs.io; se as duas falharem, mantém "tu ciudad". */
+/* [ CIUDAD ] — mostra a cidade real do visitante (geo por IP).
+   Se a geo falhar/for bloqueada, cai numa cidade LATAM aleatória (nunca exibe "tu ciudad"). */
 (function(){
-  function setCity(name){ var el=document.getElementById('ciudad'); if(el && name){ el.textContent=name; } }
+  var ciudades = ['Ciudad de México','Buenos Aires','Bogotá','Lima','Santiago','Guadalajara',
+    'Monterrey','Medellín','Córdoba','Quito','Caracas','Santo Domingo','Guayaquil','Puebla',
+    'Rosario','Cali','Montevideo','San José','Ciudad de Panamá','Asunción'];
+  var el = document.getElementById('ciudad');
+  function setCity(name){ if(el && name){ el.textContent = name; } }
+  /* default imediato: já entra uma cidade de respeito (sem flash de "tu ciudad") */
+  setCity(ciudades[Math.floor(Math.random()*ciudades.length)]);
+  /* tenta a cidade real e sobrescreve, se a geo responder */
   fetch('https://ipwho.is/').then(function(r){return r.json();}).then(function(d){
-    if(d && d.city){ setCity(d.city); } else { throw 0; }
+    if(d && d.city){ setCity(d.city); }
   }).catch(function(){
     fetch('https://get.geojs.io/v1/ip/geo.json').then(function(r){return r.json();}).then(function(d){
-      setCity(d && d.city);
+      if(d && d.city){ setCity(d.city); }
     }).catch(function(){});
   });
 })();
