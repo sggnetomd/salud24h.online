@@ -316,5 +316,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   });
 })();
 </script>
+
+<!-- ═══════════ [NOTIFY] avisa no celular quando clicam no botão de checkout (push via edge function "notify") ═══════════ -->
+<!-- Observe-only: não cancela o clique, não toca no player, não cria global. Dispara só no botão do VTurb. -->
+<script>
+(function(){
+  var NOTIFY = 'https://stsjaebelpztyuplhxvp.supabase.co/functions/v1/notify?e=checkout';
+  document.addEventListener('click', function(e){
+    try{
+      if (e.target.closest && e.target.closest('.smartplayer-anchor-button')) {
+        fetch(NOTIFY, { mode:'no-cors', keepalive:true, cache:'no-store' });
+      }
+    }catch(_){}
+  }, { capture:false, passive:true });
+})();
+</script>
 </body>
 </html>
