@@ -66,11 +66,16 @@
 <!-- ═══════════ SCRIPTS ═══════════ -->
 <script>
 /* [ CIUDAD ] — troca "tu ciudad" pela cidade real do visitante (geo por IP).
-   Se a API falhar ou for bloqueada, mantém "tu ciudad". */
+   Tenta ipwho.is; se falhar/for bloqueada, tenta geojs.io; se as duas falharem, mantém "tu ciudad". */
 (function(){
+  function setCity(name){ var el=document.getElementById('ciudad'); if(el && name){ el.textContent=name; } }
   fetch('https://ipwho.is/').then(function(r){return r.json();}).then(function(d){
-    if(d && d.city){ document.getElementById('ciudad').textContent = d.city; }
-  }).catch(function(){});
+    if(d && d.city){ setCity(d.city); } else { throw 0; }
+  }).catch(function(){
+    fetch('https://get.geojs.io/v1/ip/geo.json').then(function(r){return r.json();}).then(function(d){
+      setCity(d && d.city);
+    }).catch(function(){});
+  });
 })();
 
 /* [ FECHA ] — mostra a data de HOJE em espanhol.
