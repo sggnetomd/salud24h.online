@@ -324,7 +324,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var NOTIFY = 'https://stsjaebelpztyuplhxvp.supabase.co/functions/v1/notify?e=checkout';
   document.addEventListener('click', function(e){
     try{
-      if (e.target.closest && e.target.closest('.smartplayer-anchor-button')) {
+      if (e.target.closest && e.target.closest('.smartplayer-anchor-button, .callaction')) {
         fetch(NOTIFY, { mode:'no-cors', keepalive:true, cache:'no-store' });
       }
     }catch(_){}
