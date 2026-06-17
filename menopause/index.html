@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexGen Menopause — Recetas, hábitos y protocolo de 30 días</title>
+<meta name="description" content="NexGen Menopause es una aplicación web de contenido educativo: recetas y guías de hábitos de alimentación en un protocolo guiado de 30 días. Material informativo — no es asesoramiento médico.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/webp" href="img/logo-icon.webp">
+
+<!-- ╔════════════════════════════════════════════════════════════════════╗
+     ║  SALES/COMPLIANCE — NexGen Menopause (ES) · trilho DIGISTORE24            ║
+     ║  Estrutura modelada na sales page do LoveApp (hero→dor→solución→    ║
+     ║  cómo→incluido→para quién→comparación→oferta→garantía→FAQ→CTA).      ║
+     ║  PREENCHER: [ ENLACE CHECKOUT DIGISTORE ] (botões) · [ DESCRIPTOR ]  ║
+     ║  Compliance: 60d incondicional · sem selo/countdown/depoimentos ·   ║
+     ║  sem claim de peso · disclaimer médico · unsubscribe no footer.     ║
+     ╚════════════════════════════════════════════════════════════════════╝ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#E84070; --coral:#E8634A; --amber:#F5A623; --green:#52C97F;
+    --cream:#FFF8F3; --card:#FEF0E7; --text:#2D1B1B; --muted:#9B8B8A; --border:#F0DDD4;
+    --grad-cta:linear-gradient(135deg,#E8634A 0%,#E84070 100%);
+    --grad-hero:linear-gradient(150deg,#F5A623 0%,#E84070 58%,#C22D60 100%);
+    --grad-soft:linear-gradient(160deg,#FFF1E8 0%,#FFE6EC 100%);
+    --sh-sm:0 2px 8px rgba(45,27,27,.08); --sh-md:0 8px 24px rgba(45,27,27,.12);
+    --sh-btn:0 8px 22px rgba(232,64,112,.36);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;height:auto;display:block}
+  .wrap{max-width:480px;margin:0 auto;padding:0 20px 56px;position:relative}
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.device-img{animation:none!important}}
+
+  .brand{text-align:center;padding:20px 0 4px}
+  .brand img{width:92px;margin:0 auto}
+
+  /* HERO */
+  .hero{position:relative;background:var(--grad-hero);border-radius:28px;padding:30px 24px 30px;text-align:center;color:#fff;overflow:hidden;box-shadow:0 20px 50px -16px rgba(194,45,96,.45)}
+  .hero::before{content:'';position:absolute;top:-60px;right:-50px;width:170px;height:170px;background:rgba(255,255,255,.13);border-radius:50%}
+  .hero::after{content:'';position:absolute;bottom:-50px;left:-40px;width:130px;height:130px;background:rgba(255,255,255,.10);border-radius:50%}
+  .hero>*{position:relative;z-index:1}
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);padding:7px 15px;border-radius:999px;margin-bottom:15px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}70%{box-shadow:0 0 0 8px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+  .hero h1{font-size:33px;font-weight:900;line-height:1.1;letter-spacing:-.5px;margin-bottom:11px}
+  .hero .deck{font-size:15.5px;font-weight:600;color:rgba(255,255,255,.95);line-height:1.5;max-width:36ch;margin:0 auto}
+  .device-stage{display:flex;justify-content:center;margin:26px 0 6px}
+  .device-img{width:312px;max-width:82%;height:auto;display:block;filter:drop-shadow(0 26px 42px rgba(45,27,27,.34));animation:floatY 6.5s ease-in-out infinite}
+  .logo-stage{display:flex;justify-content:center;margin:22px 0 4px}
+  .logo-hero{width:300px;max-width:82%;height:auto;background:#fff;border-radius:26px;padding:20px 24px;box-shadow:0 18px 44px -14px rgba(45,27,27,.35)}
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .trust{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .trust .t{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#fff;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:6px 11px;border-radius:999px}
+  .trust .t svg{width:13px;height:13px}
+
+  /* TRUST BAR */
+  .trustbar{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-radius:18px;overflow:hidden;margin-top:16px;box-shadow:var(--sh-sm)}
+  .trustbar .tb{background:#fff;padding:16px 12px;text-align:center}
+  .trustbar .tb svg{width:22px;height:22px;color:var(--rose);margin:0 auto 6px}
+  .trustbar .tb b{display:block;font-size:13px;font-weight:800;color:var(--text)}
+  .trustbar .tb span{font-size:11px;color:var(--muted)}
+
+  /* SECTION TITLE */
+  .sec-h{text-align:center;margin:40px 0 4px}
+  .sec-h .k{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;color:var(--rose)}
+  .sec-h h2{font-size:25px;font-weight:900;color:var(--text);line-height:1.18;letter-spacing:-.3px;margin-top:7px}
+  .sec-h p{font-size:14.5px;color:#6b5b59;line-height:1.6;margin-top:9px}
+
+  .card{background:#fff;border-radius:20px;padding:22px;box-shadow:var(--sh-sm);margin-top:16px}
+  .card p{font-size:14.5px;color:#6b5b59;line-height:1.6}
+  .card p+p{margin-top:12px}
+
+  /* PAIN LIST */
+  .pains{margin-top:18px;display:grid;gap:11px}
+  .pain{display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:var(--sh-sm)}
+  .pain .pic{flex-shrink:0;width:34px;height:34px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:18px}
+  .pain p{font-size:14px;color:var(--text);font-weight:600;line-height:1.45;margin:0}
+
+  /* FEATURES */
+  .feats{display:grid;gap:12px;margin-top:18px}
+  .feat{display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:16px;padding:15px 16px;box-shadow:var(--sh-sm);transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+  .feat:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+  .feat .f-ic{flex-shrink:0;width:44px;height:44px;border-radius:13px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .feat h4{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px;line-height:1.25}
+  .feat p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+
+  /* STEPS */
+  .steps{margin-top:18px}
+  .step{display:flex;gap:15px;align-items:flex-start;background:#fff;border-radius:16px;padding:16px;box-shadow:var(--sh-sm)}
+  .step+.step{margin-top:11px}
+  .step-n{width:38px;height:38px;background:var(--grad-cta);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;flex-shrink:0;box-shadow:0 4px 10px rgba(232,64,112,.3)}
+  .step-c h4{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px}
+  .step-c p{font-size:13.5px;color:var(--muted);line-height:1.5}
+
+  /* WHO (sí/no) */
+  .who{margin-top:18px;display:grid;gap:14px}
+  @media(min-width:560px){.who{grid-template-columns:1fr 1fr}}
+  .who-col{background:#fff;border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:var(--sh-sm)}
+  .who-col h4{font-size:14px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+  .who-col.yes h4{color:#1F7A48}.who-col.no h4{color:var(--muted)}
+  .who-col ul{list-style:none;display:grid;gap:9px}
+  .who-col li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:#5a4a48;line-height:1.45}
+  .who-col li svg{flex-shrink:0;width:17px;height:17px;margin-top:1px}
+  .who-col.yes li svg{color:var(--green)}.who-col.no li svg{color:var(--muted)}
+
+  /* COMPARE */
+  .compare{margin-top:18px;border:1px solid var(--border);border-radius:18px;overflow:hidden;background:#fff;box-shadow:var(--sh-sm)}
+  .crow{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;align-items:stretch}
+  .crow+.crow{border-top:1px solid var(--border)}
+  .crow.head{background:var(--card)}
+  .cell{padding:12px 8px;font-size:12px;color:var(--text);text-align:center;display:flex;align-items:center;justify-content:center}
+  .cell.feat{justify-content:flex-start;text-align:left;font-weight:700;font-size:12.5px}
+  .crow.head .cell{font-weight:800;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+  .crow.head .cell.us{color:var(--rose)}
+  .cell.us{background:var(--grad-soft);font-weight:800}
+  .cell .y{color:var(--green);font-weight:900}.cell .n{color:var(--muted);opacity:.6}
+
+  /* PRICE */
+  .price{position:relative;background:#fff;border:2px solid var(--rose);border-radius:24px;padding:28px 22px 24px;text-align:center;box-shadow:var(--sh-md);margin-top:20px;overflow:hidden}
+  .price::before{content:'';position:absolute;top:-40px;right:-40px;width:120px;height:120px;background:var(--grad-soft);border-radius:50%;opacity:.7}
+  .price>*{position:relative;z-index:1}
+  .price .p-name{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--rose);margin-bottom:10px}
+  .price .p-val{font-size:46px;font-weight:900;color:var(--text);line-height:1;letter-spacing:-1px}
+  .price .p-model{font-size:13.5px;color:var(--muted);margin-top:9px}
+  .price .p-feat{list-style:none;text-align:left;display:grid;gap:9px;margin:20px 0;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .price .p-feat li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:#5a4a48}
+  .price .p-feat li svg{flex-shrink:0;width:18px;height:18px;color:var(--green);margin-top:1px}
+
+  /* CTA */
+  .cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:56px;padding:15px 20px;background:var(--grad-cta);color:#fff;font-size:17px;font-weight:900;text-align:center;border-radius:999px;text-decoration:none;box-shadow:var(--sh-btn);transition:transform .15s var(--ease),box-shadow .15s var(--ease)}
+  .cta:hover{transform:translateY(-2px)}
+  .cta-note{font-size:12.5px;color:var(--muted);margin-top:13px;line-height:1.5}
+  .hero .cta{margin-top:22px}
+
+  /* GUARANTEE */
+  .guarantee{display:flex;align-items:center;gap:14px;background:rgba(82,201,127,.10);border:1.5px solid rgba(82,201,127,.35);border-radius:18px;padding:18px;margin-top:16px}
+  .guarantee .g-ic{width:50px;height:50px;flex-shrink:0}
+  .guarantee h4{font-size:15px;font-weight:800;color:#1F7A48;margin-bottom:3px}
+  .guarantee p{font-size:13px;color:#3d7a57;line-height:1.5}
+
+  /* DISCLAIMER */
+  .disclaimer{background:#FBF4EF;border:1px solid var(--border);border-radius:16px;padding:17px 18px;margin-top:16px}
+  .disclaimer h4{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:7px}
+  .disclaimer p{font-size:12.5px;color:#8a7a78;line-height:1.55}
+
+  /* FAQ */
+  .faqs{margin-top:16px;background:#fff;border-radius:20px;padding:6px 20px;box-shadow:var(--sh-sm)}
+  .faq{border-bottom:1px solid var(--border);padding:16px 0}
+  .faq:last-child{border-bottom:none}
+  .faq-q{font-size:14.5px;font-weight:800;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;list-style:none}
+  .faq-q::-webkit-details-marker{display:none}
+  .faq-q .tg{width:25px;height:25px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .25s var(--ease);font-size:16px;color:var(--rose);font-weight:800}
+  .faq[open] .faq-q .tg{transform:rotate(45deg)}
+  .faq-a{font-size:13.5px;color:var(--muted);line-height:1.6;padding-top:11px}
+  .faq-a strong{color:#6b5b59}.faq-a a{color:var(--rose);font-weight:700;text-decoration:none}
+
+  /* CTA BAND */
+  .band{margin-top:40px;background:var(--grad-hero);border-radius:24px;padding:34px 24px;text-align:center;color:#fff;box-shadow:0 18px 44px -16px rgba(194,45,96,.45)}
+  .band h2{font-size:24px;font-weight:900;line-height:1.18;margin-bottom:10px}
+  .band p{font-size:14.5px;color:rgba(255,255,255,.92);margin-bottom:20px;line-height:1.5}
+  .band .cta{background:#fff;color:var(--rose)}
+
+  /* SUPPORT + FOOTER */
+  .support{background:var(--card);border-radius:20px;padding:24px 20px;text-align:center;margin-top:16px}
+  .support .s-emoji{font-size:32px;margin-bottom:8px}
+  .support h4{font-size:16px;font-weight:800;color:var(--text);margin-bottom:5px}
+  .support p{font-size:13.5px;color:var(--muted);margin-bottom:15px;line-height:1.5}
+  .support a{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:12px 20px;font-size:14px;font-weight:800;color:var(--rose);text-decoration:none}
+  .support a svg{width:16px;height:16px}
+  .foot{text-align:center;padding:26px 8px 0}
+  .foot p{font-size:12px;color:var(--muted);line-height:1.6;margin-top:10px}
+  .foot-links a{color:var(--rose);font-weight:800;text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero reveal in">
+    <span class="eyebrow"><span class="dot"></span>Aplicación web · Acceso digital</span>
+    <h1>Tu protocolo de 30 días, en una sola app.</h1>
+    <div class="deck">NexGen Menopause reúne las recetas, los hábitos y las clases en un plan diario simple de seguir — paso a paso, sin complicaciones.</div>
+    <div class="logo-stage">
+      <img class="logo-hero" src="img/logo.png" alt="NexGen Menopause" width="320" height="267">
+    </div>
+    <a href="[ ENLACE CHECKOUT DIGISTORE ]" class="cta">Obtener acceso — US$ 29</a>
+    <div class="trust">
+      <span class="t"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>Acceso inmediato</span>
+      <span class="t"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>60 días de garantía</span>
+    </div>
+  </div>
+
+  <!-- ═══ TRUST BAR ═══ -->
+  <div class="trustbar reveal">
+    <div class="tb"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><b>Acceso inmediato</b><span>justo tras la compra</span></div>
+    <div class="tb"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2a4 4 0 014-4h.5M5 4h14a1 1 0 011 1v3a5 5 0 01-5 5H9a5 5 0 01-5-5V5a1 1 0 011-1z"/></svg><b>En el navegador</b><span>cualquier dispositivo</span></div>
+    <div class="tb"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><b>60 días de garantía</b><span>sin preguntas</span></div>
+    <div class="tb"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v13M12 6.25C10.8 5.48 9.2 5 7.5 5S4.2 5.48 3 6.25v13C4.2 18.48 5.8 18 7.5 18s3.3.48 4.5 1.25m0-13C13.2 5.48 14.8 5 16.5 5c1.7 0 3.3.48 4.5 1.25v13C19.8 18.48 18.2 18 16.5 18c-1.7 0-3.3.48-4.5 1.25"/></svg><b>Contenido educativo</b><span>recetas y guías</span></div>
+  </div>
+
+  <!-- ═══ DOR / PROBLEMA ═══ -->
+  <div class="sec-h reveal"><span class="k">El problema</span><h2>Empezar es fácil. Sostenerlo, no tanto.</h2><p>La mayoría no se queda sin información — se queda sin orden y sin constancia. Esto suele sonar familiar:</p></div>
+  <div class="pains">
+    <div class="pain reveal"><div class="pic">🔍</div><p>Recetas dispersas por todos lados, sin saber por dónde empezar.</p></div>
+    <div class="pain reveal"><div class="pic">🌀</div><p>Empiezas con todo el lunes… y para el jueves ya lo dejaste.</p></div>
+    <div class="pain reveal"><div class="pic">🤷‍♀️</div><p>No saber qué te toca hacer <em>hoy</em>, en concreto.</p></div>
+    <div class="pain reveal"><div class="pic">📉</div><p>Perder la motivación porque no ves tu avance en ningún lado.</p></div>
+  </div>
+
+  <!-- ═══ SOLUÇÃO / QUÉ ES ═══ -->
+  <div class="sec-h reveal"><span class="k">La solución</span><h2>Una app que ordena todo por ti</h2></div>
+  <div class="card reveal">
+    <p>NexGen Menopause es una <strong>aplicación web de contenido educativo</strong>: recetas y guías de hábitos de alimentación, organizadas en un <strong>protocolo guiado de 30 días</strong> fácil de seguir. En lugar de buscar y decidir cada día, abres la app y ya sabes exactamente qué hacer.</p>
+    <p>Cada día tienes una <strong>misión simple</strong>, acceso a la <strong>biblioteca de recetas</strong> (incluida tu receta principal) y <strong>clases en vídeo</strong> que explican cada paso, a tu propio ritmo. Es material <strong>informativo y educativo</strong> para acompañar tu rutina — no es asesoramiento médico ni nutricional, ni un tratamiento.</p>
+  </div>
+
+  <!-- ═══ CÓMO FUNCIONA ═══ -->
+  <div class="sec-h reveal"><span class="k">Cómo funciona</span><h2>En 3 pasos simples</h2></div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-n">1</div><div class="step-c"><h4>Responde un quiz corto</h4><p>Cuéntanos sobre tu rutina y tus preferencias para personalizar tu plan.</p></div></div>
+    <div class="step reveal"><div class="step-n">2</div><div class="step-c"><h4>Recibe tu plan de 30 días</h4><p>La app arma tu calendario diario y tu primera receta.</p></div></div>
+    <div class="step reveal"><div class="step-n">3</div><div class="step-c"><h4>Sigue tu rutina día a día</h4><p>Abre la misión de cada día y consulta las recetas y clases cuando quieras.</p></div></div>
+  </div>
+
+  <!-- ═══ QUÉ INCLUYE ═══ -->
+  <div class="sec-h reveal"><span class="k">Tu acceso incluye</span><h2>Todo en un solo lugar</h2></div>
+  <div class="feats">
+    <div class="feat reveal"><div class="f-ic">📅</div><div><h4>Protocolo guiado de 30 días</h4><p>Una misión simple cada día, fácil de seguir y marcar como hecha.</p></div></div>
+    <div class="feat reveal"><div class="f-ic">🍮</div><div><h4>Biblioteca de recetas paso a paso</h4><p>Incluida tu receta principal y sus variaciones, explicadas con claridad.</p></div></div>
+    <div class="feat reveal"><div class="f-ic">🎬</div><div><h4>Clases en vídeo</h4><p>Guías cortas para acompañar cada etapa de tu rutina.</p></div></div>
+    <div class="feat reveal"><div class="f-ic">📈</div><div><h4>Seguimiento de tu rutina</h4><p>Registra tus hábitos día a día y visualiza tu avance en el calendario.</p></div></div>
+    <div class="feat reveal"><div class="f-ic">📱</div><div><h4>Acceso en el navegador</h4><p>En tu teléfono, tablet o computadora. Sin descargas ni instalaciones.</p></div></div>
+  </div>
+
+  <!-- ═══ PARA QUIÉN ═══ -->
+  <div class="sec-h reveal"><span class="k">¿Es para ti?</span><h2>Hecha para quien quiere orden</h2></div>
+  <div class="who">
+    <div class="who-col yes reveal">
+      <h4><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Sí, si…</h4>
+      <ul>
+        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Quieres recetas y una rutina ordenada en un solo lugar.</li>
+        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Prefieres que te guíen paso a paso, sin pensar tanto.</li>
+        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Te gusta seguir tu progreso día a día.</li>
+      </ul>
+    </div>
+    <div class="who-col no reveal s2">
+      <h4><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>No, si…</h4>
+      <ul>
+        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>Buscas un tratamiento médico o resultados garantizados.</li>
+        <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>No piensas seguir el plan ni dedicarle unos minutos al día.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══ COMPARACIÓN ═══ -->
+  <div class="sec-h reveal"><span class="k">Tus opciones</span><h2>Por qué una app y no recetas sueltas</h2></div>
+  <div class="compare reveal">
+    <div class="crow head"><div class="cell feat">&nbsp;</div><div class="cell us">NexGen Menopause</div><div class="cell">Recetas sueltas</div><div class="cell">Sin guía</div></div>
+    <div class="crow"><div class="cell feat">Plan día a día</div><div class="cell us"><span class="y">✓</span></div><div class="cell"><span class="n">—</span></div><div class="cell"><span class="n">—</span></div></div>
+    <div class="crow"><div class="cell feat">Recetas paso a paso</div><div class="cell us"><span class="y">✓</span></div><div class="cell"><span class="y">✓</span></div><div class="cell"><span class="n">—</span></div></div>
+    <div class="crow"><div class="cell feat">Clases en vídeo</div><div class="cell us"><span class="y">✓</span></div><div class="cell"><span class="n">—</span></div><div class="cell"><span class="n">—</span></div></div>
+    <div class="crow"><div class="cell feat">Seguimiento de tu avance</div><div class="cell us"><span class="y">✓</span></div><div class="cell"><span class="n">—</span></div><div class="cell"><span class="n">—</span></div></div>
+    <div class="crow"><div class="cell feat">Precio</div><div class="cell us">US$ 29</div><div class="cell">—</div><div class="cell">—</div></div>
+  </div>
+
+  <!-- ═══ OFERTA / PRECIO ═══ -->
+  <div class="sec-h reveal"><span class="k">La oferta</span><h2>Acceso completo a NexGen Menopause</h2></div>
+  <div class="price reveal">
+    <div class="p-name">Acceso completo</div>
+    <div class="p-val">US$ 29</div>
+    <div class="p-model">Pago único · sin cargos recurrentes</div>
+    <ul class="p-feat">
+      <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Protocolo guiado de 30 días</li>
+      <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Biblioteca de recetas + clases en vídeo</li>
+      <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Seguimiento de tu rutina</li>
+      <li><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Garantía de 60 días, sin preguntas</li>
+    </ul>
+    <a href="[ ENLACE CHECKOUT DIGISTORE ]" class="cta">Obtener acceso — US$ 29</a>
+    <div class="cta-note">Pago seguro a través de Digistore24 · acceso inmediato en el navegador.</div>
+  </div>
+
+  <!-- ═══ GARANTÍA ═══ -->
+  <div class="guarantee reveal">
+    <svg class="g-ic" viewBox="0 0 50 50" fill="none"><circle cx="25" cy="25" r="25" fill="#BBF0CF"/><circle cx="25" cy="25" r="18" fill="#52C97F"/><path d="M17 25l5 5 11-11" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><h4>Garantía de 60 días — sin preguntas</h4><p>Si no estás satisfecha por cualquier motivo dentro de los primeros 60 días, escríbenos y te devolvemos el 100%, de forma incondicional y sin pedir pruebas.</p></div>
+  </div>
+
+  <!-- ═══ FAQ ═══ -->
+  <div class="sec-h reveal"><span class="k">Antes de empezar</span><h2>Preguntas frecuentes</h2></div>
+  <div class="faqs reveal">
+    <details class="faq"><summary class="faq-q"><span>¿Cómo accedo después de comprar?</span><span class="tg">+</span></summary><div class="faq-a">Justo después de la compra recibirás por correo tus datos de acceso a NexGen Menopause. Funciona en el navegador, en cualquier dispositivo, sin descargas. Revisa tu carpeta de spam si no ves el correo enseguida.</div></details>
+    <details class="faq"><summary class="faq-q"><span>¿Hay cargos recurrentes?</span><span class="tg">+</span></summary><div class="faq-a">No. Es un <strong>pago único de US$ 29</strong> — sin suscripción ni renovaciones.</div></details>
+    <details class="faq"><summary class="faq-q"><span>¿Cómo aparece el cargo en mi extracto?</span><span class="tg">+</span></summary><div class="faq-a">Tu compra es procesada de forma segura por <strong>Digistore24</strong> y aparecerá en tu extracto como <strong>[ DESCRIPTOR DS24 ]</strong>. Si ves este cargo, es de tu compra — no es un fraude.</div></details>
+    <details class="faq"><summary class="faq-q"><span>¿Puedo pedir un reembolso?</span><span class="tg">+</span></summary><div class="faq-a">Sí. Tienes una <strong>garantía de 60 días, incondicional y sin preguntas</strong>. Escríbenos a <strong>support.gelatinapp@gmail.com</strong> dentro de los 60 días y te devolvemos el 100%. Ver la <a href="/app/reembolso/">política de reembolso</a>.</div></details>
+    <details class="faq"><summary class="faq-q"><span>¿Esto es asesoramiento médico o nutricional?</span><span class="tg">+</span></summary><div class="faq-a">No. NexGen Menopause ofrece <strong>contenido educativo, recetas y guías de hábitos</strong>. No es asesoramiento médico ni nutricional, ni un tratamiento, y no sustituye la consulta con un profesional de la salud.</div></details>
+    <details class="faq"><summary class="faq-q"><span>¿En qué dispositivos funciona?</span><span class="tg">+</span></summary><div class="faq-a">En cualquier dispositivo con navegador — teléfono, tablet o computadora. No necesitas descargar ninguna aplicación.</div></details>
+  </div>
+
+  <!-- ═══ DISCLAIMER ═══ -->
+  <div class="disclaimer reveal">
+    <h4>Aviso importante</h4>
+    <p>NexGen Menopause es contenido educativo (recetas y guías de hábitos). No es asesoramiento médico ni nutricional, ni un tratamiento, y no sustituye la consulta con un profesional de la salud. Los resultados varían de persona a persona y dependen de cada caso. Consulta a tu médico antes de realizar cambios en tu alimentación o estilo de vida, especialmente si estás embarazada, en período de lactancia, o tienes alguna condición de salud.</p>
+  </div>
+
+  <!-- ═══ CTA FINAL ═══ -->
+  <div class="band reveal">
+    <h2>Empieza tu protocolo de 30 días hoy</h2>
+    <p>Acceso inmediato, en el navegador, con garantía de 60 días sin preguntas.</p>
+    <a href="[ ENLACE CHECKOUT DIGISTORE ]" class="cta">Obtener acceso — US$ 29</a>
+  </div>
+
+  <!-- ═══ SOPORTE ═══ -->
+  <div class="support reveal">
+    <div class="s-emoji">💚</div>
+    <h4>Estamos para ayudarte</h4>
+    <p>¿Tienes una duda, necesitas ayuda con el acceso o quieres un reembolso? Respondemos en 24 horas.</p>
+    <a href="mailto:support.gelatinapp@gmail.com"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>support.gelatinapp@gmail.com</a>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="foot">
+    <p class="foot-links"><a href="/app/reembolso/">Reembolso</a> · <a href="/app/terminos/">Términos</a> · <a href="/app/privacidad/">Privacidad</a></p>
+    <p>¿Prefieres no recibir nuestros correos? Puedes darte de baja en cualquier momento con el enlace al final de cada correo, o escribiéndonos a <a href="mailto:support.gelatinapp@gmail.com">support.gelatinapp@gmail.com</a>.</p>
+    <p>© 2026 NexGen Menopause · Todos los derechos reservados<br>Este cargo aparecerá en tu extracto como <strong>[ DESCRIPTOR DS24 ]</strong></p>
+  </div>
+
+</div>
+
+<script>
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal:not(.in)').forEach(function(el){io.observe(el);});
+</script>
+
+</body>
+</html>
