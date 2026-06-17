@@ -322,9 +322,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 (function(){
   var NOTIFY = 'https://stsjaebelpztyuplhxvp.supabase.co/functions/v1/notify?e=checkout';
+  var last = 0;
   document.addEventListener('click', function(e){
     try{
       if (e.target.closest && e.target.closest('.smartplayer-anchor-button, .callaction')) {
+        var now = Date.now();
+        if (now - last < 5000) return;   // debounce: 1 disparo a cada 5s (o botão do VTurb dispara vários cliques → matava em 3x)
+        last = now;
         fetch(NOTIFY, { mode:'no-cors', keepalive:true, cache:'no-store' });
       }
     }catch(_){}
