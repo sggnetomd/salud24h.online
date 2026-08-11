@@ -96,6 +96,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     font-size:14px; font-weight:600; text-decoration:none; opacity:.92;
   }
   .decline:hover{text-decoration:underline}
+
+  /* DELAY: bloco do CTA nasce escondido; o script libera aos 5:47 de VIDEO */
+  .hide{display:none}
 </style>
 </head>
 <body>
@@ -128,13 +131,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </script>
   </div>
 
+  <!-- ── DELAY VTurb: revela .hide aos SECONDS_TO_DISPLAY do VÍDEO ──
+       Padrão oficial VTurb (smartplayer.instances[0].on('timeupdate')).
+       Vem logo depois do embed do player, como a doc manda. -->
+  <script>
+  (function () {
+    var SECONDS_TO_DISPLAY = 347;                 // 05:47 (igual ao delay da Atomicat)
+    var KEY = 'vturb_cta_6a2f4b9a';               // persiste p/ quem já viu (não espera de novo)
+    var MAX_WAIT_MS = 20000;                      // fail-safe: player não carregou
+
+    function reveal() {
+      document.querySelectorAll('.hide').forEach(function (e) { e.style.display = 'block'; });
+    }
+
+    // Já viu antes -> libera na hora
+    try { if (localStorage.getItem(KEY)) { reveal(); return; } } catch (_) {}
+
+    var waited = 0;
+    var poll = setInterval(function () {
+      var sp = window.smartplayer;
+      if (sp && sp.instances && sp.instances[0]) {
+        clearInterval(poll);
+        sp.instances[0].on('timeupdate', function () {
+          if (sp.instances[0].video.currentTime >= SECONDS_TO_DISPLAY) {
+            reveal();
+            try { localStorage.setItem(KEY, '1'); } catch (_) {}
+          }
+        });
+        return;
+      }
+      // FAIL-SAFE: se o player nunca inicializar (ex.: domínio não liberado no VTurb),
+      // libera o CTA mesmo assim — senão o comprador fica preso, sem aceitar nem recusar.
+      waited += 200;
+      if (waited >= MAX_WAIT_MS) { clearInterval(poll); reveal(); }
+    }, 200);
+  })();
+  </script>
+
   <p class="warn">No salgas de esta página, ya que podrías perder el acceso.</p>
 
-  <!-- Botões 1-clique: o digistore.js reescreve os hrefs com o session id -->
-  <a href="https://www.checkout-ds24.com/answer/yes?template=light" class="cta">
-    Sí, quiero probarlo gratis durante 90 días
-  </a>
-  <a href="https://www.checkout-ds24.com/answer/no" class="decline">No, gracias.</a>
+  <!-- ── BLOCO COM DELAY (aparece aos 5:47 do vídeo) ──
+       Botões 1-clique: o digistore.js reescreve os hrefs com o session id -->
+  <div class="hide">
+    <a href="https://www.checkout-ds24.com/answer/yes?template=light" class="cta">
+      Sí, quiero probarlo gratis durante 90 días
+    </a>
+    <a href="https://www.checkout-ds24.com/answer/no" class="decline">No, gracias.</a>
+  </div>
 
 </div>
 
