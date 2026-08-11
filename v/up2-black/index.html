@@ -127,8 +127,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var KEY = 'vturb_cta_6a2f4b91';               // persiste p/ quem já viu (não espera de novo)
     var MAX_WAIT_MS = 20000;                      // fail-safe: player não carregou
 
+    // Espera o DOM: este script roda ANTES do bloco .hide existir,
+    // entao revelar direto (caminho do localStorage) nao encontrava nada.
     function reveal() {
-      document.querySelectorAll('.hide').forEach(function (e) { e.style.display = 'block'; });
+      function go() {
+        document.querySelectorAll('.hide').forEach(function (e) { e.style.display = 'block'; });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go);
+      else go();
     }
 
     try { if (localStorage.getItem(KEY)) { reveal(); return; } } catch (_) {}
