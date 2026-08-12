@@ -8,17 +8,25 @@
 <link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
 
 <!-- ╔══════════════════════════════════════════════════════════════════╗
-     ║  DOWNSELL 02 — BLACK (Anti-drowsiness Lotion + bônus Lowcarb)     ║
+     ║  DOWNSELL 02 — BLACK (loção · pago único $19)                     ║
+     ║                                                                    ║
      ║  Servida pelo Worker no MESMO URL (sem redirect) -> os params da   ║
      ║  Digistore (digistore_upsell_session_id) ficam na URL e o          ║
      ║  1-clique funciona. NAO adicionar redirect nesta pagina.           ║
      ║  Sem vídeo e sem delay (o CTA aparece de imediato).                 ║
      ║                                                                    ║
-     ║  ⚠️ CORRIGIDO NA MIGRACAO: o original ainda usava o widget de       ║
+     ║  ⚠️ NUNCA adicionar payplan aos botoes. O Dw2 e produto PROPRIO    ║
+     ║  (709647), cobranca unica. O rascunho veio com                      ║
+     ║  payplan=COLE_AQUI; nao entrou. Verificado no digistore.js: a       ║
+     ║  reescrita do href preserva a query string inteira, entao payplan   ║
+     ║  chegaria na Digistore e definiria o plano cobrado — numa pagina    ║
+     ║  que promete "sin cobro dentro de 90 dias" isso e chargeback.       ║
+     ║                                                                    ║
+     ║  ⚠️ Esta pagina ja teve o pior bug do funil: usava o widget de     ║
      ║  upsell da KIWIFY (snippets.kiwify.com + data-upsell-url=/obg),     ║
-     ║  sobra da migracao Kiwify->Digistore. Isso mandava o comprador pro  ║
-     ║  obrigado SEM COBRAR. Trocado pelos links answer/yes|no da          ║
-     ║  Digistore, mesmo visual.                                           ║
+     ║  que mandava o comprador pro obrigado SEM COBRAR. Se um rascunho    ║
+     ║  novo trouxer qualquer script de checkout que nao seja o            ║
+     ║  digistore.js, e bug — nao feature.                                 ║
      ╚══════════════════════════════════════════════════════════════════╝ -->
 
 <!-- Google Tag Manager -->
@@ -29,7 +37,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-TNLBBT5G');</script>
 <!-- End Google Tag Manager -->
 
-<!-- Digistore24 1-click upsell: reescreve os links answer/yes e answer/no com o session id -->
+<!-- Digistore24 1-click upsell: reescreve os links answer/yes e answer/no com o session id.
+     Pega os DOIS botoes (CTA principal + barra fixa): no DOM ready ele varre
+     document.querySelectorAll("a") inteiro, e ainda instala um listener de
+     mousedown em capture que reescreve o link no momento do clique. -->
 <script src="https://www.digistore24-scripts.com/service/digistore.js"></script>
 <script>digistoreUpsell()</script>
 
@@ -39,53 +50,137 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <style>
   :root{
-    --rose:#E84070;   /* rosa da marca           */
-    --red:#fd0000;    /* vermelho de urgência    */
-    --cream:#FFF8F3;  /* fundo creme             */
-    --text:#2D1B1B;   /* texto escuro            */
-    --muted:#9B8B8A;  /* cinza textos pequenos   */
-    --card:#FEF0E7;   /* fundo do cartão de bônus*/
+    --bg:#0A1F3D; --bg-2:#071730; --panel:#12305A; --line:#1E4478;
+    --white:#FFFFFF; --soft:#C8D8EE; --rose:#FF5E8A;
+    --neon:#3BFF7D; --yellow:#FFD400; --yellow-dk:#C9A400;
+    --gold:#E8C25A; --alert:#D92020;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:104px}
   img{max-width:100%;height:auto;display:block}
+  a{color:inherit}
+  :focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
 
-  /* ── BARRA DE AVISO (topo, vermelha) ── */
-  .alert-bar{background:var(--red);color:#fff;text-align:center;padding:12px 16px;font-size:15px;font-weight:800;line-height:1.35}
-  @media(max-width:480px){ .alert-bar{font-size:13px} }
+  .progress{position:fixed;top:0;left:0;right:0;z-index:60;height:4px;background:rgba(255,255,255,.12)}
+  .progress span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--neon),var(--yellow));transition:width .1s linear}
 
-  /* ── COLUNA CENTRAL ── */
-  .wrap{max-width:560px;margin:0 auto;padding:30px 20px 40px;text-align:center}
+  body.js-reveal .rv{opacity:0;transform:translateY(20px);transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1)}
+  body.js-reveal .rv.on{opacity:1;transform:none}
 
-  /* ── CHAMADA "PRESTA ATENCIÓN" ── */
-  .attn{font-size:22px;font-weight:900;margin-bottom:18px}
-  @media(max-width:480px){ .attn{font-size:18px} }
+  .alertbar{background:var(--alert);color:#fff;text-align:center;padding:12px 16px;font-size:15.5px;font-weight:900;letter-spacing:.4px;line-height:1.3}
+  @media(max-width:480px){ .alertbar{font-size:13.5px} }
 
-  /* ── BLOCO DE TEXTO (parágrafos da oferta) ── */
-  .copy{font-size:17px;margin-bottom:14px}
-  .copy .red{color:var(--red);font-weight:800}     /* destaque vermelho */
-  .copy strong{font-weight:800}
-  @media(max-width:480px){ .copy{font-size:15px} }
+  .wrap{max-width:600px;margin:0 auto;padding:26px 20px 36px;text-align:center}
 
-  /* ── CARTÃO DO BÔNUS (caixa com a imagem da guia) ── */
-  .bonus{background:var(--card);border-radius:20px;padding:22px 18px;margin:22px 0;box-shadow:0 4px 16px rgba(45,27,27,.10)}
-  .bonus .tag{display:inline-block;background:var(--rose);color:#fff;font-size:13px;font-weight:800;padding:5px 12px;border-radius:999px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px}
-  .bonus h3{font-size:20px;font-weight:900;margin-bottom:12px}
-  .bonus img{border-radius:12px;margin:0 auto 12px;max-width:260px}
-  .bonus p{font-size:15px;color:#6b5b59}
+  .stop{font-size:88px;line-height:1;margin-bottom:6px;animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
+  @media(max-width:480px){ .stop{font-size:72px} }
 
-  /* ── CHAMADA FINAL (antes do botão) ── */
-  .final{font-size:17px;font-weight:700;margin:6px 0 18px}
-  .final .red{color:var(--red);font-weight:800}
-  @media(max-width:480px){ .final{font-size:15px} }
+  h1{font-size:34px;font-weight:900;line-height:1.14;letter-spacing:-.6px;margin-bottom:8px}
+  h1 .hi{color:var(--yellow)}
+  @media(max-width:480px){ h1{font-size:27px} }
+  .sub{font-size:18px;color:var(--soft);font-weight:700;margin-bottom:26px}
 
-  /* ── CAIXA DA OFERTA (botões Digistore) ── */
-  .offer{margin-top:8px}
+  p.copy{font-size:19px;color:var(--soft);margin-bottom:15px;text-align:left}
+  p.copy strong{color:var(--white);font-weight:800}
+  p.copy .mark{color:var(--yellow);font-weight:800}
+  @media(max-width:480px){ p.copy{font-size:18px} }
 
-  /* ── RODAPÉ ── */
-  .foot{text-align:center;padding:24px 20px;color:var(--muted)}
-  .foot .disclaimer{font-size:12px;line-height:1.6;max-width:520px;margin:0 auto 8px}
-  .foot .copy-txt{font-size:12px;line-height:1.7}
+  .punch{font-size:24px;font-weight:900;line-height:1.22;margin:26px 0;color:var(--white)}
+  @media(max-width:480px){ .punch{font-size:21px} }
+
+  /* ══ LINHA DO TEMPO ══ */
+  .timing{background:var(--bg-2);border:2px solid var(--line);border-radius:20px;padding:20px 16px;margin:24px 0}
+  .timing h4{font-size:13.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.3px;color:#8FA6C4;margin-bottom:14px}
+  .timing .row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);text-align:left}
+  .timing .row:last-child{border-bottom:0;padding-bottom:0}
+  .timing .when{flex:0 0 78px;font-size:15px;font-weight:900;color:var(--yellow);line-height:1.25}
+  .timing .row.bad .when{color:var(--rose)}
+  .timing .what{font-size:16.5px;color:var(--soft);line-height:1.45}
+  .timing .what strong{color:var(--white);font-weight:800}
+
+  .pricebox{background:var(--bg-2);border:2px solid var(--line);border-radius:22px;padding:26px 18px;margin:26px 0}
+  .pricebox .was{font-size:19px;font-weight:800;color:var(--soft)}
+  .pricebox .was s{color:#8FA6C4}
+  .pricebox .now-label{font-size:15px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:var(--soft);margin-top:12px}
+  .pricebox .now{font-size:82px;font-weight:900;line-height:1;color:var(--neon);letter-spacing:-3px;text-shadow:0 0 26px rgba(59,255,125,.45)}
+  @media(max-width:480px){ .pricebox .now{font-size:66px} }
+  .pricebox .once{font-size:20px;font-weight:900;margin-top:10px}
+  .pricebox .never{font-size:16px;color:var(--soft);margin-top:12px;line-height:1.5}
+
+  .stack-head{font-size:22px;font-weight:900;margin:6px 0 16px}
+  .bonus{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;text-align:left}
+  .bonus .thumb{flex:0 0 72px;width:72px;height:72px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden}
+  .bonus .thumb img{width:72px;height:72px;object-fit:cover}
+  .bonus h3{font-size:17.5px;font-weight:900;line-height:1.25;margin-bottom:4px}
+  .bonus p{font-size:15.5px;color:var(--soft);line-height:1.45}
+  .bonus .val{display:inline-block;margin-top:7px;font-size:12.5px;font-weight:900;color:var(--bg);background:var(--gold);padding:3px 9px;border-radius:999px}
+  @media(max-width:390px){ .bonus{flex-direction:column} .bonus .thumb{flex-basis:auto} }
+
+  /* ══ COMPARATIVO VISUAL (3 painéis) ══ */
+  .compare{margin:22px 0 6px}
+  .compare .labels{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+  .compare .labels span{
+    font-size:12.5px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;
+    padding:7px 4px;border-radius:9px;line-height:1.2;display:flex;align-items:center;justify-content:center;
+  }
+  @media(max-width:420px){ .compare .labels span{font-size:11px;padding:6px 2px} }
+  .compare .l1{background:var(--panel);color:var(--soft);border:1px solid var(--line)}
+  .compare .l2{background:rgba(255,94,138,.16);color:var(--rose);border:1px solid rgba(255,94,138,.45)}
+  .compare .l3{background:rgba(59,255,125,.14);color:var(--neon);border:1px solid rgba(59,255,125,.45)}
+  .compare img{width:100%;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
+  .compare .brace{display:grid;grid-template-columns:1fr 2fr;margin-top:6px}
+  .compare .brace .bk{
+    height:11px;border-bottom:2px solid var(--line);
+    border-left:2px solid var(--line);border-right:2px solid var(--line);
+    border-radius:0 0 10px 10px;
+  }
+  .compare .brace .bt{
+    font-size:13.5px;font-weight:900;color:#8FA6C4;
+    text-transform:uppercase;letter-spacing:.8px;margin-top:7px;
+  }
+  .compare .cap{font-size:17px;color:var(--soft);line-height:1.45;margin-top:16px;text-align:left}
+  .compare .cap strong{color:var(--white);font-weight:800}
+
+  .excluded{border:1px dashed var(--line);border-radius:14px;padding:15px 16px;margin:20px 0;text-align:left}
+  .excluded h4{font-size:13.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#8FA6C4;margin-bottom:5px}
+  .excluded p{font-size:15.5px;color:var(--soft);line-height:1.5}
+
+  .cta{margin:26px 0 4px}
+  .arrows{font-size:34px;line-height:1;margin-bottom:2px;color:var(--alert);letter-spacing:22px;padding-left:22px}
+  .btn{
+    display:block;width:100%;
+    background:linear-gradient(180deg,#FFE24D 0%,var(--yellow) 55%,#F0C400 100%);
+    color:#1A1200;font-family:inherit;font-weight:900;font-size:22px;line-height:1.2;letter-spacing:.3px;
+    padding:20px 16px;border-radius:14px;border:0;text-align:center;text-decoration:none;cursor:pointer;
+    box-shadow:0 6px 0 var(--yellow-dk), 0 12px 26px rgba(0,0,0,.4);
+    text-transform:uppercase;transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--yellow-dk)}
+  @media(max-width:480px){ .btn{font-size:18.5px;padding:18px 12px} }
+  .btn-note{font-size:14.5px;color:var(--soft);margin-top:12px}
+
+  .cards{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:16px 0 4px}
+  .cards span{font-size:11.5px;font-weight:900;letter-spacing:.6px;background:#fff;color:#0A1F3D;padding:6px 10px;border-radius:5px}
+
+  .decline{display:block;margin-top:22px;font-size:15px;color:#8FA6C4;text-decoration:underline;line-height:1.4}
+
+  .guar{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:24px 20px;margin:28px 0 8px}
+  .seal{width:112px;height:112px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 50% 35%, #F6DE9A 0%, var(--gold) 45%, #A8802B 100%);border:4px solid #F3E2AE;color:#3A2A00;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+  .seal .n{font-size:38px;font-weight:900;line-height:1}
+  .seal .t{font-size:12.5px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase}
+  .guar h4{font-size:20px;font-weight:900;margin-bottom:8px}
+  .guar p{font-size:16px;color:var(--soft);line-height:1.5}
+
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(7,23,48,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .sticky .inner{max-width:600px;margin:0 auto}
+  .sticky .btn{font-size:17.5px;padding:16px 12px;box-shadow:0 4px 0 var(--yellow-dk)}
+
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+    body.js-reveal .rv{opacity:1!important;transform:none!important}
+  }
 </style>
 
 <!-- Microsoft Clarity -->
@@ -105,58 +200,220 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- ═══ SEÇÃO 1 — BARRA DE AVISO (topo) ═══ -->
-  <div class="alert-bar">
-    ¡Atención! ¡Si cierras esta página, te perderás el mayor descuento de la historia!
+<div class="progress"><span id="progressFill"></span></div>
+
+<div class="alertbar">ÚLTIMA PÁGINA — DESPUÉS DE ESTO VAS DIRECTO A TU ACCESO</div>
+
+<div class="wrap">
+
+  <div class="stop" role="img" aria-label="Alto">🛑</div>
+  <h1>«Eso lo veo<br><span class="hi">cuando adelgace.»</span></h1>
+  <p class="sub">Es lo que estás pensando. Y es justo.</p>
+
+  <p class="copy">Por eso quiero robarte <strong>30 segundos</strong>, y después te suelto.</p>
+
+  <!-- ═══ LINHA DO TEMPO ═══ -->
+  <div class="timing rv">
+    <h4>Por qué el momento lo decide todo</h4>
+    <div class="row">
+      <div class="when">Días<br>1–21</div>
+      <div class="what">La piel <strong>todavía se encoge contigo</strong>. Aquí es donde se adapta sola.</div>
+    </div>
+    <div class="row">
+      <div class="when">Día<br>30</div>
+      <div class="what">Ya perdiste los primeros kilos. La piel empieza a quedarse atrás.</div>
+    </div>
+    <div class="row bad">
+      <div class="when">Día<br>60+</div>
+      <div class="what">La piel ya se quedó donde estaba. <strong>Aquí ya no se adapta: se corrige.</strong></div>
+    </div>
   </div>
 
-  <!-- ═══ COLUNA CENTRAL ═══ -->
-  <div class="wrap">
+  <p class="copy">Ese es el problema. Cuando por fin veas la flacidez en el espejo, <span class="mark">ya pasó el momento en que se podía evitar</span>.</p>
 
-    <!-- ─── SEÇÃO 2 — CHAMADA DE ATENÇÃO ─── -->
-    <p class="attn">👇 ¡PRESTA ATENCIÓN AQUÍ! 👇</p>
+  <!-- ═══════════════════════════════════════════════════════════
+       COMPARATIVO VISUAL — imagem hospedada e servida
 
-    <!-- ─── SEÇÃO 3 — TEXTO DA OFERTA ─── -->
-    <p class="copy"><span class="red">¡Te voy a dar un bono que normalmente cuesta $27.00 DÓLARES!</span></p>
-    <p class="copy">Pero, ¿por qué hago esto?</p>
-    <p class="copy">Simplemente porque quiero ayudarte a deshacerte de la <span class="red">FLACIDEZ</span> de una vez por todas y convertirte en una mujer más segura, confiada y realizada con su cuerpo.</p>
-    <p class="copy">Por eso tendrás acceso a...</p>
+       Fica em /assets/ do proprio repo (mesma pasta do favicon).
+       NAO usa jsDelivr: o site ja e servido pelo proprio dominio
+       (GitHub Pages atras do Cloudflare), entao caminho relativo e
+       melhor — mesma origem, cache do CF, zero dependencia externa.
+       O Worker so intercepta /up1 /dw1 /up2 /dw2 /obg, logo
+       /assets/* passa direto pro Pages.
 
-    <div class="bonus">
-      <span class="tag">Bônus grátis</span>
-      <h3>GUÍA RECETAS LOWCARB</h3>
-      <img src="https://media.atomicatmedia.net/u/u5XZPfchdMXmjwzkoItHcCxYRCq1/Pictures/gAbhka6969910.webp" alt="Guía Recetas LowCarb" width="150" height="150">
-      <p>Su guía definitiva con más de 20 recetas LowCarbs para complementar aún más sus resultados dentro de nuestro programa, haciendo que su cuerpo esté más limpio y sano.</p>
-      <p style="color:var(--red);font-weight:700;margin-top:10px">Con la "GUÍA RECETAS LOWCARBS", estarás libre de impurezas en tu cuerpo, ¡con una piel más sana y joven!</p>
+       Original: 1536x1024 PNG, 2656 KB (no Drive,
+       .../GelatinApp/PAGINAS/3b285155-...png)
+       Servida:  1000x667 webp, 77 KB (ffmpeg, lanczos, q85)
+       width/height batem com o arquivo real -> sem CLS.
+
+       NAO alterar os rotulos. A ordem de leitura dos paineis 2 e 3
+       e o argumento da pagina: sao dois DESFECHOS da mesma perda de
+       peso, nao uma linha do tempo.
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="compare rv">
+    <div class="labels">
+      <span class="l1">Antes</span>
+      <span class="l2">Sin la loción</span>
+      <span class="l3">Con la loción</span>
     </div>
 
-    <!-- ─── SEÇÃO 5 — CHAMADA FINAL ─── -->
-    <p class="final"><strong>Haz clic en el botón de abajo</strong> para obtener el <strong>ANTI-DROWSINESS LOTION</strong> con <span class="red">50% de descuento</span> y obtén <span class="red">GRATIS</span> la <strong>GUÍA RECETAS LOWCARBS:</strong></p>
+    <img
+      src="/assets/comparativo-flacidez.webp"
+      alt="Comparación: antes de adelgazar, y los dos resultados posibles de la misma pérdida de peso"
+      width="1000" height="667" loading="lazy" decoding="async">
 
-    <div class="offer">
-      <!-- ▼▼▼ BOTÕES DIGISTORE ▼▼▼ -->
-      <div style="text-align:center">
-
-        <!-- 👉 SIM (aceitar a oferta) -->
-        <a href="https://www.checkout-ds24.com/answer/yes?template=light"
-           style="display:inline-block;background-color:#2ECC70;padding:12px 16px;cursor:pointer;color:#FFFFFF;font-weight:600;border-radius:4px;border:1px solid #2ECC70;font-size:20px;text-decoration:none;">¡SÍ, QUIERO APROVECHAR EL DESCUENTO!</a>
-
-        <!-- 👉 NÃO (recusar) -->
-        <a href="https://www.checkout-ds24.com/answer/no"
-           style="display:inline-block;margin-top:1rem;cursor:pointer;font-size:16px;text-decoration:underline;font-family:sans-serif;color:inherit;">No, gracias</a>
-
+    <div class="brace" aria-hidden="true">
+      <div></div>
+      <div>
+        <div class="bk"></div>
+        <p class="bt">Los mismos kilos perdidos</p>
       </div>
-      <!-- ▲▲▲ FIM BOTÕES DIGISTORE ▲▲▲ -->
     </div>
 
+    <p class="cap"><strong>La loción no repara piel flácida.</strong> La acompaña mientras se encoge, para que nunca llegue a colgar.</p>
   </div>
+
+
+  <p class="punch rv">Por eso no se empieza<br><span style="color:var(--yellow)">cuando aparece.</span></p>
+
+  <p class="copy">Dijiste que no a la prueba de 90 días. Lo entiendo — otra decisión pendiente en el calendario. Así que aquí no hay prueba.</p>
+
+  <div class="pricebox rv">
+    <p class="was">En la página anterior: <s>$37</s></p>
+    <p class="now-label">Hoy, pago único</p>
+    <p class="now">$19</p>
+    <p class="once">Una sola vez.</p>
+    <p class="never">Sin cobro dentro de 90 días.<br>Sin nada esperándote después.</p>
+  </div>
+
+  <p class="copy">Son <strong>4 ingredientes</strong> que probablemente ya tienes en la cocina. Los mezclas una vez y los aplicas donde estás perdiendo volumen. Dos minutos al día.</p>
+
+  <!-- 👉 TROCAR "Loción Piel Firme" pelo nome definitivo, aqui e no VSL do Upsell 02.
+       ATENCAO: o nome que fica na Digistore e o que o comprador ve na fatura.
+       Hoje o produto do Up2/Dw2 se chama "Anti-drowsiness Lotion" (anti-sonolencia),
+       que nao tem relacao com flacidez — heranca de outra oferta. Se o nome do
+       produto nao bater com a pagina, o comprador nao reconhece a cobranca.
+       Foi exatamente esse o bug do descritor "Kiwify" na pagina de obrigado. -->
+
+  <p class="stack-head rv">Y te llevas estos dos:</p>
+
+  <div class="bonus rv">
+    <!-- 👉 mockup real -->
+    <div class="thumb">🪞</div>
+    <div>
+      <h3>Protocolo Piel Ya Flácida</h3>
+      <p>Para la flacidez que <strong>ya tienes</strong> — de embarazos, de dietas anteriores, de los años. No solo la que viene: la del espejo de hoy.</p>
+      <span class="val">Valor $47</span>
+    </div>
+  </div>
+
+  <div class="bonus rv">
+    <!-- 👉 mockup real -->
+    <div class="thumb">🛒</div>
+    <div>
+      <h3>Lista de Compras Exacta</h3>
+      <p>Los 4 ingredientes con marca y pasillo. Lo imprimes, lo llevas al súper, sales en diez minutos. Sin buscar nada en internet.</p>
+      <span class="val">Valor $27</span>
+    </div>
+  </div>
+
+  <div class="excluded rv">
+    <h4>Para ser justos</h4>
+    <p>Esta versión <strong>no incluye la Guía Firm Fit</strong> de Sarah Miller. Esa queda solo para quienes entraron al paquete VIP completo.</p>
+  </div>
+
+  <div class="cta rv">
+    <p class="punch" style="margin:18px 0 10px">Tu cuerpo va a cambiar en las próximas semanas.<br>Esto decide cómo se ve cuando termine.</p>
+
+    <div class="arrows" aria-hidden="true">⬇⬇⬇</div>
+
+    <!-- 👉 SIM (aceitar) — o digistore.js reescreve pra /answer/<session_id>/yes
+         SEM payplan: a query string sobrevive a reescrita e vira plano de cobranca. -->
+    <a class="btn" href="https://www.checkout-ds24.com/answer/yes?template=light">
+      Sí, la quiero por $19
+    </a>
+    <p class="btn-note">Un solo clic. No vuelves a poner tu tarjeta.</p>
+
+    <div class="cards" aria-label="Métodos de pago">
+      <span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>DISCOVER</span>
+    </div>
+
+    <!-- 👉 NÃO (recusar) — precisa existir: se a pagina tiver "yes" e nenhum "no",
+         o proprio digistore.js injeta um iframe flutuante de recusa por cima. -->
+    <a class="decline" href="https://www.checkout-ds24.com/answer/no">No, aunque sé que no tendré otra oportunidad.</a>
+  </div>
+
+  <div class="guar rv">
+    <div class="seal"><span class="n">30</span><span class="t">Días</span></div>
+    <h4>30 días para arrepentirte</h4>
+    <p>Si sientes que no era para ti, escribes una línea a nuestro correo y te devolvemos los $19 completos. Te quedas con los dos bonos igual.</p>
+  </div>
+
+</div>
+
+<!-- ═══ BARRA FIXA ═══
+     Tambem e reescrita pelo digistore.js: no DOM ready ele varre TODOS os <a>
+     da pagina (o atributo hidden nao tira do DOM), e ainda ha o fallback do
+     mousedown em capture. Os dois botoes levam o mesmo session id. -->
+<div class="sticky" id="stickyBar" hidden>
+  <div class="inner">
+    <a class="btn" href="https://www.checkout-ds24.com/answer/yes?template=light">Sí, la quiero por $19</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var fill = document.getElementById('progressFill');
+  function progress(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = h > 0 ? (window.pageYOffset / h) * 100 : 100;
+    fill.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  }
+
+  var bar = document.getElementById('stickyBar');
+  var anchor = document.querySelector('.pricebox');
+  var mainBtn = document.querySelector('.cta .btn');
+  function sticky(){
+    if(!bar || !anchor) return;
+    var passed = anchor.getBoundingClientRect().bottom < 0;
+    var vis = false;
+    if(mainBtn){
+      var r = mainBtn.getBoundingClientRect();
+      vis = r.top < (window.innerHeight - 30) && r.bottom > 0;
+    }
+    bar.hidden = !(passed && !vis);
+  }
+
+  window.addEventListener('scroll', function(){ progress(); sticky(); }, {passive:true});
+  window.addEventListener('resize', progress, {passive:true});
+  progress(); sticky();
+
+  var blocks = document.querySelectorAll('.rv');
+  if(reduce || !('IntersectionObserver' in window)){
+    for(var i=0;i<blocks.length;i++) blocks[i].classList.add('on');
+    return;
+  }
+  document.body.classList.add('js-reveal');
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -10% 0px', threshold:0.05});
+  for(var j=0;j<blocks.length;j++) io.observe(blocks[j]);
+
+  setTimeout(function(){ for(var k=0;k<blocks.length;k++) blocks[k].classList.add('on'); }, 3000);
+})();
+</script>
 
 <!-- UTMify — apenas o propagador de UTM.
      O pixel.js foi REMOVIDO: ele cancela o clique (preventDefault) e delega
      pro onclick que o digistore.js instala nos links /answer/*/yes, chamando-o
      SEM o evento -> o handler estoura e a navegacao nunca acontece.
      Sintoma: botao "Si" exigia varios cliques. As whites (sem pixel) sempre
-     funcionaram de primeira - foi o experimento que confirmou a causa. -->
+     funcionaram de primeira - foi o experimento que confirmou a causa.
+     Confirmado no codigo do digistore.js: o handler e
+       t.onclick = function(e){ E(e.currentTarget.href); e.preventDefault() }
+     -> chamado sem evento, e.currentTarget e undefined e estoura. -->
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
   data-utmify-prevent-xcod-sck
