@@ -145,15 +145,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </div>
 
-<!-- UTMify (rodapé — igual à config da Atomicat) -->
-<script>
-  window.pixelId = "6a2dc2d082a16462e33bd463";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-  document.head.appendChild(a);
-</script>
+<!-- UTMify — apenas o propagador de UTM.
+     O pixel.js foi REMOVIDO: ele cancela o clique (preventDefault) e delega
+     pro onclick que o digistore.js instala nos links /answer/*/yes, chamando-o
+     SEM o evento -> o handler estoura e a navegacao nunca acontece.
+     Sintoma: botao "Si" exigia varios cliques. As whites (sem pixel) sempre
+     funcionaram de primeira - foi o experimento que confirmou a causa. -->
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
   data-utmify-prevent-xcod-sck
