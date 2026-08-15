@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>LAB — teste de rastreamento</title>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗
+     ║  PÁGINA DE TESTE — não faz parte do funil, ninguém chega aqui     ║
+     ║                                                                  ║
+     ║  Reproduz o ambiente da cnn-vsl (mesmos scripts de tracking) e    ║
+     ║  mostra AO VIVO o que eles fazem com o href dos botões.           ║
+     ║  Serve para comparar, lado a lado, o destino atual (checkout      ║
+     ║  direto) com o novo (/go), com e sem adblock.                     ║
+     ║                                                                  ║
+     ║  O botão libera em 5s em vez dos 45min da VSL real.               ║
+     ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<style>
+  :root{
+    --bg:#0E1116; --card:#161A21; --line:#262C36;
+    --ink:#E7EAEF; --dim:#8B95A2;
+    --ok:#5FBE8A; --bad:#E8695F; --warn:#E89440; --blue:#5B9BD5;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+       padding:16px;max-width:820px;margin:0 auto}
+  h1{font-size:19px;margin:0 0 4px}
+  .sub{color:var(--dim);font-size:13px;margin:0 0 20px}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+        padding:14px 16px;margin-bottom:14px}
+  .card h2{font:600 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.12em;
+           color:var(--dim);margin:0 0 12px}
+
+  .row{display:flex;gap:10px;align-items:baseline;padding:6px 0;
+       border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px}
+  .row:last-child{border-bottom:0}
+  .k{color:var(--dim);flex:0 0 130px;word-break:break-all}
+  .v{flex:1;word-break:break-all}
+  .miss{color:var(--bad)}
+  .yes{color:var(--ok)}
+
+  .pill{display:inline-block;font:600 10.5px/1 var(--mono);text-transform:uppercase;
+        letter-spacing:.08em;padding:4px 9px;border-radius:20px;margin-right:6px}
+  .p-ok{background:rgba(95,190,138,.15);color:var(--ok)}
+  .p-bad{background:rgba(232,105,95,.15);color:var(--bad)}
+
+  pre{font-family:var(--mono);font-size:11.5px;line-height:1.5;background:#0B0E12;
+      border:1px solid var(--line);border-radius:7px;padding:11px;margin:8px 0 0;
+      overflow-x:auto;white-space:pre-wrap;word-break:break-all;color:var(--blue)}
+
+  .btn{display:block;text-align:center;text-decoration:none;font-weight:700;
+       padding:15px;border-radius:9px;margin-bottom:9px;font-size:15px}
+  .btn-a{background:#2E9601;color:#fff}
+  .btn-b{background:#1E6FD9;color:#fff}
+  .hide{display:none}
+  #wait{color:var(--warn);font-family:var(--mono);font-size:13px;text-align:center;padding:14px}
+
+  .note{color:var(--dim);font-size:12.5px;margin:10px 0 0}
+  button.copy{background:none;border:1px solid var(--line);color:var(--dim);
+              font:11px var(--mono);padding:5px 10px;border-radius:6px;cursor:pointer;margin-top:8px}
+</style>
+</head>
+<body>
+
+<h1>LAB — teste de rastreamento</h1>
+<p class="sub">Mesmo ambiente da VSL. Mostra o que os scripts fazem com o botão, ao vivo.</p>
+
+<!-- ═══ 1. o que chegou na URL ═══ -->
+<div class="card">
+  <h2>1 · Parâmetros que chegaram nesta página</h2>
+  <div id="params"></div>
+  <p class="note" id="params-note"></p>
+</div>
+
+<!-- ═══ 2. scripts ═══ -->
+<div class="card">
+  <h2>2 · Scripts de rastreamento</h2>
+  <div id="scripts"></div>
+  <p class="note">Se algum aparecer BLOQUEADO, é o adblock agindo — é essa a situação de ~57% dos compradores.</p>
+</div>
+
+<!-- ═══ 3. botões ═══ -->
+<div class="card">
+  <h2>3 · Destino dos botões</h2>
+  <div id="wait">liberando em <span id="cd">5</span>s…</div>
+
+  <div id="botoes" class="hide">
+    <a id="btnA" class="btn btn-a"
+       href="https://www.checkout-ds24.com/product/705969?custom=GLAP&src=ML+SV">
+      A — como está hoje (checkout direto)
+    </a>
+    <a id="btnB" class="btn btn-b"
+       href="https://salud24h.online/go?custom=GLAP&src=ML+SV">
+      B — pelo /go (novo)
+    </a>
+  </div>
+
+  <p class="note">Botão A: <span id="lblA">—</span></p>
+  <pre id="hrefA">—</pre>
+  <p class="note">Botão B: <span id="lblB">—</span></p>
+  <pre id="hrefB">—</pre>
+  <button class="copy" onclick="copiar()">Copiar diagnóstico</button>
+</div>
+
+<!-- ═══ 4. veredito ═══ -->
+<div class="card">
+  <h2>4 · Leitura</h2>
+  <div id="veredito"></div>
+</div>
+
+<!-- ══════════ TRACKING — idêntico ao da cnn-vsl ══════════ -->
+<script>
+  window.pixelId = "6a2dc2d082a16462e33bd463";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+<!-- ══════════ DIAGNÓSTICO ══════════ -->
+<script>
+(function(){
+  var CHAVES = ['utm_source','utm_campaign','utm_medium','utm_content','utm_term','fbclid','custom','src'];
+  var qs = new URLSearchParams(location.search);
+  var el = function(id){ return document.getElementById(id); };
+
+  // ── 1. parâmetros da URL ──
+  var achou = 0;
+  el('params').innerHTML = CHAVES.map(function(k){
+    var v = qs.get(k);
+    if (v) achou++;
+    return '<div class="row"><span class="k">'+k+'</span><span class="v '+(v?'yes':'miss')+'">'
+         + (v ? v : '— ausente —') + '</span></div>';
+  }).join('');
+  el('params-note').textContent = achou
+    ? achou + ' de ' + CHAVES.length + ' presentes.'
+    : 'Nenhum parâmetro. Abra esta página com a URL de teste completa.';
+
+  // ── 2. scripts carregaram? ──
+  function checa(nome, url, cb){
+    fetch(url, {method:'HEAD', mode:'no-cors'})
+      .then(function(){ cb(true); })
+      .catch(function(){ cb(false); });
+  }
+  var alvos = [
+    ['utms/latest.js (propaga UTM)', 'https://cdn.utmify.com.br/scripts/utms/latest.js'],
+    ['pixel.js (dispara IC)',        'https://cdn.utmify.com.br/scripts/pixel/pixel.js'],
+    ['graph.facebook.com',           'https://connect.facebook.net/en_US/fbevents.js']
+  ];
+  var bloqueados = 0;
+  el('scripts').innerHTML = alvos.map(function(t,i){
+    return '<div class="row" id="s'+i+'"><span class="k">'+t[0]+'</span><span class="v">testando…</span></div>';
+  }).join('');
+  alvos.forEach(function(t,i){
+    checa(t[0], t[1], function(ok){
+      if(!ok) bloqueados++;
+      var r = el('s'+i);
+      r.querySelector('.v').innerHTML = ok
+        ? '<span class="pill p-ok">carregou</span>'
+        : '<span class="pill p-bad">bloqueado</span>';
+    });
+  });
+
+  // ── 3. botões: mostra o href ao vivo ──
+  var origA = el('btnA').getAttribute('href');
+  var origB = el('btnB').getAttribute('href');
+
+  function pinta(){
+    ['A','B'].forEach(function(x){
+      var href = el('btn'+x).getAttribute('href');
+      var orig = (x === 'A') ? origA : origB;
+      el('href'+x).textContent = href;
+      var mudou = href !== orig;
+      var temContent = href.indexOf('utm_content') !== -1;
+      el('lbl'+x).innerHTML = mudou
+        ? (temContent ? '<span class="pill p-ok">scripts colaram os UTMs</span>'
+                      : '<span class="pill p-bad">mexido, mas SEM utm_content</span>')
+        : '<span class="pill p-bad">intacto — nenhum script mexeu</span>';
+    });
+    veredito();
+  }
+
+  function veredito(){
+    var hrefA = el('btnA').getAttribute('href');
+    var temNoA = hrefA.indexOf('utm_content') !== -1;
+    var temNaURL = !!qs.get('utm_content');
+    var txt;
+
+    if (!temNaURL) {
+      txt = '<span class="pill p-bad">sem marcador</span> Abra esta página com <code>utm_content</code> na URL.';
+    } else if (temNoA) {
+      txt = '<span class="pill p-ok">adblock inativo</span> Os scripts rodaram e colaram o criativo no botão A. '
+          + 'Hoje a atribuição funciona neste cenário. Repita com o bloqueador LIGADO.';
+    } else {
+      txt = '<span class="pill p-bad">criativo perdido</span> O botão A ficou sem <code>utm_content</code>: '
+          + 'a venda chegaria na Digistore sem saber de qual anúncio veio — e ela reusaria um clique antigo, '
+          + 'creditando o criativo errado.<br><br>'
+          + 'O botão B não depende disso: o Worker lê o criativo do Referer, que o Meta preenche e nenhum '
+          + 'bloqueador alcança. <strong>É a diferença que a mudança faz.</strong>';
+    }
+    el('veredito').innerHTML = txt;
+  }
+
+  // os scripts da UTMify são async: observa por 6s
+  var n = 0, iv = setInterval(function(){ pinta(); if(++n > 24) clearInterval(iv); }, 250);
+  pinta();
+
+  // ── contagem de 5s ──
+  var s = 5;
+  var cd = setInterval(function(){
+    s--; el('cd').textContent = s;
+    if (s <= 0){ clearInterval(cd); el('wait').classList.add('hide'); el('botoes').classList.remove('hide'); }
+  }, 1000);
+
+  // ── copiar diagnóstico ──
+  window.copiar = function(){
+    var t = 'URL: ' + location.href
+      + '\n\nBOTAO A: ' + el('btnA').getAttribute('href')
+      + '\nBOTAO B: ' + el('btnB').getAttribute('href')
+      + '\n\nUA: ' + navigator.userAgent;
+    navigator.clipboard.writeText(t).then(function(){ alert('copiado'); });
+  };
+})();
+</script>
+
+</body>
+</html>
