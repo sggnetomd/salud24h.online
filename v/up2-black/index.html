@@ -181,12 +181,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<!-- UTMify — apenas o propagador de UTM.
-     O pixel.js foi REMOVIDO: ele cancela o clique (preventDefault) e delega
-     pro onclick que o digistore.js instala nos links /answer/*/yes, chamando-o
-     SEM o evento -> o handler estoura e a navegacao nunca acontece.
-     Sintoma: botao "Si" exigia varios cliques. As whites (sem pixel) sempre
-     funcionaram de primeira - foi o experimento que confirmou a causa. -->
+<!-- UTMify — pixel + propagador de UTM.
+     RESTAURADO em 2026-08-14. O pixel envia ao Facebook o Purchase dos upsells
+     (le upsell_N_amount na URL do passo seguinte). Sem ele, o Meta so via a
+     venda principal, subestimava o valor do cliente e encarecia o leilao.
+
+     ⚠️ SO E SEGURO PORQUE a Regra de IC do UTMify foi trocada de "ds24.com"
+     para "ds24.com/product". O pixel intercepta cliques em links que casam com
+     essa regra; os botoes daqui sao .../answer/<sid>/yes e NAO casam mais.
+     Se alguem voltar a regra para "ds24.com", o pixel volta a sequestrar o
+     clique (preventDefault + delega o onclick do digistore.js sem o evento ->
+     e.currentTarget undefined -> a navegacao morre) e o botao "Si" volta a
+     exigir varios cliques. Verificado no fonte do pixel.js: isCheckoutLink()
+     faz return no icURLMatch e nem consulta a lista interna de palavras-chave.
+-->
+<script>
+  window.pixelId = "6a2dc2d082a16462e33bd463";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+
 <script
   src="https://cdn.utmify.com.br/scripts/utms/latest.js"
   data-utmify-prevent-xcod-sck
