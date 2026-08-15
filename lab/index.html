@@ -153,7 +153,11 @@
     ['utms/latest.js', 'https://cdn.utmify.com.br/scripts/utms/latest.js'],
     ['pixel.js',       'https://cdn.utmify.com.br/scripts/pixel/pixel.js'],
     ['VTurb (player)', 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js'],
-    ['Facebook',       'https://connect.facebook.net/en_US/fbevents.js']
+    ['Facebook',       'https://connect.facebook.net/en_US/fbevents.js'],
+    // O pixel do UTMify chama o ipify para descobrir o IPv6 do visitante.
+    // Se este domínio cair, o Tracker não inicializa mesmo com o script carregado
+    // — visto no console: "error on getIPv6" seguido de "Tracker.inited?: false".
+    ['ipify (IP do visitante)', 'https://api6.ipify.org/?format=json']
   ];
   el('scripts').innerHTML = alvos.map(function(t,i){
     return '<div class="row" id="s'+i+'"><span class="k">'+t[0]+'</span><span class="v">testando…</span></div>';
@@ -175,24 +179,12 @@
   var SEL = '.smartplayer-anchor-button, .callaction, vturb-smartplayer a[href]';
   var btn = null, hrefFabrica = null;
 
-  // O href REAL de fábrica vem da config do player, não do DOM.
-  // Capturar do DOM não serve: o utms/latest.js é async e costuma alterar o
-  // href ANTES de o botão aparecer (o delay do CTA dá tempo de sobra pra isso).
-  // Comparar o DOM com ele mesmo mostrava "href de fábrica" mesmo já alterado.
+  // Não dá para ler a config do player: a CDN do VTurb não envia
+  // Access-Control-Allow-Origin, então fetch de outro domínio é barrado por
+  // CORS (tentei; só gerava erro no console). O href de fábrica fica sendo o
+  // primeiro que vemos no DOM — com a ressalva de que o utms/latest.js é async
+  // e pode ter alterado antes, então o rótulo abaixo é explícito sobre isso.
   var hrefConfig = null;
-  (function(){
-    var sp = document.querySelector('vturb-smartplayer');
-    if (!sp) return;
-    var id = (sp.id || '').replace(/^vid-/, '');
-    if (!id) return;
-    fetch('https://scripts.converteai.net/65eee9f4-ec2d-46b0-a2b3-9b1ecf0653c2/players/' + id + '/v4/player.js')
-      .then(function(r){ return r.text(); })
-      .then(function(t){
-        var m = t.match(/"url"\s*:\s*"([^"]+)"/);
-        if (m) { hrefConfig = m[1].replace(/\\u002F/g, '/'); pinta(); }
-      })
-      .catch(function(){ /* bloqueado ou fora: segue sem */ });
-  })();
 
   function acharBotao(){
     var b = document.querySelector(SEL);
