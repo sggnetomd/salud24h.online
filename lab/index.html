@@ -154,10 +154,12 @@
     ['pixel.js',       'https://cdn.utmify.com.br/scripts/pixel/pixel.js'],
     ['VTurb (player)', 'https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js'],
     ['Facebook',       'https://connect.facebook.net/en_US/fbevents.js'],
-    // O pixel do UTMify chama o ipify para descobrir o IPv6 do visitante.
-    // Se este domínio cair, o Tracker não inicializa mesmo com o script carregado
-    // — visto no console: "error on getIPv6" seguido de "Tracker.inited?: false".
-    ['ipify (IP do visitante)', 'https://api6.ipify.org/?format=json']
+    // O pixel do UTMify chama api6.ipify.org para descobrir o IPv6 do visitante.
+    // ATENÇÃO ao ler: api6 é endpoint SÓ de IPv6 — em rede sem IPv6 (a maioria
+    // das domésticas no Brasil) ele nunca resolve, e "error on getIPv6" no
+    // console é ESPERADO, não é bloqueio. Fica aqui só para não confundir isso
+    // com adblock quando aparecer no console.
+    ['ipify IPv6 (falha é normal)', 'https://api6.ipify.org/?format=json']
   ];
   el('scripts').innerHTML = alvos.map(function(t,i){
     return '<div class="row" id="s'+i+'"><span class="k">'+t[0]+'</span><span class="v">testando…</span></div>';
