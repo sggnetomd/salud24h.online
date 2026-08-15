@@ -175,6 +175,25 @@
   var SEL = '.smartplayer-anchor-button, .callaction, vturb-smartplayer a[href]';
   var btn = null, hrefFabrica = null;
 
+  // O href REAL de fábrica vem da config do player, não do DOM.
+  // Capturar do DOM não serve: o utms/latest.js é async e costuma alterar o
+  // href ANTES de o botão aparecer (o delay do CTA dá tempo de sobra pra isso).
+  // Comparar o DOM com ele mesmo mostrava "href de fábrica" mesmo já alterado.
+  var hrefConfig = null;
+  (function(){
+    var sp = document.querySelector('vturb-smartplayer');
+    if (!sp) return;
+    var id = (sp.id || '').replace(/^vid-/, '');
+    if (!id) return;
+    fetch('https://scripts.converteai.net/65eee9f4-ec2d-46b0-a2b3-9b1ecf0653c2/players/' + id + '/v4/player.js')
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        var m = t.match(/"url"\s*:\s*"([^"]+)"/);
+        if (m) { hrefConfig = m[1].replace(/\\u002F/g, '/'); pinta(); }
+      })
+      .catch(function(){ /* bloqueado ou fora: segue sem */ });
+  })();
+
   function acharBotao(){
     var b = document.querySelector(SEL);
     if (b && !btn){
@@ -193,19 +212,30 @@
     var atual = btn.getAttribute('href') || '';
     el('vt-href').textContent = atual;
 
-    var mudou = atual !== hrefFabrica;
+    // compara com a CONFIG do player (verdade), não com o DOM
+    var base = hrefConfig || hrefFabrica;
+    var mudou = base ? (atual !== base) : null;
     var temContent = atual.indexOf('utm_content') !== -1;
     var temOnclick = typeof btn.onclick === 'function';
+
+    // o UTMify gruda o fbclid no utm_content com "::" (CLICK_ID_SEPARATOR).
+    // Sinalizar isso deixa claro que o valor no botão não é o do anúncio.
+    var mut = /utm_content=[^&]*(%3A%3A|::)/.test(atual);
 
     el('vt-status').innerHTML =
       (temContent ? '<span class="pill p-ok">com utm_content</span>'
                   : '<span class="pill p-bad">SEM utm_content</span>')
-    + (mudou ? '<span class="pill p-ok">script alterou</span>'
-             : '<span class="pill p-warn">href de fábrica</span>')
-    + (temOnclick ? '<span class="pill p-warn">alguém pôs onclick</span>' : '');
+    + (mudou === null ? '<span class="pill p-warn">config não lida</span>'
+       : mudou ? '<span class="pill p-ok">script alterou</span>'
+               : '<span class="pill p-bad">script NÃO tocou</span>')
+    + (mut ? '<span class="pill p-warn">fbclid grudado no utm_content</span>' : '')
+    + (temOnclick ? '<span class="pill p-warn">onclick instalado</span>' : '');
 
-    el('vt-nota').innerHTML = 'Href de fábrica (como o VTurb entregou):<br><code style="font-size:11px;color:#8B95A2">'
-      + (hrefFabrica || '—') + '</code>';
+    el('vt-nota').innerHTML =
+      (hrefConfig
+        ? 'Href configurado no VTurb (a verdade, lida da config do player):'
+        : 'Config do player não pôde ser lida — mostrando o primeiro href visto no DOM, que pode já estar alterado:')
+      + '<br><code style="font-size:11px;color:#8B95A2">' + (base || '—') + '</code>';
 
     // link de comparação: mesmo destino, mas via /go
     try {
