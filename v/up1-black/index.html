@@ -25,6 +25,52 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <script src="https://www.digistore24-scripts.com/service/digistore.js"></script>
 <script>digistoreUpsell()</script>
 
+<!-- ── BACK-REDIRECT — o Voltar segue o mesmo caminho do "No, gracias" ──
+     Modelado do funil concorrente frances (KashPay), com duas mudancas que a
+     Digistore exige e que a versao dele NAO tem:
+
+     1. DESTINO. Ele redireciona para a URL da proxima pagina. Aqui isso
+        QUEBRARIA: nao existe link para /dw1 nesta pagina — quem decide o proximo
+        passo e a Digistore, via /answer/<sessao>/no. Pular direto para /dw1
+        deixaria a sessao parada no up1 e o answer/yes do dw1 resolveria errado.
+        Por isso lemos o href do proprio botao de recusa.
+
+     2. O href JA VEM PRONTO. O digistore.js reescreve `answer/no` para
+        `answer/<sessao>/no` no load (funcao L do bundle, casa /answer/(yes|no)).
+        Lendo o href em vez de montar a URL, nao ha como errar o formato.
+        Medido: sessao v3_SESSAO_REAL_123 -> answer/v3_SESSAO_REAL_123/no.
+
+     Falha segura: sem sessao ou sem o botao, NAO redireciona — o Voltar volta a
+     funcionar normalmente. Melhor perder o back-redirect que prender o comprador
+     numa pagina que nao vende.
+
+     location.replace (nao href): nao passa pelo interceptor de clique da UTMify,
+     entao imune a regra de IC descrita mais abaixo. -->
+<script>
+(function () {
+  var redirecionado = false;
+  function destinoDoNao() {
+    var a = document.querySelector('a[href*="/answer/"][href*="/no"]')
+         || document.querySelector('a[href$="/answer/no"]');
+    if (a) {
+      var href = a.getAttribute("href");
+      if (/\/answer\/[^/]+\/no/.test(href)) return href;   // ja injetado
+    }
+    var s = window.DS24_UPSELL_SESSION_ID;
+    return s ? "https://www.checkout-ds24.com/answer/" + s + "/no" : null;
+  }
+  history.pushState({ br: 1 }, "", location.href);
+  history.pushState({ br: 1 }, "", location.href);
+  window.addEventListener("popstate", function () {
+    if (redirecionado) return;
+    var destino = destinoDoNao();
+    if (!destino) return;
+    redirecionado = true;
+    location.replace(destino);
+  });
+})();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
