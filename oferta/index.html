@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Espera — tu descuento sigue disponible</title>
+
+<!-- ===========================================================================
+     PAGINA DE OFERTA DO BACKREDIRECT — Gelatin / GLAP
+     No ar em: https://susalud24h.site/oferta/
+
+     Recebe quem SAI DO CHECKOUT da Digistore sem comprar. Esse publico ja viu a
+     VSL, clicou em comprar e abriu o formulario — e hoje nao recebe nada se
+     desistir antes de digitar o e-mail, porque o webhook de abandono da
+     Digistore so dispara depois disso.
+
+     O QUE FOI DELIBERADAMENTE *NAO* COPIADO DO SWIPE FRANCES:
+      · nome de pessoa real em depoimento (la usam uma apresentadora de TV e um
+        nutricionista conhecido) — na Franca isso e uso indevido de imagem, e
+        aqui seria a Digistore derrubando o produto;
+      · alegacao medica ("Harvard confirma", "7x mais que Mounjaro", "impossivel
+        reganhar peso") — e o que reprova produto no gateway;
+      · contador que RESETA sozinho ao chegar a zero (o do swipe faz isso).
+        O daqui expira de verdade: quando zera, o desconto sai do botao.
+     =========================================================================== -->
+
+<style>
+  :root{
+    --rosa:#e91e63; --rosa-esc:#c2185b; --laranja:#ff6b35;
+    --verde:#0e9f6e; --verde-claro:#f1f7f4;
+    --texto:#1b2b23; --cinza:#6b7280;
+    --sombra:0 10px 30px rgba(233,30,99,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+       background:#f7f7fb;color:var(--texto);line-height:1.55;overflow-x:hidden}
+  .wrap{max-width:640px;margin:0 auto;padding:0 18px}
+  img{max-width:100%;display:block}
+
+  .barra{position:sticky;top:0;z-index:99;background:linear-gradient(90deg,var(--rosa-esc),var(--rosa));
+         color:#fff;text-align:center;padding:11px 12px;font-weight:700;font-size:14px}
+  .barra .relogio{display:inline-block;background:rgba(0,0,0,.22);padding:3px 10px;
+                  border-radius:8px;margin-left:6px;font-variant-numeric:tabular-nums}
+
+  .topo{background:linear-gradient(135deg,var(--rosa) 0%,var(--laranja) 100%);
+        color:#fff;padding:38px 0 34px;text-align:center}
+  .selo{display:inline-block;background:#fff;color:var(--rosa-esc);font-size:13px;font-weight:800;
+        padding:7px 16px;border-radius:999px;margin-bottom:16px;letter-spacing:.4px}
+  .topo h1{font-size:27px;font-weight:800;line-height:1.28}
+  .topo p{margin-top:14px;font-size:17px;opacity:.96}
+
+  .cartao{background:#fff;border-radius:18px;padding:26px 24px;margin-top:-26px;
+          position:relative;z-index:2;box-shadow:var(--sombra)}
+  section{padding:26px 0}
+  h2{font-size:21px;font-weight:800;margin-bottom:14px}
+
+  .lista{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:8px}
+  .lista li{display:flex;gap:11px;align-items:flex-start;font-size:16px}
+  .lista .v{flex-shrink:0;width:23px;height:23px;background:var(--verde);color:#fff;
+            border-radius:50%;display:flex;align-items:center;justify-content:center;
+            font-size:13px;font-weight:800}
+
+  .preco{text-align:center;background:#fff;border-radius:18px;padding:28px 22px;
+         box-shadow:var(--sombra)}
+  .antes{font-size:17px;color:var(--cinza)}
+  .antes s{color:var(--rosa);font-weight:700}
+  .agora{font-size:54px;font-weight:800;color:var(--rosa);margin:6px 0;line-height:1}
+  .economiza{display:inline-block;background:#fff0f5;color:var(--rosa-esc);font-weight:700;
+             padding:7px 15px;border-radius:10px;font-size:15px;margin-bottom:6px}
+
+  .btn{display:block;width:100%;max-width:460px;margin:20px auto 0;
+       background:linear-gradient(180deg,#20c997,var(--verde));color:#fff;text-align:center;
+       font-size:20px;font-weight:800;padding:19px 20px;border:none;border-radius:14px;
+       box-shadow:0 8px 0 #0a7d55,0 14px 26px rgba(14,159,110,.3);
+       cursor:pointer;text-decoration:none}
+  .btn:active{transform:translateY(5px);box-shadow:0 3px 0 #0a7d55}
+  .btn-sub{text-align:center;font-size:13px;color:var(--cinza);margin-top:10px}
+
+  .pago{background:#f4f7ff;border-radius:12px;padding:14px 16px;font-size:15px;margin-top:18px}
+  .garantia{background:var(--verde-claro);border:2px solid #cdeadd;border-radius:18px;
+            padding:26px 22px;text-align:center}
+  .garantia .n{font-size:38px;font-weight:800;color:var(--verde);line-height:1}
+  .garantia h2{color:var(--verde);margin:8px 0 10px}
+
+  .faq{background:#fff;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.05);margin-bottom:10px;overflow:hidden}
+  .faq summary{padding:16px 18px;font-weight:700;font-size:16px;cursor:pointer;list-style:none;
+               display:flex;justify-content:space-between;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"▾";color:var(--rosa);transition:transform .2s}
+  .faq[open] summary::after{transform:rotate(180deg)}
+  .faq .r{padding:0 18px 16px;font-size:15px;color:#555}
+
+  footer{text-align:center;padding:26px 18px 44px;font-size:12px;color:#9aa3a0}
+
+  /* ── Estado depois que o contador zera ────────────────────────────────────
+     O desconto acaba DE VERDADE: o preco vira $27 e o botao perde o cupom.
+     Mas a pagina nao pode virar um beco. O header inteiro troca, porque o texto
+     de cima ("Te guardamos $10 de descuento") passa a mentir na tela no exato
+     momento em que os $10 saem do botao — e nada destroi mais a credibilidade
+     da garantia de 90 dias do que uma promessa visivelmente vencida logo acima
+     dela. A urgencia continua; o que muda e o eixo: sai o preco, entra a
+     decisao, que e a unica coisa que ainda esta realmente correndo. */
+  body.expirado .barra{background:linear-gradient(90deg,#0a7d55,var(--verde))}
+  body.expirado .economiza,body.expirado .antes{display:none}
+  body.expirado .agora{color:var(--texto);font-size:44px}
+  body.expirado .topo{background:linear-gradient(135deg,#0e9f6e 0%,#12b981 100%)}
+  body.expirado .topo .selo{color:#0a7d55}
+  /* troca o conteudo do header sem recarregar nada */
+  .so-expirado{display:none}
+  body.expirado .so-expirado{display:block}
+  body.expirado .so-vigente{display:none}
+  @media(max-width:480px){.topo h1{font-size:23px}.agora{font-size:44px}}
+
+  /* ==========================================================================
+     TELA 1 — REVELACAO DO PRECO  (mesclado do swipe FR "Vinagre de Maca" #2)
+     --------------------------------------------------------------------------
+     O que veio de la: fundo escuro com estrelas feitas so de radial-gradient
+     (zero imagem, zero requisicao), a maquina de rolos com brilho pulsante, o
+     flash ao parar, o fadeInUp da mensagem e o CTA com onda de box-shadow.
+     A mecanica de duas telas tambem: a oferta so aparece depois da revelacao,
+     e isso e um micro-compromisso — quem apertou o botao ja participou.
+
+     O CONVITE E LUDICO ("prueba tu suerte"), o RESULTADO E FIXO em $17 — decisao
+     do dono da operacao, tomada com o trade-off na mesa. O que continua fora,
+     de proposito, e a AFIRMACAO de que houve sorteio: nada aqui diz "BINGO",
+     "ganhaste" ou "premio", que e o que o swipe frances faz. Convidar a girar e
+     brincadeira que todo mundo entende; afirmar que ela teve sorte, quando o
+     resultado e sempre o mesmo, e a frase que um F5 desmente — e que levaria
+     junto a credibilidade do preco e da garantia de 90 dias.
+     ========================================================================== */
+  #tela-slot{
+    position:fixed;inset:0;z-index:1000;
+    background:radial-gradient(ellipse at center,#2a1040 0%,#0d0018 100%);
+    color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:32px 20px;text-align:center;
+  }
+  /* estrelas: dez pontinhos em gradiente, sem imagem nenhuma */
+  #tela-slot::before{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%,rgba(255,255,255,.6),transparent),
+      radial-gradient(1px 1px at 25% 60%,rgba(255,255,255,.4),transparent),
+      radial-gradient(1px 1px at 40% 30%,rgba(255,255,255,.5),transparent),
+      radial-gradient(1px 1px at 55% 80%,rgba(255,255,255,.3),transparent),
+      radial-gradient(1px 1px at 70% 20%,rgba(255,255,255,.6),transparent),
+      radial-gradient(1px 1px at 85% 50%,rgba(255,255,255,.4),transparent),
+      radial-gradient(1px 1px at 15% 85%,rgba(255,255,255,.5),transparent),
+      radial-gradient(1px 1px at 90% 70%,rgba(255,255,255,.3),transparent),
+      radial-gradient(1px 1px at 60% 45%,rgba(255,255,255,.4),transparent),
+      radial-gradient(1px 1px at 35% 10%,rgba(255,255,255,.5),transparent);
+  }
+  #tela-slot > *{position:relative;z-index:1}
+  #tela-slot h2{font-size:clamp(1.35rem,5.5vw,2rem);font-weight:800;color:#ffc107;
+                line-height:1.25;margin-bottom:10px}
+  #tela-slot .sub{font-size:clamp(.9rem,3vw,1rem);color:rgba(255,255,255,.78);margin-bottom:30px}
+
+  .maquina{background:#141018;border:4px solid #ffc107;border-radius:20px;
+           padding:18px 22px;display:flex;gap:12px;align-items:center;position:relative;
+           animation:brilho 1.5s ease-in-out infinite}
+  .maquina::before{content:'';position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+                   width:44px;height:16px;background:#ffc107;border-radius:4px 4px 0 0}
+  @keyframes brilho{
+    0%,100%{box-shadow:0 0 40px rgba(255,193,7,.45)}
+    50%{box-shadow:0 0 80px rgba(255,193,7,.85),0 0 120px rgba(255,193,7,.25)}
+  }
+  /* ⚠️ `align-items:flex-start` NAO e cosmetico.
+     Com o `center` que estava aqui, o flex centraliza a fita inteira (49 itens =
+     4.214px) dentro de um rolo de 86px: ela ja nasce 2.064px acima do topo. O
+     translateY do giro somava a esse deslocamento e parava muito depois do
+     ultimo item — os tres rolos terminavam BRANCOS, e nao havia erro nenhum no
+     console para denunciar. A fita tem que comecar colada no topo para o
+     deslocamento em itens bater com o que aparece. */
+  .rolo{width:86px;height:86px;background:#fff;border-radius:12px;overflow:hidden;
+        display:flex;align-items:flex-start;justify-content:center}
+  .rolo .fita{display:flex;flex-direction:column;will-change:transform}
+  .rolo .item{width:86px;height:86px;display:flex;align-items:center;justify-content:center;
+              font-size:2.1rem;font-weight:900;color:#141018;flex-shrink:0}
+  @keyframes flash{0%,100%{background:#fff}50%{background:#fff4c2}}
+  .rolo.premiado{animation:flash .4s ease-in-out 3}
+
+  @keyframes surgir{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  /* O respiro entre a maquina e o anuncio do preco nao e so estetico: colados,
+     o brilho da maquina lava o texto e os dois disputam a mesma atencao no
+     instante que mais importa da pagina. */
+  .pos-giro{display:none;animation:surgir .5s ease;margin-top:52px}
+  .pos-giro.mostra{display:block}
+  .pos-giro .titulo{font-size:clamp(1.7rem,7vw,2.6rem);font-weight:900;color:#ffc107;
+                    text-transform:uppercase;line-height:1.1;margin-bottom:8px}
+  .pos-giro .texto{font-size:clamp(.95rem,3vw,1.08rem);color:#fff;line-height:1.6}
+
+  @keyframes onda{
+    0%{transform:scale(1);box-shadow:0 0 0 0 rgba(14,159,110,.7)}
+    70%{transform:scale(1.04);box-shadow:0 0 0 14px rgba(14,159,110,0)}
+    100%{transform:scale(1);box-shadow:0 0 0 0 rgba(14,159,110,0)}
+  }
+  .btn-girar{margin-top:32px;background:linear-gradient(135deg,#20c997,#0e9f6e);color:#fff;
+             border:none;border-radius:12px;padding:17px 34px;font-size:17px;font-weight:800;
+             cursor:pointer;font-family:inherit;animation:onda 1.6s infinite}
+  .btn-girar[disabled]{opacity:.55;animation:none;cursor:default}
+
+  /* Quem prefere menos movimento (acessibilidade do sistema) ve o resultado
+     direto, sem giro nem pulso — a oferta e a mesma. */
+  @media (prefers-reduced-motion: reduce){
+    .maquina,.rolo.premiado,.btn-girar,.btn{animation:none !important}
+    .pos-giro{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ TELA 1 — revelação do preço ══ -->
+<div id="tela-slot">
+  <h2 id="slot-titulo">Espera — prueba tu suerte</h2>
+  <p class="sub" id="slot-sub">Gira y mira qué precio te toca hoy.</p>
+
+  <div class="maquina">
+    <div class="rolo"><div class="fita" id="fita0"></div></div>
+    <div class="rolo"><div class="fita" id="fita1"></div></div>
+    <div class="rolo"><div class="fita" id="fita2"></div></div>
+  </div>
+
+  <div class="pos-giro" id="posGiro">
+    <div class="titulo">Tu precio: $17</div>
+    <p class="texto">$10 menos que el precio normal.<br>Te lo dejamos abierto por 15 minutos.</p>
+  </div>
+
+  <button class="btn-girar" id="btnGirar">PROBAR MI SUERTE</button>
+</div>
+
+<div class="barra">
+  <span class="so-vigente">TU DESCUENTO EXPIRA EN <span class="relogio" id="reloj">15:00</span></span>
+  <span class="so-expirado">EL DESCUENTO EXPIRÓ · EL PROTOCOLO SIGUE ABIERTO</span>
+</div>
+
+<header class="topo">
+  <div class="wrap">
+    <!-- Enquanto o desconto vale -->
+    <div class="so-vigente">
+      <span class="selo">ESPERA — NO CIERRES TODAVÍA</span>
+      <h1>Te guardamos $10 de descuento</h1>
+      <p>Antes de irte: el mismo protocolo, con el precio más bajo que podemos hacer.</p>
+    </div>
+
+    <!-- Depois que expira. O header nao pode continuar prometendo $10 que o
+         botao ja nao cobra: a promessa vencida logo acima da garantia de 90
+         dias derruba a garantia junto. A barra admite a perda e reabre a porta
+         na mesma linha, e a urgencia troca de eixo — sai o preco, que acabou de
+         morrer na tela, entra a unica coisa que continua correndo de verdade. -->
+    <div class="so-expirado">
+      <span class="selo">EL PROTOCOLO SIGUE DISPONIBLE</span>
+      <h1>Los próximos 30 días pasan igual</h1>
+      <p>La diferencia la decides ahora. Empieza hoy por $27 y pruébalo 90 días:
+         si no te convence, escribes un correo y te devolvemos todo.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section style="padding-top:0">
+    <div class="cartao">
+      <p style="font-size:17px">Si llegaste hasta aquí es porque algo te dijo que <strong>vale la pena intentarlo</strong> — y algo más te frenó. Casi siempre es una de dos cosas: el precio, o no saber si va a funcionar para ti.</p>
+      <p style="font-size:17px;margin-top:12px">Las dos se resuelven en esta página.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Lo que recibes hoy</h2>
+    <ul class="lista">
+      <li><span class="v">✓</span> El protocolo completo de 30 días, abierto en el momento del pago.</li>
+      <li><span class="v">✓</span> Tu plan personalizado según tus respuestas — no una dieta genérica.</li>
+      <li><span class="v">✓</span> La app en tu celular, sin instalar nada, con el paso de cada día.</li>
+      <li><span class="v">✓</span> Acompañamiento diario para que no dependas de la fuerza de voluntad.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="preco">
+      <p class="antes">Precio normal <s>$27</s></p>
+      <span class="economiza">Ahorras $10</span>
+      <div class="agora" id="precio">$17</div>
+      <p style="font-size:15px;color:var(--cinza)">Pago único. No es suscripción.</p>
+
+      <a href="#" class="btn" id="cta">SÍ, QUIERO MI ACCESO POR $17</a>
+      <p class="btn-sub">Acceso inmediato · Pago seguro · Sin renovación automática</p>
+
+      <div class="pago">
+        💳 <strong>Si tu tarjeta no pasa</strong>, elige <strong>PayPal</strong> en el checkout.
+        Muchos bancos bloquean cobros internacionales por seguridad, y por PayPal suele aprobar al instante.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="garantia">
+      <div class="n">90</div>
+      <h2>días de garantía</h2>
+      <p style="font-size:16px">Pruébalo tres meses completos. Si no te gusta, escribes un correo y te devolvemos todo — sin formularios y sin explicar nada.</p>
+      <p style="font-size:16px;margin-top:10px"><strong>Hoy no decides si funciona. Hoy decides solo si lo abres.</strong></p>
+      <a href="#" class="btn" id="cta2" style="margin-top:20px">EMPEZAR AHORA POR $17</a>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="text-align:center">Preguntas rápidas</h2>
+
+    <details class="faq">
+      <summary>¿Qué recibo exactamente y cuándo?</summary>
+      <div class="r">El acceso llega a tu correo pocos minutos después del pago. Es una app que abres en el celular, sin descargar nada de ninguna tienda. Adentro está el protocolo día por día.</div>
+    </details>
+
+    <details class="faq">
+      <summary>¿Me van a cobrar todos los meses?</summary>
+      <div class="r">No. Es un pago único de $17. No hay renovación automática ni cobro escondido.</div>
+    </details>
+
+    <details class="faq">
+      <summary>Ya intenté otras cosas y no funcionaron.</summary>
+      <div class="r">Por eso existe la garantía de 90 días: no te pedimos que confíes antes de probar. Si a los tres meses no te convence, recuperas tu dinero completo.</div>
+    </details>
+
+    <details class="faq">
+      <summary>Mi tarjeta fue rechazada.</summary>
+      <div class="r">Pasa seguido con cobros internacionales, y casi nunca es falta de saldo — es el banco bloqueando por seguridad. La salida más rápida es elegir PayPal en el checkout.</div>
+    </details>
+
+    <a href="#" class="btn" id="cta3" style="margin-top:22px">QUIERO EMPEZAR HOY</a>
+  </section>
+</div>
+
+<footer>
+  Producto distribuido por Digistore24. Este descuento aplica solo a esta página.<br>
+  © Todos los derechos reservados.
+</footer>
+
+<!-- ═══════════ [TRACKING] — o MESMO bloco da VSL, mesmo pixelId ═══════════
+     Sem isto a pagina de oferta era um buraco no funil: a pessoa saia da VSL
+     (rastreada), passava por aqui (cega) e voltava ao checkout. O `utms` propaga
+     os parametros entre os passos e o `pixel` conta a visita nesta etapa.
+     A atribuicao da VENDA nao depende deste script — ela vai na querystring do
+     botao, e o /go ainda resgata do Referer o que faltar, porque o adblock
+     derruba este arquivo em ~57% dos cliques. Ele soma; nao e a rede. -->
+<script>
+  window.pixelId = "6a2dc2d082a16462e33bd463";
+  var a = document.createElement("script");
+  a.setAttribute("async", "");
+  a.setAttribute("defer", "");
+  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+  document.head.appendChild(a);
+</script>
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
+
+<script>
+(() => {
+  /* O botao NAO aponta para o checkout: aponta para o /go, igual ao da VSL.
+     O /go e um Worker que dispara o InitiateCheckout SERVER-SIDE (CAPI) e so
+     entao redireciona. Sem ele, o IC nasce no navegador e o adblock derruba
+     ~57% — a Meta recebe metade dos avisos de checkout iniciado e otimiza com
+     dado pela metade. O Worker ainda resgata do Referer os UTMs que faltarem.
+
+     RELATIVO de proposito. A rota `susalud24h.site/go*` foi apontada para o
+     Worker `tracking-meta` em 09/09/2026, entao o /go responde no MESMO dominio
+     da pagina. Isso importa para o evento: `_fbp` e cookie de primeira parte e
+     nao viaja entre dominios — com a URL absoluta apontando para
+     salud24h.online, todo IT saido daqui ia sem ele. Relativo, o cookie do
+     proprio dominio entra e a correspondencia fica completa.
+     Se um dia a pagina for publicada num dominio SEM a rota /go, isto vira 404:
+     apontar a rota primeiro, sempre.
+
+     ⚠️ Enquanto o botao apontar para /go, nao use no `sid1` (nem em nome de
+     campanha) as palavras que a UTMify tem em lista interna — checkout, compra,
+     comprar, order, pedido, pay, pagamento, cart, carrinho, confirmar, perfect,
+     green, guru, vega — sob risco de rearmar a duplicacao de IC. "backredirect"
+     esta fora da lista. */
+  const GO = '/go';
+  const VOUCHER = 'DISCOUNT10USD';
+  const MINUTOS = 15;
+
+  /* O link do checkout carrega:
+     - a querystring inteira que veio da VSL (UTMs e atribuicao por anuncio);
+     - o voucher, senao o $17 da pagina nao existe no checkout e a pessoa se sente enganada;
+     - custom=GLAP, o marcador que carimba a operacao no postback (sem ele a venda entra
+       sem operacao e o painel mostra receita parada quando nao esta);
+     - sid1=backredirect, para separar esta origem no relatorio.
+
+     🚨 NUNCA sobrescrever `utm_source`. Ele nao e so "a origem": nesta operacao ele
+     carrega, no meio da string, a SENHA do cloaker (GLAP) e o rotulo da conta de anuncio
+     (`P46 BM06 CA01`) — que e por onde o relatorio semanal descobre qual conta vendeu e
+     vai buscar o gasto na Meta. Trocar por "backredirect" apaga os dois de uma vez: a
+     venda perde a conta e o custo por body para de fechar. Por isso a marca de origem vai
+     em `sid1`, que a Digistore repassa no postback e que esta livre (0 de 258 vendas nos
+     ultimos 7 dias). */
+  function checkoutUrl(comDesconto) {
+    // A base e obrigatoria: `new URL('/go')` sem ela lanca TypeError e o botao
+    // fica sem href. Com `location.href` o caminho relativo resolve no proprio
+    // dominio, que e justamente o ponto de usar relativo.
+    const u = new URL(GO, location.href);
+    new URLSearchParams(location.search).forEach((v, k) => u.searchParams.append(k, v));
+    u.searchParams.set('custom', 'GLAP');
+    u.searchParams.set('sid1', 'backredirect');
+    if (comDesconto) u.searchParams.set('voucher', VOUCHER);
+    else u.searchParams.delete('voucher');   // expirou: nao pode ir cupom herdado
+    return u.toString();
+  }
+
+  const botoes = ['cta', 'cta2', 'cta3'].map((id) => document.getElementById(id)).filter(Boolean);
+  const aplicar = (comDesconto) => {
+    const href = checkoutUrl(comDesconto);
+    botoes.forEach((b) => { b.href = href; });
+  };
+  aplicar(true);
+
+  /* ── Contador ─────────────────────────────────────────────────────────────
+     EXPIRA DE VERDADE. O swipe frances reinicia em 30:00 quando chega a zero —
+     quem deixa a aba aberta ve o truque e perde a confianca no resto da pagina.
+     Aqui, ao zerar, o desconto sai do botao e o preco volta a $27.
+     So comeca DEPOIS da revelacao: seria mesquinho descontar do relogio os
+     segundos que a pessoa passou vendo a animacao. */
+  const reloj = document.getElementById('reloj');
+  const precio = document.getElementById('precio');
+  const CHAVE_PRAZO = 'glap_oferta_prazo';
+
+  /* O PRAZO VIVE FORA DA MEMORIA DA PAGINA.
+     Sem isto o contador zera, o preco sobe para $27... e um F5 devolve 15:00 e
+     os $17. Ou seja: o desconto NAO expiraria de verdade — exatamente a
+     encenacao que esta pagina evita no swipe frances, so que escondida um nivel
+     abaixo. Guardar o instante do fim em sessionStorage faz o prazo valer o
+     resto da navegacao. Fechou o navegador e voltou outro dia? E outra visita,
+     e ai a oferta comeca de novo — isso e comeco novo, nao contador que mente. */
+  function prazoFinal() {
+    try {
+      const salvo = Number(sessionStorage.getItem(CHAVE_PRAZO));
+      if (salvo > 0) return salvo;
+    } catch { /* modo privado: cai no prazo em memoria */ }
+    return 0;
+  }
+  function gravarPrazo(ts) {
+    try { sessionStorage.setItem(CHAVE_PRAZO, String(ts)); } catch { /* ok */ }
+  }
+
+  let fim = prazoFinal();
+  let resta = fim ? Math.max(0, Math.round((fim - Date.now()) / 1000)) : MINUTOS * 60;
+
+  const pintar = () => {
+    const m = Math.floor(resta / 60), s = resta % 60;
+    if (reloj) reloj.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
+  function expirar() {
+    resta = 0;
+    pintar();
+    document.body.classList.add('expirado');
+    if (precio) precio.textContent = '$27';
+    botoes.forEach((b) => { b.textContent = 'QUIERO EMPEZAR HOY POR $27'; });
+    aplicar(false);
+  }
+
+  // Chegou com o prazo ja vencido (recarregou depois de expirar): entra direto
+  // no estado expirado, sem piscar a oferta antiga.
+  if (fim && resta <= 0) expirar(); else pintar();
+
+  function comecarContador() {
+    if (document.body.classList.contains('expirado')) return;
+    if (!fim) { fim = Date.now() + resta * 1000; gravarPrazo(fim); }
+
+    const tick = setInterval(() => {
+      // Recalcula pelo relogio, nao por decremento: aba em segundo plano tem o
+      // setInterval estrangulado pelo navegador e o contador atrasaria minutos.
+      resta = Math.max(0, Math.round((fim - Date.now()) / 1000));
+      if (resta <= 0) { clearInterval(tick); expirar(); return; }
+      pintar();
+    }, 1000);
+  }
+
+  /* ── Tela 1: revelacao do preco ───────────────────────────────────────────
+     Os rolos param em $ 1 7 — o preco que a pagina inteira promete. Nao ha
+     sorteio, e a copy nao diz que houve: a animacao serve para REVELAR, nao
+     para simular sorte. */
+  (function revelacao() {
+    const tela   = document.getElementById('tela-slot');
+    const botao  = document.getElementById('btnGirar');
+    const posGiro= document.getElementById('posGiro');
+    const titulo = document.getElementById('slot-titulo');
+    const sub    = document.getElementById('slot-sub');
+    if (!tela || !botao) { comecarContador(); return; }
+
+    // Recarregou com o prazo ja vencido: nao faz sentido revelar "$17" para
+    // depois a pagina dizer que o desconto acabou. Pula direto para a oferta
+    // no estado expirado.
+    if (document.body.classList.contains('expirado')) { tela.remove(); return; }
+
+    const FINAIS  = ['$', '1', '7'];
+    const SIMBOLOS = ['$', '1', '7', '2', '0', '%', '5', '9'];
+    const ALTURA  = 86;   // = .rolo .item
+    const VOLTAS  = 14;   // quantas vezes a fita passa antes de parar
+    // Tempo do primeiro rolo e intervalo ate o proximo parar. O escalonamento e
+    // o que faz parecer maquina; se os tres param juntos, viram tres divs
+    // trocando de conteudo ao mesmo tempo.
+    const DUR_BASE = 3.2;
+    const DUR_PASSO = 0.9;   // ultimo rolo para em 3.2 + 2*0.9 = 5.0s
+
+    // Monta cada fita: VOLTAS repeticoes dos simbolos + o valor final no fim.
+    const fitas = [0, 1, 2].map((i) => {
+      const fita = document.getElementById('fita' + i);
+      let html = '';
+      for (let v = 0; v < VOLTAS; v++) {
+        for (const s of SIMBOLOS) html += `<div class="item">${s}</div>`;
+      }
+      html += `<div class="item">${FINAIS[i]}</div>`;
+      fita.innerHTML = html;
+      fita.style.transform = 'translateY(0)';
+      return fita;
+    });
+
+    let girou = false;
+    function girar() {
+      if (girou) return;
+      girou = true;
+      clearTimeout(auto);
+      botao.disabled = true;
+      botao.textContent = 'GIRANDO...';
+
+      const total = VOLTAS * SIMBOLOS.length; // itens ate o final de cada fita
+      fitas.forEach((fita, i) => {
+        const dur = DUR_BASE + i * DUR_PASSO;
+        // Curva com muito tempo em velocidade alta e freada longa so no fim:
+        // e o que da a sensacao de rolo pesado girando. Uma curva simetrica
+        // (ease) desacelera cedo demais e a animacao parece um scroll.
+        fita.style.transition = `transform ${dur}s cubic-bezier(.08,.62,.14,1)`;
+        // ⚠️ NAO usar requestAnimationFrame para disparar isto.
+        // O navegador CONGELA o rAF enquanto a aba nao esta visivel — e a aba
+        // pode perfeitamente estar oculta neste instante: no navegador interno
+        // do Facebook/Instagram basta a pessoa receber uma notificacao. Com rAF,
+        // o transform nunca era aplicado: as fitas ficavam em translateY(0), os
+        // tres rolos paravam no primeiro item e a pagina anunciava "TU PRECIO:
+        // $17" com a maquina mostrando outra coisa. Nao havia erro no console.
+        // `offsetHeight` forca o reflow que registra o estado inicial da
+        // transicao, e a atribuicao seguinte anima — funcione o rAF ou nao.
+        void fita.offsetHeight;
+        fita.style.transform = `translateY(-${total * ALTURA}px)`;
+        setTimeout(() => {
+          fita.parentElement.classList.add('premiado');
+        }, dur * 1000);
+      });
+
+      const fim = (DUR_BASE + 2 * DUR_PASSO) * 1000 + 400;
+      setTimeout(() => {
+        // Trava os rolos no valor final antes de anunciar o preco.
+        // O navegador congela transicoes CSS enquanto a aba esta oculta, mas
+        // NAO congela setTimeout. Se a pessoa recebe uma notificacao no meio do
+        // giro — o que e comum no navegador interno do Instagram — ela volta e
+        // ve "TU PRECIO: $17" escrito embaixo de uma maquina parada no comeco.
+        // Fixar aqui garante que a mensagem e os rolos contem a mesma historia,
+        // independentemente do que a transicao conseguiu animar.
+        fitas.forEach((fita) => {
+          fita.style.transition = 'none';
+          fita.style.transform = `translateY(-${total * ALTURA}px)`;
+          // `will-change` promove a fita a camada propria de GPU. Isso e o que
+          // faz o giro ser suave — e serve so durante o giro. Mantido depois,
+          // segura memoria de video a toa e deixa camadas vivas atras de um
+          // overlay que vai sumir, que e receita de artefato de repintura
+          // (retangulo grudado por cima do conteudo ao rolar a pagina).
+          fita.style.willChange = 'auto';
+        });
+        if (titulo) titulo.style.display = 'none';
+        if (sub) sub.style.display = 'none';
+        botao.style.display = 'none';
+        posGiro.classList.add('mostra');
+      }, fim);
+
+      // Deixa a pessoa LER a revelacao antes de trocar de tela. Curto demais e
+      // ela chega na oferta sem ter registrado o preco que acabou de ganhar —
+      // que e a unica razao de a animacao existir.
+      setTimeout(() => {
+        tela.style.transition = 'opacity .5s ease';
+        tela.style.opacity = '0';
+        setTimeout(() => {
+          // Desmonta a camada ANTES de remover o no.
+          // Um overlay `position:fixed` de tela cheia, com gradiente e opacidade
+          // animada, vira uma camada de composicao propria na GPU. Removido de
+          // uma vez, o navegador as vezes nao invalida a regiao que ele ocupava
+          // e sobra um retangulo branco por cima do conteudo — que reaparece ao
+          // rolar. Zerar o que promove a camada (fixed, opacity, contexto de
+          // empilhamento) e so entao remover forca a repintura da area inteira.
+          tela.style.transition = 'none';
+          tela.style.position = 'static';
+          tela.style.opacity = '';
+          tela.style.zIndex = 'auto';
+          tela.style.display = 'none';
+          // Leitura forcada: garante que o navegador processe o desmonte acima
+          // como um passo proprio, em vez de agrupar tudo com o remove().
+          void document.body.offsetHeight;
+          tela.remove();
+          comecarContador();
+        }, 500);
+      }, fim + 4500);
+    }
+
+    botao.addEventListener('click', girar);
+    // Quem nao clica nao pode ficar preso numa tela sem oferta: gira sozinho.
+    // 8s: com a animacao em ~8s e mais 3s de leitura, esperar 12s parada
+    // olhando a maquina antes de ela sequer comecar era tempo morto demais.
+    const auto = setTimeout(girar, 8000);
+  })();
+})();
+</script>
+
+</body>
+</html>
