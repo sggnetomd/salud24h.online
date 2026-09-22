@@ -7,24 +7,6 @@
 <title>GLAP OBG DG</title>
 <link rel="icon" type="image/webp" href="/assets/logo-icon.webp">
 
-<!-- ╔══════════════════════════════════════════════════════════════════╗
-     ║  OBRIGADO — BLACK (destino: GelatinApp)                           ║
-     ║  Servida pelo Worker no MESMO URL (sem redirect).                  ║
-     ║  ⚠️ CORRIGIDO NA MIGRACAO: o descritor de cobranca dizia           ║
-     ║  "Kiwify US, Inc" (sobra da migracao Kiwify->Digistore). O funil    ║
-     ║  cobra pela Digistore24.                                            ║
-     ║  ⚠️ CORRIGIDO DE NOVO (Story C10 do jello-app, 22/09/2026): o      ║
-     ║  texto antigo era um placeholder "Order ID" nunca preenchido. No    ║
-     ║  extrato real aparece D24*<order_id>, UMA LINHA POR PEDIDO, sem     ║
-     ║  nome de produto                                                    ║
-     ║  (fonte: _shared/email/nombres.ts do jello, print de cliente 19/09).║
-     ║  O script do fim da pagina monta uma linha por cobranca a partir da ║
-     ║  query string que a Digistore anexa. Sem pedido na URL, fica o      ║
-     ║  texto generico "D24* seguido del numero de tu pedido".             ║
-     ║  Dizer o processador errado faz o comprador nao reconhecer o        ║
-     ║  cargo no extrato = chargeback.                                     ║
-     ╚══════════════════════════════════════════════════════════════════╝ -->
-
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -38,14 +20,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Paleta — UI-DESIGN-SPEC §1.1 */
+    /* Paleta */
     --rose:#E84070; --blush:#FFA8BC; --coral:#E8634A; --amber:#F5A623; --blue:#4B7BEC; --green:#52C97F;
     --cream:#FFF8F3; --card:#FEF0E7; --text:#2D1B1B; --muted:#9B8B8A; --border:#F0DDD4; --disabled:#C9B8B5;
-    /* Gradientes — §1.7 */
+    /* Gradientes */
     --grad-cta:linear-gradient(135deg,#E8634A 0%,#E84070 100%);
     --grad-hero:linear-gradient(135deg,#F5A623 0%,#E84070 60%,#C22D60 100%);
     --grad-mission:linear-gradient(160deg,#E84070 0%,#E8634A 100%);
-    /* Sombras — §1.4 */
+    /* Sombras */
     --sh-sm:0 2px 8px rgba(45,27,27,.08);
     --sh-md:0 4px 16px rgba(45,27,27,.12);
     --sh-btn:0 4px 14px rgba(232,64,112,.32);
@@ -97,7 +79,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cargo .c-desc{font-size:17px;font-weight:800;color:var(--text);font-family:ui-monospace,'Courier New',monospace;letter-spacing:.3px;word-break:break-all}
   .cargo .c-val{font-size:15px;font-weight:800;color:var(--text);white-space:nowrap}
   .cargo .c-nom{font-size:14px;font-weight:700;color:#6b5b59;margin-top:3px}
-  .cargo .c-fac{font-size:12.5px;color:var(--muted);margin-top:1px}
+  .cargo .c-fac{font-size:13.5px;color:#6b5b59;margin-top:1px}
   .billing .b-unico{font-size:13.5px;text-align:center;margin:10px 0 0}
 
   /* notas curtas sob o botão */
@@ -207,7 +189,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="d-val">D24*</div>
         <div class="d-sub">seguido del número de tu pedido</div>
       </div>
-      <div class="d-note">Es nuestro procesador de pago seguro (Digistore24) — no es un fraude, es tu compra.</div>
+      <div class="d-note" id="cargos-nota">Es nuestro procesador de pago seguro (Digistore24) — no es un fraude, es tu compra.</div>
     </div>
     <p class="b-unico">Cada cargo es un <strong>pago único</strong> — no es una suscripción.</p>
   </div>
@@ -224,13 +206,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="https://gelatin-app.vercel.app/login" class="cta">⚡ ABRIR MI PROTOCOLO</a>
     <p class="cta-nota">Entras con el correo de tu compra — <strong>sin contraseña</strong>.</p>
 
-    <!-- ES DIGITAL — ganho primeiro, negação depois (mesma regra do welcome) -->
+    <!-- ES DIGITAL -->
     <div class="digital">
       <h4>Es digital: ya está activo</h4>
       <p>Todo vive dentro del app, que se abre en el navegador. No llega ningún paquete por correo postal — por eso nunca se te pidió una dirección de envío.</p>
     </div>
 
-    <!-- GARANTIA + REEMBOLSO visíveis (antes o "como pedir" ficava só numa FAQ fechada) -->
+    <!-- GARANTIA + REEMBOLSO -->
     <div class="guarantee">
       <div class="g-row">
         <svg class="g-ic" viewBox="0 0 44 44" fill="none">
@@ -288,13 +270,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="faq">
       <div class="faq-q" onclick="toggleFaq(this)"><span>No reconozco un cargo en mi tarjeta. ¿Es fraude?</span><span class="tg">+</span></div>
-      <div class="faq-a">No. En tu extracto aparece como <strong class="js-descritor">D24* seguido del número de tu pedido</strong> — un cargo por cada compra, como ves arriba en esta página. Digistore24 es nuestro procesador de pago seguro — si ves este cargo, es de tu compra de hoy, no es un fraude. Si tienes dudas, escríbenos y te ayudamos enseguida.</div>
+      <div class="faq-a">No. En tu extracto <span id="faq-verbo">aparece</span> como <strong class="js-descritor">D24* seguido del número de tu pedido</strong> — un cargo por cada compra, como ves arriba en esta página. Digistore24 es nuestro procesador de pago seguro — si ves este cargo, es de tu compra de hoy, no es un fraude. Si tienes dudas, escríbenos y te ayudamos enseguida.</div>
     </div>
     <div class="faq">
       <div class="faq-q" onclick="toggleFaq(this)"><span>¿Cómo accedo a mi protocolo?</span><span class="tg">+</span></div>
       <div class="faq-a">Haz clic en el botón <strong>"ABRIR MI PROTOCOLO"</strong> arriba en esta página. También puedes usar el enlace que enviamos a tu correo. Funciona en el navegador, sin descargas. Consejo: revisa tu carpeta de spam si no ves nuestro correo.</div>
     </div>
-    <!-- "¿Puedo pedir un reembolso?" saiu daqui: o reembolso agora está visível na caixa da garantia -->
   </div>
 
   <!-- ═══ SUPORTE ═══ -->
@@ -311,11 +292,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ═══ FOOTER ═══ -->
   <div class="foot">
-    <!-- links legais (absolutos — a página é servida em /obg pelo Worker) -->
+    <!-- links legais (caminhos absolutos) -->
     <p class="foot-links"><a href="/reembolso/">Reembolso</a> · <a href="/terminos/">Términos</a> · <a href="/privacidad/">Privacidad</a></p>
     <!-- [ DESCRIPTOR DIGISTORE24 ] -->
     <p>© 2026 Gelatin App · Todos los derechos reservados<br>
-    Nombre del cargo en tu extracto: <strong class="js-descritor">D24* seguido del número de tu pedido</strong></p>
+    <span id="rodape-rotulo">Nombre del cargo en tu extracto:</span> <strong class="js-descritor">D24* seguido del número de tu pedido</strong></p>
   </div>
 
 </div>
@@ -324,23 +305,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   function toggleFaq(el){ el.closest('.faq').classList.toggle('open'); }
 </script>
 
-<!-- ═══ DESCRITOR REAL POR PEDIDO + AVISO À FILA DO WELCOME (Story C10 do jello-app) ═══
-     Lê da query string que a Digistore anexa à página de obrigado:
-       order_id / amount / currency / product_name                    → compra principal
-       upsell_N_order_id / _amount / _currency / _product_name        → cada upsell pago
-     Formato visto em URLs reais de compra de teste (11–12/08/2026): o N é o número do PASSO
-     do funil, não a contagem de compras (quem recusa o UP1 e leva o DW1 chega com upsell_2_*,
-     pedido «XXXXXXXX2»). O funil tem 4 passos (up1 → dw1 → up2 → dw2), por isso lemos até 4.
-     `amount` é o valor bruto, o que a compradora paga (doc da Digistore, artigo 24390852602897).
-
-     🚨 SEGURANÇA: tudo o que vem da URL entra por textContent/createElement — nunca innerHTML.
-     Só os campos acima são lidos; a URL também traz e-mail e nome da compradora, e este script
-     não toca neles.
-
-     AVISO (contrato /obg → servidor, fixo): POST text/plain com {"orders":[...]} — SÓ os
-     códigos de pedido. Uma vez por conjunto de pedidos na sessão da aba (sessionStorage).
-     O servidor sempre responde 204 e nunca revela se o pedido existe. Quem inventar códigos só
-     consegue ADIANTAR o e-mail de uma compradora real que já está na fila. -->
+<!-- Cargos por pedido (lidos da URL) e aviso de compra concluída -->
 <script>
 (function () {
   'use strict';
@@ -348,32 +313,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var ENDPOINT = 'https://nlanmjctvyniesxstfad.supabase.co/functions/v1/welcome-obg';
   var CODIGO = /^[A-Z0-9]{8,10}$/;
   var VALOR = /^\d{1,6}(\.\d{1,2})?$/;
-  var MOEDA = /^[A-Z]{3}$/;
-  // Nome de fatura real: letras, números, espaço e pontuação simples («UP2 Anti-drowsiness Lotio»).
-  // Fora disso (tags, "http://", "@", acima de 80 caracteres) o nome não aparece — só descritor e
-  // valor. Um link forjado ainda pode exibir até 80 letras/pontos soltos: sempre como texto, nunca HTML.
-  var FATURA = /^[A-Za-z0-9À-ÿ .,'()&+-]{1,80}$/;
-  var MAX_PASSOS = 4;
+  var VALOR_MAX = 500; // fora de 0 < valor ≤ 500, o valor não aparece
+  var MAX_PASSOS = 4; // upsell_N_*: N é o passo da oferta, não a contagem de compras
 
-  // Espelho de supabase/functions/_shared/email/nombres.ts (jello-app). Mudar os dois JUNTOS.
-  // Casa por TRECHO de propósito: o nome chega com prefixo de posição e já chegou truncado
-  // («UP2 Anti-drowsiness Lotio»). Não reconhecido → só o nome da fatura, nunca tradução inventada.
+  // Nenhum texto da URL aparece na página: o nome de cada cargo sai desta lista.
+  // Produto não reconhecido → SEM_NOME. Mesmos nomes do e-mail de acesso: mudar os dois juntos.
+  // Casa por trecho: o nome chega com prefixo de posição e às vezes truncado.
+  var GELATINA = { app: 'Protocolo de la Gelatina', fatura: 'GelatinApp' };
+  var MENOPAUSIA = { app: 'Protocolo Menopausia', fatura: 'NexGen Menopause' };
+  var ANTI_FLACIDEZ = { app: 'Protocolo Anti-Flacidez', fatura: 'Anti-drowsiness Lotion' };
   var NOMES = [
-    ['nexgen', 'Protocolo Menopausia'],
-    ['menopause', 'Protocolo Menopausia'],
-    ['drowsiness', 'Protocolo Anti-Flacidez'],
-    ['flacidez', 'Protocolo Anti-Flacidez'],
-    ['gelatinapp', 'El plan de la gelatina']
+    ['nexgen', MENOPAUSIA],
+    ['menopause', MENOPAUSIA],
+    ['drowsiness', ANTI_FLACIDEZ],
+    ['flacidez', ANTI_FLACIDEZ],
+    ['gelatinapp', GELATINA]
   ];
+  var SEM_NOME = 'Tu compra';
 
-  function nomeNoApp(fatura) {
-    var alvo = fatura.toLowerCase();
+  function produtoConhecido(nome) {
+    var alvo = nome.toLowerCase();
     for (var i = 0; i < NOMES.length; i++) {
       if (alvo.indexOf(NOMES[i][0]) !== -1) return NOMES[i][1];
     }
     return null;
   }
 
+  // Tudo entra no DOM por textContent — nunca innerHTML.
   function el(tag, classe, texto) {
     var e = document.createElement(tag);
     if (classe) e.className = classe;
@@ -381,24 +347,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return e;
   }
 
+  // Ponto decimal e 2 casas, sem separador de milhar: «US$ 30.18».
   function valorFormatado(valor, moeda) {
-    if (!VALOR.test(valor) || !MOEDA.test(moeda)) return null;
+    if (moeda !== 'USD' || !VALOR.test(valor)) return null;
     var n = Number(valor);
-    if (!(n > 0)) return null;
-    return (moeda === 'USD' ? 'US$ ' : moeda + ' ') + n.toFixed(2);
+    if (!(n > 0 && n <= VALOR_MAX)) return null;
+    return 'US$ ' + n.toFixed(2);
   }
 
   function lerCobranca(params, prefixo) {
     var codigo = (params.get(prefixo + 'order_id') || '').trim().toUpperCase();
     if (!CODIGO.test(codigo)) return null;
-    var fatura = (params.get(prefixo + 'product_name') || '').replace(/\s+/g, ' ').trim();
     return {
       codigo: codigo,
       valor: valorFormatado(
         (params.get(prefixo + 'amount') || '').trim(),
         (params.get(prefixo + 'currency') || '').trim().toUpperCase()
       ),
-      fatura: FATURA.test(fatura) ? fatura : ''
+      produto: produtoConhecido(params.get(prefixo + 'product_name') || '')
     };
   }
 
@@ -414,13 +380,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     topo.appendChild(el('span', 'c-desc', 'D24*' + c.codigo));
     if (c.valor) topo.appendChild(el('span', 'c-val', c.valor));
     box.appendChild(topo);
-    var app = c.fatura ? nomeNoApp(c.fatura) : null;
-    if (app) {
-      box.appendChild(el('div', 'c-nom', app));
-      box.appendChild(el('div', 'c-fac', 'En tu factura aparece como «' + c.fatura + '»'));
-    } else if (c.fatura) {
-      box.appendChild(el('div', 'c-nom', c.fatura));
-    }
+    box.appendChild(el('div', 'c-nom', c.produto ? c.produto.app : SEM_NOME));
+    if (c.produto) box.appendChild(el('div', 'c-fac', 'En tu factura aparece como «' + c.produto.fatura + '»'));
     return box;
   }
 
@@ -440,7 +401,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           method: 'POST', body: corpo, keepalive: true, mode: 'no-cors',
           headers: { 'content-type': 'text/plain;charset=UTF-8' }
         }).catch(function () {});
-      } catch (e) { /* o aviso é otimização: sem ele o welcome sai pelo relógio de 15 min */ }
+      } catch (e) { /* o aviso é opcional: falha em silêncio */ }
     }
     try { window.sessionStorage.setItem(chave, '1'); } catch (e) { /* idem */ }
   }
@@ -457,8 +418,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     for (var i = 0; i < prefixos.length; i++) {
       var c = lerCobranca(params, prefixos[i]);
       if (!c || vistos[c.codigo]) continue;
-      // Todos os pedidos de uma compra têm os mesmos 8 primeiros caracteres (656 de 656 em
-      // setembro). Código de outro grupo não é desta compra: ignora.
+      // Pedidos da mesma compra têm os mesmos 8 primeiros caracteres; outro grupo é ignorado.
       var g = c.codigo.slice(0, 8);
       if (grupo === null) grupo = g;
       if (g !== grupo) continue;
@@ -478,6 +438,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       document.getElementById('cargos-uno').hidden = true;
       document.getElementById('cargos-varios').hidden = false;
       document.getElementById('cargos-label').textContent = 'Así aparecen en tu extracto';
+      document.getElementById('cargos-nota').textContent =
+        'Es nuestro procesador de pago seguro (Digistore24) — no son un fraude, son tus compras.';
+      document.getElementById('faq-verbo').textContent = 'aparecen';
+      document.getElementById('rodape-rotulo').textContent = 'Nombres de los cargos en tu extracto:';
     }
 
     var descritores = [];
