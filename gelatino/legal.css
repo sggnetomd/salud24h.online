@@ -1,0 +1,73 @@
+:root{
+  --rose:#EA4760;
+  --rose-deep:#C92F51;
+  --coral:#F0644D;
+  --peach:#FFF0E7;
+  --cream:#FFF9F5;
+  --surface:#FFFFFF;
+  --text:#281719;
+  --body:#655556;
+  --muted:#88797A;
+  --border:#EEDBD3;
+  --green:#1B7847;
+  --green-bg:#E5F6EC;
+  --amber:#95520C;
+  --amber-bg:#FFF1D8;
+  --grad:linear-gradient(135deg,#F0644D 0%,#EA4760 54%,#C92F51 100%);
+  --shadow:0 9px 30px rgba(58,27,28,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  min-height:100vh;
+  font-family:'Nunito',ui-rounded,system-ui,-apple-system,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 94% 3%,rgba(240,100,77,.09),transparent 25rem),
+    var(--cream);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--rose-deep);font-weight:800;text-decoration:none}
+a:hover{text-decoration:underline}
+img{display:block;max-width:100%;height:auto}
+.topbar{position:sticky;top:0;z-index:10;background:rgba(255,249,245,.92);border-bottom:1px solid var(--border);backdrop-filter:blur(14px)}
+.topbar-inner{width:min(820px,calc(100% - 36px));min-height:70px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:10px;color:var(--text);text-decoration:none}
+.brand:hover{text-decoration:none}
+.brand img{width:40px;height:40px}
+.brand strong{font-size:20px;font-weight:900;letter-spacing:-.4px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13px}
+.wrap{width:min(820px,calc(100% - 36px));margin:0 auto;padding:34px 0 52px}
+.doc{padding:38px 42px;background:#fff;border:1px solid var(--border);border-radius:25px;box-shadow:var(--shadow)}
+.doc-kicker{display:inline-flex;padding:6px 11px;border-radius:999px;background:var(--peach);color:var(--rose-deep);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.8px}
+.doc h1{margin-top:13px;font-size:clamp(29px,5vw,40px);line-height:1.1;letter-spacing:-1.2px;font-weight:900}
+.updated{margin-top:7px;color:var(--muted);font-size:12.5px}
+.lead{margin:18px 0 5px;color:var(--body);font-size:16px;line-height:1.62}
+.doc h2{margin:29px 0 8px;color:var(--rose-deep);font-size:20px;line-height:1.3;font-weight:900}
+.doc h3{margin:18px 0 6px;font-size:16px;font-weight:900}
+.doc p{margin-bottom:11px;color:var(--body);font-size:14.5px}
+.doc ul,.doc ol{margin:0 0 13px 22px;color:var(--body)}
+.doc li{margin-bottom:7px;padding-left:2px;font-size:14.5px}
+.doc strong{color:var(--text);font-weight:900}
+.callout,.guarantee,.privacy-box{margin:20px 0;padding:18px 19px;border-radius:16px}
+.callout{border:1.5px solid #E8BD6B;background:var(--amber-bg)}
+.callout h3{margin:0 0 6px;color:var(--amber)}
+.guarantee{border:1.5px solid #B9E5CC;background:var(--green-bg)}
+.guarantee h3{margin:0 0 6px;color:var(--green)}
+.privacy-box{border:1.5px solid #EDC8D0;background:#FFF7F8}
+.privacy-box h3{margin:0 0 6px;color:var(--rose-deep)}
+.callout p:last-child,.guarantee p:last-child,.privacy-box p:last-child{margin-bottom:0}
+.descriptor{display:inline-block;padding:2px 9px;border:1px dashed #D79B35;border-radius:7px;background:#fff;font-family:ui-monospace,'Courier New',monospace;color:var(--text);font-size:13px;font-weight:800}
+.action-link{display:inline-flex;align-items:center;justify-content:center;min-height:45px;margin:7px 0 10px;padding:10px 17px;border-radius:999px;background:var(--grad);box-shadow:0 8px 20px rgba(234,71,96,.23);color:#fff;font-size:13px;font-weight:900;text-decoration:none}
+.action-link:hover{text-decoration:none;transform:translateY(-1px)}
+.legal-note{margin-top:21px;padding-top:17px;border-top:1px solid var(--border);color:var(--muted);font-size:11.5px;line-height:1.55}
+.foot{width:min(820px,calc(100% - 36px));margin:0 auto;padding:0 0 48px;text-align:center}
+.foot-links{display:flex;justify-content:center;gap:10px 18px;flex-wrap:wrap;margin-bottom:13px}
+.foot-links a{font-size:13px}
+.foot p{max-width:650px;margin:0 auto 8px;color:var(--muted);font-size:11.5px;line-height:1.6}
+@media(max-width:600px){
+  .topbar-inner{min-height:64px}.brand img{width:37px;height:37px}.brand strong{font-size:18px}.back{font-size:12px}
+  .wrap{padding-top:20px}.doc{padding:25px 19px;border-radius:19px}.doc h1{font-size:29px}.lead{font-size:15px}
+  .doc h2{font-size:18px}.doc p,.doc li{font-size:14px}
+}
