@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>¡Gracias! Tu suscripción a Gelatino está confirmada</title>
+<meta name="description" content="Confirmación de la suscripción a Gelatino y próximos pasos para continuar dentro de Gelatin App.">
+<link rel="icon" type="image/webp" href="../img/logo-icon.webp">
+
+<!--
+  THANK YOU / COMPLIANCE — GELATINO · DIGISTORE24
+  URL sugerida en Digistore24: /gelatino/gracias/
+  Admite ?plan=go, ?plan=plus o ?plan=pro para personalizar el nombre del plan.
+  Confirmar antes de publicar: URL final de Gelatin App y descriptor del cargo.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#EA4760;
+    --rose-deep:#C92F51;
+    --coral:#F0644D;
+    --cream:#FFF9F5;
+    --peach:#FFF0E7;
+    --surface:#FFFFFF;
+    --text:#281719;
+    --body:#655556;
+    --muted:#88797A;
+    --border:#EEDBD3;
+    --green:#1B7847;
+    --green-bg:#E5F6EC;
+    --amber:#95520C;
+    --amber-bg:#FFF1D8;
+    --grad:linear-gradient(135deg,#F0644D 0%,#EA4760 54%,#C92F51 100%);
+    --shadow-sm:0 4px 16px rgba(58,27,28,.08);
+    --shadow-md:0 22px 54px rgba(82,38,38,.16);
+    --shadow-cta:0 13px 30px rgba(234,71,96,.31);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    min-height:100vh;
+    font-family:'Nunito',ui-rounded,system-ui,-apple-system,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at 92% 4%,rgba(240,100,77,.11),transparent 25rem),
+      radial-gradient(circle at 6% 35%,rgba(234,71,96,.07),transparent 24rem),
+      var(--cream);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  img{display:block;max-width:100%;height:auto}
+  .shell{width:min(960px,calc(100% - 36px));margin:0 auto;padding:24px 0 54px}
+  .brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;text-decoration:none}
+  .brand img{width:44px;height:44px}
+  .brand strong{font-size:23px;font-weight:900;letter-spacing:-.5px}
+
+  .hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) 210px;align-items:center;min-height:350px;padding:44px 50px;background:var(--grad);border-radius:32px;color:#fff;box-shadow:var(--shadow-md)}
+  .hero::before,.hero::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.10)}
+  .hero::before{width:260px;height:260px;top:-150px;right:95px}
+  .hero::after{width:190px;height:190px;bottom:-115px;left:-50px}
+  .hero-copy,.hero-art{position:relative;z-index:1}
+  .success-mark{width:62px;height:62px;display:grid;place-items:center;margin-bottom:19px;border-radius:50%;background:#fff;box-shadow:0 10px 24px rgba(84,22,38,.22)}
+  .success-mark svg{width:34px;height:34px;color:var(--green)}
+  .eyebrow{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.84)}
+  h1{max-width:590px;margin-top:7px;font-size:clamp(34px,5.4vw,56px);line-height:1.02;letter-spacing:-2px;font-weight:900}
+  .hero-text{max-width:590px;margin-top:15px;color:rgba(255,255,255,.92);font-size:17px;line-height:1.5}
+  .plan-status{display:inline-flex;align-items:center;gap:8px;margin-top:19px;padding:8px 13px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:rgba(255,255,255,.14);font-size:12px;font-weight:900}
+  .plan-status::before{content:'';width:8px;height:8px;border-radius:50%;background:#8EE3AE;box-shadow:0 0 0 4px rgba(142,227,174,.15)}
+  .hero-art{display:grid;place-items:center;align-self:end}
+  .hero-art img{width:190px;border:5px solid rgba(255,255,255,.32);border-radius:50%;background:#fff;box-shadow:0 18px 28px rgba(83,22,37,.24)}
+
+  .primary-action{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;margin-top:-2px;padding:26px 30px;background:#fff;border:1px solid var(--border);border-radius:0 0 27px 27px;box-shadow:var(--shadow-sm)}
+  .primary-action h2{font-size:22px;line-height:1.2}
+  .primary-action p{margin-top:5px;color:var(--body);font-size:14px}
+  .cta{min-height:56px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 24px;background:var(--grad);border-radius:999px;color:#fff;box-shadow:var(--shadow-cta);font-size:15px;font-weight:900;text-decoration:none;white-space:nowrap;transition:transform .18s ease,box-shadow .18s ease}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 17px 34px rgba(234,71,96,.36)}
+  .cta svg{width:18px;height:18px}
+
+  .content-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;margin-top:18px;align-items:start}
+  .card{background:#fff;border:1px solid var(--border);border-radius:24px;padding:25px;box-shadow:var(--shadow-sm)}
+  .card+.card{margin-top:18px}
+  .card-label{display:flex;align-items:center;gap:8px;margin-bottom:11px;color:var(--rose-deep);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.9px}
+  .card-label svg{width:18px;height:18px}
+  .card h2{font-size:23px;line-height:1.2}
+  .card-intro{margin-top:7px;color:var(--body);font-size:14.5px}
+  .steps{margin-top:17px}
+  .step{display:grid;grid-template-columns:39px 1fr;gap:13px;padding:15px 0}
+  .step+.step{border-top:1px solid var(--border)}
+  .step-number{width:37px;height:37px;display:grid;place-items:center;border-radius:50%;background:var(--peach);color:var(--rose-deep);font-size:14px;font-weight:900}
+  .step h3{font-size:15px;line-height:1.25}
+  .step p{margin-top:3px;color:var(--muted);font-size:13px;line-height:1.5}
+
+  .billing{border:1.5px solid #EDC577;background:var(--amber-bg)}
+  .billing .card-label{color:var(--amber)}
+  .descriptor{margin-top:15px;padding:14px;border:1.5px dashed #D79B35;border-radius:15px;background:#fff;text-align:center}
+  .descriptor span{display:block;color:var(--muted);font-size:9.5px;font-weight:900;text-transform:uppercase;letter-spacing:1px}
+  .descriptor strong{display:block;margin-top:4px;font-family:ui-monospace,'Courier New',monospace;font-size:18px;letter-spacing:.4px}
+  .descriptor small{display:block;margin-top:6px;color:var(--muted);font-size:10.5px;line-height:1.4}
+  .renewal-note{margin-top:13px;color:var(--body);font-size:12.5px;line-height:1.5}
+
+  .guarantee{display:grid;grid-template-columns:58px 1fr;gap:15px;align-items:center;border-color:#B9E5CC;background:var(--green-bg)}
+  .guarantee-mark{width:58px;height:58px;display:grid;place-items:center;border-radius:50%;background:#fff;color:var(--green)}
+  .guarantee-mark svg{width:31px;height:31px}
+  .guarantee h2{color:var(--green);font-size:18px}
+  .guarantee p{margin-top:5px;color:#397155;font-size:12.5px;line-height:1.45}
+
+  .wide-card{margin-top:18px}
+  .faq-list{margin-top:12px}
+  details{padding:15px 0;border-bottom:1px solid var(--border)}
+  details:last-child{border-bottom:0;padding-bottom:0}
+  summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:14.5px;font-weight:900}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'+';width:26px;height:26px;display:grid;place-items:center;flex:0 0 26px;border-radius:50%;background:var(--peach);color:var(--rose-deep);font-size:18px;transition:transform .2s ease}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:9px 38px 0 0;color:var(--muted);font-size:13px;line-height:1.55}
+  details a{color:var(--rose-deep);font-weight:900;text-decoration:none}
+
+  .support{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;margin-top:18px;padding:24px 26px;border-radius:22px;background:var(--peach)}
+  .support h2{font-size:19px}
+  .support p{margin-top:4px;color:var(--body);font-size:13.5px}
+  .support a{display:inline-flex;align-items:center;justify-content:center;min-height:45px;padding:10px 17px;border:1.5px solid var(--border);border-radius:999px;background:#fff;color:var(--rose-deep);font-size:13px;font-weight:900;text-decoration:none}
+  footer{padding:26px 8px 0;text-align:center;color:var(--muted);font-size:11px;line-height:1.65}
+  .footer-links{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-bottom:9px}
+  .footer-links a{color:var(--rose-deep);font-weight:900;text-decoration:none}
+
+  @media(max-width:720px){
+    .shell{width:min(100% - 28px,460px);padding-top:17px}
+    .brand{margin-bottom:14px}.brand img{width:40px;height:40px}.brand strong{font-size:21px}
+    .hero{display:block;min-height:0;padding:30px 24px 5px;border-radius:26px;text-align:center}
+    .success-mark{width:58px;height:58px;margin:0 auto 16px}
+    h1{font-size:36px;letter-spacing:-1.4px}
+    .hero-text{font-size:15px}
+    .plan-status{margin-top:16px}
+    .hero-art{margin-top:-3px}.hero-art img{width:138px}
+    .primary-action{grid-template-columns:1fr;padding:23px 20px;text-align:center}
+    .primary-action .cta{width:100%}
+    .content-grid{grid-template-columns:1fr}
+    .card{padding:21px 19px}
+    .support{grid-template-columns:1fr;text-align:center}
+  }
+  @media(prefers-reduced-motion:reduce){.cta{transition:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="../" aria-label="Gelatino — página principal">
+    <img src="../img/logo-icon.webp" alt="" width="44" height="44">
+    <strong>Gelatino</strong>
+  </a>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="success-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg>
+        </div>
+        <p class="eyebrow">Pago confirmado</p>
+        <h1>¡Listo! Gelatino sigue contigo.</h1>
+        <p class="hero-text">Tu suscripción fue confirmada. Ahora puedes volver a Gelatin App y continuar la conversación con el límite de tu plan.</p>
+        <div class="plan-status"><span id="purchased-plan">Suscripción mensual activa</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <img src="../img/gelatino.png" alt="" width="190" height="190">
+      </div>
+    </section>
+
+    <section class="primary-action">
+      <div>
+        <h2>Tu próximo paso está dentro del app.</h2>
+        <p>Entra con el mismo correo utilizado en la compra para continuar con Gelatino.</p>
+      </div>
+      <a class="cta" href="https://gelatin-app.vercel.app/consultas">
+        Abrir Gelatino
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="m9 18 6-6-6-6"/></svg>
+      </a>
+    </section>
+
+    <div class="content-grid">
+      <section class="card">
+        <p class="card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a3 3 0 0 1 6 0M9 5h6"/></svg>
+          Cómo continuar
+        </p>
+        <h2>Todo listo en 3 pasos simples.</h2>
+        <p class="card-intro">No necesitas descargar otra aplicación ni crear una nueva contraseña.</p>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div><h3>Abre Gelatin App</h3><p>Usa el botón de esta página para entrar directamente en la sección de consultas.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div><h3>Usa el correo de tu compra</h3><p>Si el app solicita tu correo, escribe el mismo que utilizaste en Digistore24.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div><h3>Continúa tu conversación</h3><p>Pregunta por texto, foto o audio y utiliza el número de respuestas incluido en tu plan.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <div>
+        <section class="card billing">
+          <p class="card-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3Z"/></svg>
+            Reconoce el cargo
+          </p>
+          <h2>Guarda este nombre.</h2>
+          <p class="card-intro">Tu compra aparecerá en la tarjeta o extracto bancario con el descriptor de Digistore24.</p>
+          <div class="descriptor">
+            <span>Nombre del cargo</span>
+            <strong>D24 - Order ID</strong>
+            <small>Es el procesador seguro de esta compra, no un cargo desconocido.</small>
+          </div>
+          <p class="renewal-note"><strong>Importante:</strong> la suscripción se renueva mensualmente hasta que la canceles.</p>
+        </section>
+
+        <section class="card guarantee">
+          <div class="guarantee-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22S4 18 4 10V5l8-3 8 3v5c0 8-8 12-8 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div>
+            <h2>60 días de garantía</h2>
+            <p>Si Gelatino no es para ti, puedes solicitar el reembolso dentro de los primeros 60 días.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <section class="card wide-card">
+      <p class="card-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.2 9a4.1 4.1 0 0 1 7.8 1.5c0 1.6-1.3 2.7-3 3-.6.1-1 .6-1 1.2V15m0 4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        Preguntas frecuentes
+      </p>
+      <div class="faq-list">
+        <details>
+          <summary>¿Cuándo podré usar mi plan?</summary>
+          <p>Después de la confirmación del pago, vuelve a Gelatin App con el mismo correo utilizado en la compra. Si el plan todavía no aparece, espera unos minutos y entra nuevamente.</p>
+        </details>
+        <details>
+          <summary>¿Cómo cancelo la renovación?</summary>
+          <p>Puedes gestionar la suscripción desde el enlace incluido en el correo de Digistore24 o escribir a <a href="mailto:support.gelatinapp@gmail.com">support.gelatinapp@gmail.com</a>. Mantendrás el acceso hasta el final del período ya pagado.</p>
+        </details>
+        <details>
+          <summary>¿Mi protocolo de 30 días cambia?</summary>
+          <p>No. El protocolo, las recetas y tu progreso siguen disponibles. La suscripción modifica únicamente el límite de conversaciones con Gelatino.</p>
+        </details>
+        <details>
+          <summary>¿Qué hago si no recibí el correo de compra?</summary>
+          <p>Revisa las carpetas de spam, promociones o correo no deseado. Si no aparece, escribe a nuestro soporte desde el correo utilizado en la compra.</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="support">
+      <div>
+        <h2>¿Necesitas ayuda?</h2>
+        <p>Escríbenos para resolver dudas sobre acceso, cobro, cancelación o reembolso.</p>
+      </div>
+      <a href="mailto:support.gelatinapp@gmail.com">Contactar soporte</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/app/reembolso/">Reembolso</a>
+      <a href="/app/terminos/">Términos y Condiciones</a>
+      <a href="/app/privacidad/">Política de Privacidad</a>
+    </div>
+    <p>© 2026 Gelatin App · Todos los derechos reservados · El cargo aparecerá como <strong>D24 - Order ID</strong></p>
+    <p>Gelatino ofrece orientación educativa y no sustituye atención médica, diagnóstico ni tratamiento.</p>
+  </footer>
+</div>
+
+<script>
+  var plans={go:'Gelatino Go',plus:'Gelatino Plus',pro:'Gelatino Pro'};
+  var selected=new URLSearchParams(window.location.search).get('plan');
+  if(plans[selected])document.getElementById('purchased-plan').textContent=plans[selected]+' · Suscripción mensual activa';
+</script>
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gelatino — Tu protocolo, contigo</title>
+<meta name="description" content="Gelatino es el acompañante conversacional dentro de Gelatin App para resolver dudas sobre tu protocolo, tu rutina y tus próximos pasos por texto, foto o audio.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/webp" href="img/logo-icon.webp">
+
+<!--
+  SALES / COMPLIANCE — GELATINO
+  Base visual: Gelatin App + concepto de suscripción aprobado para evolución.
+  Base comercial PROVISIONAL a confirmar antes de publicar:
+  GO   = US$17/mes · 10 respuestas/día · checkout REEMPLAZAR_GO
+  PLUS = US$27/mes · 30 respuestas/día · checkout REEMPLAZAR_PLUS
+  PRO  = US$47/mes · 100 respuestas/día · checkout REEMPLAZAR_PRO
+  También reemplazar los product_id de Digistore24 cuando existan.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rose:#EA4760;
+    --rose-deep:#C92F51;
+    --coral:#F0644D;
+    --peach:#FFF0E7;
+    --cream:#FFF9F5;
+    --surface:#FFFFFF;
+    --text:#281719;
+    --body:#655556;
+    --muted:#88797A;
+    --border:#EEDBD3;
+    --green:#1B7847;
+    --green-bg:#E5F6EC;
+    --amber:#A65F10;
+    --amber-bg:#FFF1D8;
+    --grad:linear-gradient(135deg,#F0644D 0%,#EA4760 54%,#C92F51 100%);
+    --grad-soft:linear-gradient(145deg,#FFF3EA 0%,#FFE9ED 100%);
+    --shadow-sm:0 3px 14px rgba(58,27,28,.08);
+    --shadow-md:0 18px 48px rgba(82,38,38,.14);
+    --shadow-cta:0 12px 28px rgba(234,71,96,.30);
+    --ease:cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Nunito',ui-rounded,system-ui,-apple-system,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(circle at 92% 4%,rgba(240,100,77,.09),transparent 28rem),
+      radial-gradient(circle at 5% 33%,rgba(234,71,96,.06),transparent 26rem),
+      var(--cream);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  img{display:block;max-width:100%;height:auto}
+  button,a{-webkit-tap-highlight-color:transparent}
+  .container{width:min(1120px,calc(100% - 40px));margin-inline:auto}
+  .narrow{width:min(760px,calc(100% - 40px));margin-inline:auto}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .topbar{
+    min-height:76px;
+    display:flex;
+    align-items:center;
+    background:rgba(255,249,245,.88);
+    border-bottom:1px solid rgba(238,219,211,.8);
+    backdrop-filter:blur(14px);
+    position:sticky;
+    top:0;
+    z-index:30;
+  }
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .brand img{width:42px;height:42px}
+  .brand strong{font-size:22px;font-weight:900;letter-spacing:-.4px}
+  .nav-cta{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 18px;
+    border:1.5px solid var(--rose);
+    border-radius:999px;
+    color:var(--rose-deep);
+    font-size:14px;
+    font-weight:900;
+    text-decoration:none;
+  }
+  .hero{padding:64px 0 54px}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.84fr);gap:72px;align-items:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 12px;border-radius:999px;
+    background:var(--peach);color:var(--rose-deep);
+    font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;
+  }
+  .eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--rose)}
+  h1{
+    max-width:720px;
+    margin-top:18px;
+    font-size:clamp(42px,6vw,72px);
+    line-height:.98;
+    letter-spacing:-2.6px;
+    font-weight:900;
+  }
+  .accent{color:var(--rose)}
+  .hero-copy{
+    max-width:620px;
+    margin-top:22px;
+    font-size:clamp(18px,2vw,21px);
+    line-height:1.52;
+    color:var(--body);
+  }
+  .hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:30px}
+  .cta{
+    min-height:58px;
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:15px 25px;
+    background:var(--grad);color:#fff;
+    border:0;border-radius:999px;
+    box-shadow:var(--shadow-cta);
+    text-decoration:none;
+    font-size:17px;font-weight:900;
+    transition:transform .18s var(--ease),box-shadow .18s var(--ease);
+  }
+  .cta:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(234,71,96,.36)}
+  .cta.secondary{background:#fff;color:var(--rose-deep);border:1.5px solid var(--border);box-shadow:var(--shadow-sm)}
+  .microcopy{margin-top:14px;color:var(--muted);font-size:13px;font-weight:700}
+  .microcopy span+span::before{content:'·';margin:0 8px;color:var(--border)}
+
+  .phone-stage{position:relative;min-height:650px;display:grid;place-items:center}
+  .phone-halo{
+    position:absolute;width:480px;height:480px;border-radius:50%;
+    background:radial-gradient(circle,#FFE0D4 0%,#FFE9EC 52%,rgba(255,249,245,0) 72%);
+  }
+  .phone{
+    position:relative;
+    width:360px;
+    min-height:650px;
+    border:10px solid #2A2222;
+    border-radius:48px;
+    background:#FFFBF8;
+    box-shadow:0 38px 70px rgba(50,26,27,.24),inset 0 0 0 1px rgba(255,255,255,.5);
+    overflow:hidden;
+    transform:rotate(1.3deg);
+  }
+  .phone-notch{width:112px;height:28px;border-radius:0 0 18px 18px;background:#211B1B;margin:0 auto}
+  .app-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 13px;border-bottom:1px solid var(--border)}
+  .app-head strong{display:block;font-size:23px;line-height:1}
+  .app-head span{display:block;margin-top:5px;color:var(--muted);font-size:13px}
+  .mini-mascot{width:58px;height:58px;object-fit:contain}
+  .chat{padding:20px 17px 112px}
+  .bubble{max-width:84%;padding:13px 15px;border-radius:18px;font-size:15px;line-height:1.42;box-shadow:0 1px 0 rgba(45,27,27,.04)}
+  .bubble.user{margin-left:auto;background:var(--peach);border-bottom-right-radius:6px}
+  .answer-row{display:flex;gap:8px;align-items:flex-end;margin-top:13px}
+  .avatar{width:30px;height:30px;object-fit:contain;flex:0 0 30px}
+  .bubble.bot{background:#fff;border:1px solid var(--border);border-bottom-left-radius:6px}
+  .limit-card{margin-top:20px;padding:17px;border:1.5px solid #F3B3BE;border-radius:20px;background:linear-gradient(145deg,#FFF 0%,#FFF4F2 100%);text-align:center}
+  .limit-card img{width:88px;margin:0 auto 5px}
+  .limit-card strong{display:block;font-size:17px;line-height:1.25}
+  .limit-card p{font-size:13px;color:var(--body);margin-top:6px}
+  .mini-cta{display:block;margin-top:13px;padding:12px 16px;background:var(--grad);color:#fff;border-radius:999px;text-decoration:none;font-size:14px;font-weight:900}
+  .composer{position:absolute;left:0;right:0;bottom:0;padding:13px 14px 17px;background:rgba(255,251,248,.96);border-top:1px solid var(--border)}
+  .composer-inner{display:flex;align-items:center;gap:9px;border:1.5px solid var(--border);border-radius:999px;background:#fff;padding:7px 8px 7px 14px}
+  .composer-inner span{flex:1;color:var(--muted);font-size:13px}
+  .send{width:38px;height:38px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-weight:900}
+  .float-pill{
+    position:absolute;z-index:3;
+    display:flex;align-items:center;gap:9px;
+    padding:12px 15px;border:1px solid rgba(238,219,211,.85);border-radius:16px;
+    background:rgba(255,255,255,.93);box-shadow:var(--shadow-md);
+    color:var(--text);font-size:13px;font-weight:900;
+    backdrop-filter:blur(9px);
+  }
+  .float-pill svg{width:20px;height:20px;color:var(--rose)}
+  .float-pill.one{top:90px;left:-8px}
+  .float-pill.two{right:-10px;bottom:105px}
+
+  .trustbar{padding:0 0 70px}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:22px;background:#fff;box-shadow:var(--shadow-sm);overflow:hidden}
+  .trust-item{padding:20px 16px;text-align:center}
+  .trust-item+.trust-item{border-left:1px solid var(--border)}
+  .trust-item svg{width:23px;height:23px;color:var(--rose);margin:0 auto 8px}
+  .trust-item strong{display:block;font-size:14px}
+  .trust-item span{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+
+  section{padding:78px 0}
+  .section-soft{background:var(--grad-soft);border-block:1px solid rgba(238,219,211,.65)}
+  .section-head{max-width:720px;margin:0 auto 34px;text-align:center}
+  .kicker{color:var(--rose-deep);font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.3px}
+  h2{margin-top:9px;font-size:clamp(31px,4vw,48px);line-height:1.08;letter-spacing:-1.25px;font-weight:900}
+  .section-head p{max-width:610px;margin:14px auto 0;color:var(--body);font-size:17px;line-height:1.6}
+
+  .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .problem-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:24px;box-shadow:var(--shadow-sm)}
+  .problem-card .icon{width:46px;height:46px;border-radius:14px;background:var(--peach);display:grid;place-items:center;color:var(--rose-deep)}
+  .problem-card .icon svg{width:24px;height:24px}
+  .problem-card h3{margin-top:16px;font-size:19px;line-height:1.2}
+  .problem-card p{margin-top:8px;color:var(--body);font-size:15px;line-height:1.58}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .feature{position:relative;background:#fff;border:1px solid var(--border);border-radius:24px;padding:25px;box-shadow:var(--shadow-sm);overflow:hidden}
+  .feature::after{content:'';position:absolute;right:-30px;bottom:-38px;width:105px;height:105px;border-radius:50%;background:var(--peach);opacity:.6}
+  .feature .num{position:relative;z-index:1;color:var(--rose);font-size:12px;font-weight:900;letter-spacing:1px}
+  .feature h3{position:relative;z-index:1;margin-top:10px;font-size:20px;line-height:1.2}
+  .feature p{position:relative;z-index:1;margin-top:9px;color:var(--body);font-size:14.5px;line-height:1.58}
+
+  .media-panel{display:grid;grid-template-columns:.88fr 1.12fr;gap:36px;align-items:center}
+  .media-art{min-height:410px;display:grid;place-items:center;position:relative}
+  .media-art::before{content:'';position:absolute;width:360px;height:360px;border-radius:50%;background:linear-gradient(145deg,#FFE5D7,#FFDDE4)}
+  .media-art img{position:relative;z-index:2;width:270px;filter:drop-shadow(0 24px 24px rgba(75,31,36,.18))}
+  .media-copy h2{font-size:clamp(32px,4vw,50px)}
+  .media-copy>p{margin-top:14px;color:var(--body);font-size:17px}
+  .mode-list{display:grid;gap:12px;margin-top:24px}
+  .mode{display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:17px;padding:15px}
+  .mode svg{width:23px;height:23px;flex:0 0 23px;color:var(--rose)}
+  .mode strong{display:block;font-size:15px}
+  .mode span{display:block;margin-top:2px;color:var(--muted);font-size:13px}
+
+  .boundaries{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .boundary{border-radius:23px;padding:25px}
+  .boundary.yes{background:var(--green-bg);border:1px solid #B9E5CC}
+  .boundary.no{background:#fff;border:1px solid var(--border)}
+  .boundary h3{font-size:19px}
+  .boundary ul{list-style:none;display:grid;gap:12px;margin-top:17px}
+  .boundary li{display:flex;gap:10px;align-items:flex-start;color:var(--body);font-size:14.5px}
+  .check,.cross{font-size:17px;font-weight:900;line-height:1.3}
+  .check{color:var(--green)}.cross{color:var(--rose)}
+
+  .plans-intro{max-width:740px;margin:0 auto 24px;text-align:center}
+  .free-note{display:inline-flex;align-items:center;gap:8px;padding:10px 15px;border-radius:999px;background:var(--green-bg);color:var(--green);font-size:13px;font-weight:900}
+  .purchase-step{display:flex;align-items:center;gap:12px;margin:0 0 16px;color:var(--heading);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+  .purchase-step::after{content:'';height:1px;flex:1;background:var(--border)}
+  .plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+  .plan{position:relative;display:flex;flex-direction:column;min-width:0;background:#fff;border:1.5px solid var(--border);border-radius:24px;padding:24px;box-shadow:var(--shadow-sm);cursor:pointer;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease,background .2s ease}
+  .plan:hover{border-color:#EBA3B3;transform:translateY(-3px)}
+  .plan.selected{border:2px solid var(--rose);background:linear-gradient(180deg,#FFF6F3 0%,#fff 35%);box-shadow:0 20px 46px rgba(201,47,81,.16);transform:translateY(-8px)}
+  .plan.selected:hover{transform:translateY(-8px)}
+  .plan-radio{position:absolute;opacity:0;pointer-events:none}
+  .plan-choice{display:flex;align-items:center;gap:12px}
+  .radio-ui{width:22px;height:22px;border:2px solid #C8C1BC;border-radius:50%;background:#fff;display:grid;place-items:center;flex:0 0 22px;transition:border-color .2s ease,box-shadow .2s ease}
+  .radio-ui::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--rose);transform:scale(0);transition:transform .2s ease}
+  .plan.selected .radio-ui{border-color:var(--rose);box-shadow:0 0 0 4px rgba(201,47,81,.10)}
+  .plan.selected .radio-ui::after{transform:scale(1)}
+  .plan-radio:focus-visible+.plan-choice .radio-ui{outline:3px solid rgba(201,47,81,.25);outline-offset:3px}
+  .plan-icon{width:46px;height:46px;border-radius:14px;background:var(--peach);display:grid;place-items:center;color:var(--rose);flex:0 0 46px}
+  .plan-icon svg{width:24px;height:24px}
+  .plan-name{min-width:0}
+  .plan-name span{display:block;margin-bottom:2px;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+  .plan h3{font-size:21px;line-height:1.1}
+  .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;padding:7px 13px;border-radius:999px;background:var(--rose);color:#fff;box-shadow:0 7px 18px rgba(201,47,81,.24);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.6px}
+  .plan-sub{min-height:43px;margin-top:18px;color:var(--muted);font-size:13px;line-height:1.45}
+  .price{margin-top:18px;font-size:45px;font-weight:900;line-height:1;letter-spacing:-1.5px}
+  .price sup{font-size:15px;vertical-align:top;letter-spacing:0}
+  .price small{font-size:13px;color:var(--muted);letter-spacing:0}
+  .daily-equivalent{display:block;margin-top:7px;color:var(--rose-deep);font-size:12px;font-weight:900}
+  .plan-list{list-style:none;display:grid;gap:10px;margin:21px 0 0;padding-top:18px;border-top:1px solid var(--border)}
+  .plan-list li{display:flex;gap:9px;color:var(--body);font-size:13.5px;line-height:1.35}
+  .plan-list svg{width:18px;height:18px;flex:0 0 18px;color:var(--green)}
+  .checkout-panel{max-width:880px;margin:30px auto 0;background:#fff;border:1.5px solid #E8C9CF;border-radius:24px;padding:22px;box-shadow:0 17px 42px rgba(68,42,35,.10)}
+  .checkout-main{display:grid;grid-template-columns:1fr minmax(250px,320px);gap:24px;align-items:center}
+  .checkout-eyebrow{color:var(--rose-deep);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.7px}
+  .checkout-summary{display:flex;align-items:baseline;gap:10px;margin-top:4px;flex-wrap:wrap}
+  .checkout-summary strong{font-size:23px;color:var(--heading)}
+  .checkout-summary span{color:var(--muted);font-size:14px}
+  .checkout-copy{margin-top:7px;color:var(--body);font-size:13.5px;line-height:1.45}
+  .checkout-action .cta{width:100%;font-size:16px;padding:15px 18px}
+  .checkout-renewal{margin-top:8px;color:var(--muted);text-align:center;font-size:10.5px;line-height:1.4}
+  .checkout-trust{display:grid;grid-template-columns:repeat(3,1fr);margin-top:19px;padding-top:17px;border-top:1px solid var(--border)}
+  .checkout-trust span{display:flex;align-items:center;justify-content:center;gap:7px;padding:0 10px;color:var(--body);font-size:11.5px;font-weight:800;text-align:center}
+  .checkout-trust span+span{border-left:1px solid var(--border)}
+  .checkout-trust svg{width:17px;height:17px;flex:0 0 17px;color:var(--green)}
+  .pricing-note{margin:13px auto 0;color:var(--muted);text-align:center;font-size:10.5px}
+  .guarantee{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:#fff;border:1.5px solid #B9E5CC;border-radius:26px;padding:28px;box-shadow:var(--shadow-sm)}
+  .guarantee-mark{width:82px;height:82px;border-radius:50%;background:var(--green-bg);display:grid;place-items:center;color:var(--green)}
+  .guarantee-mark svg{width:42px;height:42px}
+  .guarantee h3{font-size:24px;line-height:1.15}
+  .guarantee p{margin-top:8px;color:var(--body);font-size:15px}
+
+  .faq-list{background:#fff;border:1px solid var(--border);border-radius:24px;padding:4px 24px;box-shadow:var(--shadow-sm)}
+  details{padding:20px 0;border-bottom:1px solid var(--border)}
+  details:last-child{border-bottom:0}
+  summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:16px;font-weight:900}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'+';width:29px;height:29px;border-radius:50%;background:var(--peach);display:grid;place-items:center;color:var(--rose);font-size:20px;line-height:1;flex:0 0 29px;transition:transform .2s ease}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:13px 42px 0 0;color:var(--body);font-size:14.5px;line-height:1.65}
+
+  .final-band{padding:0 0 80px}
+  .final-box{position:relative;overflow:hidden;background:var(--grad);border-radius:30px;padding:50px 38px;text-align:center;color:#fff;box-shadow:0 24px 54px rgba(201,47,81,.27)}
+  .final-box::before,.final-box::after{content:'';position:absolute;border-radius:50%;background:rgba(255,255,255,.11)}
+  .final-box::before{width:190px;height:190px;top:-100px;right:-55px}
+  .final-box::after{width:150px;height:150px;bottom:-90px;left:-45px}
+  .final-box>*{position:relative;z-index:1}
+  .final-box img{width:122px;margin:0 auto 10px;filter:drop-shadow(0 13px 14px rgba(75,20,32,.20))}
+  .final-box h2{font-size:clamp(31px,5vw,50px)}
+  .final-box p{max-width:590px;margin:12px auto 24px;color:rgba(255,255,255,.92);font-size:17px}
+  .final-box .cta{background:#fff;color:var(--rose-deep);box-shadow:0 12px 26px rgba(93,19,39,.20)}
+
+  footer{border-top:1px solid var(--border);padding:34px 0 45px;background:#fff}
+  .footer-inner{text-align:center}
+  .support{font-size:14px;color:var(--body)}
+  .support a{color:var(--rose-deep);font-weight:900;text-decoration:none}
+  .footer-links{margin-top:15px;display:flex;justify-content:center;gap:17px;flex-wrap:wrap}
+  .footer-links a{color:var(--rose-deep);font-size:13px;font-weight:900;text-decoration:none}
+  .legal{max-width:820px;margin:18px auto 0;color:var(--muted);font-size:12px;line-height:1.65}
+  .copy{margin-top:13px;color:var(--muted);font-size:12px}
+
+  @media(max-width:900px){
+    .hero{padding-top:40px}
+    .hero-grid{grid-template-columns:minmax(0,1fr);gap:34px;text-align:center}
+    .hero-grid>*{min-width:0;max-width:100%}
+    .hero-copy{margin-inline:auto}
+    .hero-actions{justify-content:center}
+    .phone-stage{min-height:620px}
+    .float-pill.one{left:8%}.float-pill.two{right:8%}
+    .feature-grid,.plans{grid-template-columns:1fr}
+    .plans{max-width:720px;margin-inline:auto;gap:20px}
+    .plan,.plan.selected,.plan:hover,.plan.selected:hover{transform:none}
+    .plan{padding:17px 18px}
+    .plan.selected{background:#FFF8F5}
+    .plan-choice{padding-right:85px}
+    .badge{top:-11px;left:50%;right:auto;transform:translateX(-50%);padding:6px 9px}
+    .plan-sub{display:none;min-height:0;margin:13px 0 0 34px}
+    .plan.selected .plan-sub{display:block}
+    .price{position:absolute;top:18px;right:18px;margin:0;font-size:28px;letter-spacing:-.8px}
+    .plan.recommended .price{top:18px}
+    .price sup{font-size:10px}.price small{display:block;margin-top:2px;text-align:right;font-size:10px}
+    .daily-equivalent{margin:10px 0 0 34px;font-size:11px}
+    .plan-list{display:none;margin:15px 0 0 34px;padding-top:14px}
+    .plan.selected .plan-list{display:grid}
+    .checkout-panel{max-width:720px}
+    .media-panel{grid-template-columns:1fr;text-align:center}
+    .mode{text-align:left}
+    .media-copy{order:-1}
+  }
+  @media(max-width:680px){
+    .container,.narrow{width:min(1120px,calc(100% - 28px))}
+    .topbar{min-height:66px}
+    .brand img{width:38px;height:38px}.brand strong{font-size:19px}
+    .nav-cta{padding:8px 13px;font-size:13px}
+    .hero{padding:32px 0 40px}
+    h1{font-size:45px;letter-spacing:-1.7px}
+    .hero-copy{font-size:17px}
+    .hero-actions{display:grid}
+    .hero-actions .cta{width:100%}
+    .phone-stage{min-height:610px}
+    .phone-halo{width:min(480px,100%);height:auto;aspect-ratio:1}
+    .phone{width:min(340px,100%);min-height:610px;border-width:8px;border-radius:42px;transform:none}
+    .float-pill{display:none}
+    .trustbar{padding-bottom:48px}
+    .trust-grid{grid-template-columns:1fr 1fr}
+    .trust-item:nth-child(3){border-left:0;border-top:1px solid var(--border)}
+    .trust-item:nth-child(4){border-top:1px solid var(--border)}
+    section{padding:58px 0}
+    .problem-grid,.boundaries{grid-template-columns:1fr}
+    .media-art{min-height:330px}.media-art::before{width:300px;height:300px}.media-art img{width:225px}
+    .checkout-main{grid-template-columns:1fr;gap:16px;text-align:center}
+    .checkout-summary{justify-content:center}
+    .checkout-trust{grid-template-columns:1fr;gap:10px}
+    .checkout-trust span+span{border-left:0}
+    .pricing-note{max-width:290px}
+    .guarantee{grid-template-columns:1fr;text-align:center}.guarantee-mark{margin:auto}
+    .final-box{padding:38px 20px}
+  }
+  @media(max-width:370px){
+    h1{font-size:39px}
+    .phone{width:100%}
+    .chat{padding-inline:13px}
+    .bubble{font-size:14px}
+    .trust-item{padding:17px 9px}
+    .price{font-size:42px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+    .cta{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="#inicio" aria-label="Gelatino — inicio">
+      <img src="img/logo-icon.webp" alt="" width="42" height="42">
+      <strong>Gelatino</strong>
+    </a>
+    <a class="nav-cta" href="#planes">Ver planes</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Dentro de Gelatin App</span>
+        <h1>Tu protocolo,<br><span class="accent">contigo.</span></h1>
+        <p class="hero-copy">Habla con Gelatino por texto, foto o audio para entender mejor tu protocolo, resolver dudas sobre tu rutina y saber cuál es el siguiente paso — sin salir de la aplicación.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#planes">
+            Elegir mi plan
+            <svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </a>
+          <a class="cta secondary" href="#como-funciona">Ver cómo funciona</a>
+        </div>
+        <p class="microcopy"><span>Suscripción mensual</span><span>Cancela cuando quieras</span><span>60 días de garantía</span></p>
+      </div>
+
+      <div class="phone-stage" aria-label="Ejemplo de una conversación dentro de Gelatino">
+        <div class="phone-halo" aria-hidden="true"></div>
+        <div class="float-pill one" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L8 18l-4 1 1-4z"/></svg>
+          Pregunta por texto
+        </div>
+        <div class="float-pill two" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="m21 15-5-5L5 21"/></svg>
+          Envía una foto
+        </div>
+        <div class="phone">
+          <div class="phone-notch" aria-hidden="true"></div>
+          <div class="app-head">
+            <div><strong>Gelatino</strong><span>Tu protocolo, contigo</span></div>
+            <img class="mini-mascot" src="img/gelatino.png" alt="" width="58" height="58">
+          </div>
+          <div class="chat">
+            <div class="bubble user">¿Qué puedo cenar hoy que sea ligero y encaje con mi protocolo?</div>
+            <div class="answer-row">
+              <img class="avatar" src="img/gelatino.png" alt="" width="30" height="30">
+              <div class="bubble bot">Puedes elegir una cena sencilla con verduras y una fuente de proteína que ya forme parte de tu rutina. Si me dices qué tienes en casa, te ayudo a organizarlo.</div>
+            </div>
+            <div class="limit-card">
+              <img src="img/gelatino.png" alt="" width="88" height="88">
+              <strong>Has usado tus 3 respuestas de hoy</strong>
+              <p>Tu protocolo sigue abierto. Puedes volver mañana o elegir un plan para seguir conversando.</p>
+              <a class="mini-cta" href="#planes">Ver planes</a>
+            </div>
+          </div>
+          <div class="composer" aria-hidden="true">
+            <div class="composer-inner"><span>Escribe tu mensaje…</span><div class="send">↑</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trustbar">
+    <div class="container trust-grid">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 20h9M16.5 3.5a2.12 2.12 0 013 3L8 18l-4 1 1-4z"/></svg>
+        <strong>Texto</strong><span>pregunta con tus palabras</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="m21 15-5-5L5 21"/></svg>
+        <strong>Foto</strong><span>muestra lo que estás viendo</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 10a7 7 0 0014 0M12 17v5m-4 0h8"/></svg>
+        <strong>Audio</strong><span>habla en vez de escribir</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <strong>Dentro del app</strong><span>sin instalar otra herramienta</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section-soft">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Una ayuda práctica</span>
+        <h2>No necesitas buscar más información. Necesitas saber qué hacer ahora.</h2>
+        <p>Gelatino reúne el contexto de tu protocolo en una conversación sencilla para ayudarte a avanzar con más claridad.</p>
+      </div>
+      <div class="problem-grid">
+        <article class="problem-card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/></svg></div>
+          <h3>Menos búsquedas sueltas</h3>
+          <p>En lugar de abrir varias páginas y comparar respuestas, preguntas dentro del mismo lugar donde sigues tu protocolo.</p>
+        </article>
+        <article class="problem-card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 2m6-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+          <h3>Menos dudas acumuladas</h3>
+          <p>Pregunta en el momento en que surge la duda y vuelve a tu rutina sin convertir una decisión pequeña en una pausa de varios días.</p>
+        </article>
+        <article class="problem-card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3M5 11h14M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg></div>
+          <h3>Tu día sigue siendo simple</h3>
+          <p>Gelatino no reemplaza el plan diario. Lo acompaña para que las instrucciones y tus próximos pasos sean más fáciles de entender.</p>
+        </article>
+        <article class="problem-card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7h-9m9 5h-9m9 5h-9M7 7l-2 2-1-1m3 4-2 2-1-1m3 4-2 2-1-1"/></svg></div>
+          <h3>Respuestas ligadas al protocolo</h3>
+          <p>La conversación usa el contenido autorizado del producto y el contexto que tú misma compartes para mantener continuidad.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Cómo funciona</span>
+        <h2>Pregunta. Entiende. Continúa.</h2>
+        <p>Sin menús complicados ni una nueva aplicación para aprender.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature reveal">
+          <span class="num">01 · ABRE</span>
+          <h3>Entra a Gelatino desde la barra del app</h3>
+          <p>Tu protocolo continúa disponible aunque llegues al límite de conversaciones.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="num">02 · PREGUNTA</span>
+          <h3>Escribe, envía una foto o graba un audio</h3>
+          <p>Elige la forma más cómoda de explicar lo que necesitas en ese momento.</p>
+        </article>
+        <article class="feature reveal">
+          <span class="num">03 · AVANZA</span>
+          <h3>Recibe una respuesta contextual</h3>
+          <p>Obtén orientación práctica para comprender tu rutina y volver al siguiente paso.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-soft">
+    <div class="container media-panel">
+      <div class="media-art reveal">
+        <img src="img/gelatino.png" alt="Personaje Gelatino" width="270" height="270">
+      </div>
+      <div class="media-copy reveal">
+        <span class="kicker">Habla como te resulte más fácil</span>
+        <h2>Una conversación que se adapta a ti.</h2>
+        <p>No hace falta escribir una pregunta perfecta. Puedes explicar la situación con tus propias palabras y usar la cámara o el micrófono cuando ayuden.</p>
+        <div class="mode-list">
+          <div class="mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg>
+            <div><strong>Texto para preguntas rápidas</strong><span>Ideal para dudas concretas sobre el día o el protocolo.</span></div>
+          </div>
+          <div class="mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="m21 15-5-5L5 21"/></svg>
+            <div><strong>Foto para mostrar contexto</strong><span>Úsala para etiquetas, ingredientes u objetos que quieras comentar.</span></div>
+          </div>
+          <div class="mode">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 10a7 7 0 0014 0M12 17v5m-4 0h8"/></svg>
+            <div><strong>Audio cuando prefieras hablar</strong><span>Graba tu mensaje y Gelatino lo convierte en una conversación de texto.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="narrow">
+      <div class="section-head reveal">
+        <span class="kicker">Límites claros</span>
+        <h2>Una ayuda para tu rutina. No un consultorio médico.</h2>
+        <p>Gelatino acompaña el uso del producto sin prometer diagnóstico, tratamiento ni resultados específicos.</p>
+      </div>
+      <div class="boundaries">
+        <div class="boundary yes reveal">
+          <h3>Gelatino sí puede ayudarte a:</h3>
+          <ul>
+            <li><span class="check">✓</span><span>Entender instrucciones y contenidos del protocolo.</span></li>
+            <li><span class="check">✓</span><span>Organizar preguntas sobre tu rutina y tus elecciones del día.</span></li>
+            <li><span class="check">✓</span><span>Explicar alternativas generales dentro del alcance educativo del producto.</span></li>
+            <li><span class="check">✓</span><span>Mantener continuidad con lo que tú misma compartiste.</span></li>
+          </ul>
+        </div>
+        <div class="boundary no reveal">
+          <h3>Gelatino no:</h3>
+          <ul>
+            <li><span class="cross">×</span><span>Diagnostica enfermedades o interpreta síntomas como un profesional.</span></li>
+            <li><span class="cross">×</span><span>Prescribe, suspende o modifica medicamentos.</span></li>
+            <li><span class="cross">×</span><span>Sustituye atención médica, nutricional o de emergencia.</span></li>
+            <li><span class="cross">×</span><span>Garantiza pérdida de peso ni resultados de salud.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-soft" id="planes">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Elige cómo quieres continuar</span>
+        <h2>Un plan para cada ritmo de uso.</h2>
+        <p>Empieza con 3 respuestas gratuitas al día. Si quieres conversar más, elige una suscripción mensual.</p>
+      </div>
+      <div class="plans-intro reveal">
+        <span class="free-note">✓ Tu protocolo de 30 días sigue abierto, tengas o no una suscripción</span>
+      </div>
+      <p class="purchase-step reveal">Paso 1 · Elige tu plan</p>
+      <div class="plans" role="radiogroup" aria-label="Elige tu plan de Gelatino">
+        <label class="plan reveal" data-plan="go">
+          <input class="plan-radio" type="radio" name="gelatino-plan" value="go">
+          <div class="plan-choice">
+            <span class="radio-ui" aria-hidden="true"></span>
+            <span class="plan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22S4 18 4 10V5l8-3 8 3v5c0 8-8 12-8 12z"/></svg>
+            </span>
+            <div class="plan-name"><span>Para empezar</span><h3>Gelatino Go</h3></div>
+          </div>
+          <p class="plan-sub">Para dudas breves y uso moderado durante el protocolo.</p>
+          <div class="price"><sup>US$</sup>17 <small>/ mes</small></div>
+          <span class="daily-equivalent">Equivale a aprox. US$0,57 al día</span>
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Hasta 10 respuestas por día</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Texto, foto y audio</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Contexto reciente de tu conversación</span></li>
+          </ul>
+        </label>
+
+        <label class="plan recommended selected reveal" data-plan="plus">
+          <span class="badge">Mejor elección</span>
+          <input class="plan-radio" type="radio" name="gelatino-plan" value="plus" checked>
+          <div class="plan-choice">
+            <span class="radio-ui" aria-hidden="true"></span>
+            <span class="plan-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="m3 5 4.5 4L12 3l4.5 6L21 5l-2 14H5L3 5Z"/></svg>
+            </span>
+            <div class="plan-name"><span>Más equilibrio</span><h3>Gelatino Plus</h3></div>
+          </div>
+          <p class="plan-sub">Para acompañamiento frecuente y más libertad para conversar.</p>
+          <div class="price"><sup>US$</sup>27 <small>/ mes</small></div>
+          <span class="daily-equivalent">Equivale a US$0,90 al día</span>
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Hasta 30 respuestas por día</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Texto, foto y audio</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Más espacio para conversaciones continuas</span></li>
+          </ul>
+        </label>
+
+        <label class="plan reveal" data-plan="pro">
+          <input class="plan-radio" type="radio" name="gelatino-plan" value="pro">
+          <div class="plan-choice">
+            <span class="radio-ui" aria-hidden="true"></span>
+            <span class="plan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m12 2 3.1 6.3L22 9.3l-5 4.9 1.2 6.8-6.2-3.3L5.8 21 7 14.2 2 9.3l6.9-1L12 2Z"/></svg>
+            </span>
+            <div class="plan-name"><span>Uso intensivo</span><h3>Gelatino Pro</h3></div>
+          </div>
+          <p class="plan-sub">Para quien usa Gelatino varias veces a lo largo del día.</p>
+          <div class="price"><sup>US$</sup>47 <small>/ mes</small></div>
+          <span class="daily-equivalent">Equivale a aprox. US$1,57 al día</span>
+          <ul class="plan-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Hasta 100 respuestas por día</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Texto, foto y audio</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="m5 12 4 4L19 6"/></svg><span>Mayor capacidad para uso intensivo</span></li>
+          </ul>
+        </label>
+      </div>
+
+      <div class="checkout-panel reveal" aria-live="polite">
+        <div class="checkout-main">
+          <div>
+            <p class="checkout-eyebrow">Tu selección</p>
+            <div class="checkout-summary"><strong id="selected-plan-name">Gelatino Plus</strong><span id="selected-plan-price">US$27 / mes</span></div>
+            <p class="checkout-copy" id="selected-plan-copy">Hasta 30 respuestas al día por texto, foto o audio.</p>
+          </div>
+          <div class="checkout-action">
+            <a class="cta" id="selected-plan-cta" href="https://www.checkout-ds24.com/product/REEMPLAZAR_PLUS">Continuar con Plus</a>
+            <p class="checkout-renewal">Cobro mensual recurrente. Cancela cuando quieras.</p>
+          </div>
+        </div>
+        <div class="checkout-trust">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22S4 18 4 10V5l8-3 8 3v5c0 8-8 12-8 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>Pago seguro por Digistore24</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12a8 8 0 1 1-2.34-5.66M20 4v6h-6"/></svg>60 días de garantía</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 2v4M18 2v4M3 10h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/></svg>Renovación mensual clara</span>
+        </div>
+        <p class="pricing-note">La equivalencia diaria se calcula sobre 30 días. El cargo real se realiza mensualmente en dólares estadounidenses.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="narrow">
+      <div class="guarantee reveal">
+        <div class="guarantee-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22S4 18 4 10V5l8-3 8 3v5c0 8-8 12-8 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h3>60 días para probarlo con tranquilidad.</h3>
+          <p>Tu suscripción está cubierta por una garantía incondicional de 60 días. Si decides que Gelatino no es para ti, puedes solicitar el reembolso dentro de ese período.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-soft">
+    <div class="narrow">
+      <div class="section-head reveal">
+        <span class="kicker">Preguntas frecuentes</span>
+        <h2>Antes de elegir tu plan.</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details>
+          <summary>¿Necesito comprar Gelatin App otra vez?</summary>
+          <p>No. Gelatino funciona dentro de Gelatin App. La suscripción amplía el número de conversaciones con Gelatino; no vuelve a cobrar el protocolo que ya adquiriste.</p>
+        </details>
+        <details>
+          <summary>¿Qué ocurre cuando alcanzo mi límite?</summary>
+          <p>El chat te muestra que alcanzaste el límite del día. Tu protocolo, tus recetas y tu progreso siguen disponibles normalmente. Puedes volver cuando el límite se renueve o cambiar de plan.</p>
+        </details>
+        <details>
+          <summary>¿Puedo enviar fotos y audios?</summary>
+          <p>Sí. Los planes incluyen preguntas por texto, una foto dentro de un mensaje y audios breves. La imagen se procesa para responder a la conversación y el audio se transcribe a texto.</p>
+        </details>
+        <details>
+          <summary>¿Gelatino puede decirme qué medicamento tomar?</summary>
+          <p>No. Gelatino no diagnostica, prescribe ni modifica medicamentos. Para decisiones médicas, síntomas importantes o emergencias debes acudir a un profesional de salud o al servicio de emergencia de tu localidad.</p>
+        </details>
+        <details>
+          <summary>¿Cómo se usan mis conversaciones?</summary>
+          <p>El contenido se utiliza para responderte y mantener continuidad dentro del servicio. No se usa para anuncios, entrenamiento ni soporte humano. El historial y el contexto se conservan por hasta 30 días; los registros técnicos de uso, sin el contenido de tus mensajes, por hasta 90 días. Consulta la Política de Privacidad para más detalles.</p>
+        </details>
+        <details>
+          <summary>¿Cómo cancelo la suscripción?</summary>
+          <p>Puedes cancelarla en cualquier momento desde la gestión de tu pedido de Digistore24 o con ayuda de nuestro soporte. Conservas el acceso del plan hasta el final del período ya pagado.</p>
+        </details>
+        <details>
+          <summary>¿Cómo aparece el cargo?</summary>
+          <p>El pago se procesa de forma segura por Digistore24 y aparece en tu extracto como <strong>D24 - Order ID</strong>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="final-band">
+    <div class="container final-box reveal">
+      <img src="img/gelatino.png" alt="" width="122" height="122">
+      <h2>Tu siguiente pregunta no tiene que quedarse para después.</h2>
+      <p>Elige el ritmo de conversación que encaje contigo y continúa tu protocolo con Gelatino dentro del app.</p>
+      <a class="cta" href="#planes">Ver los planes</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p class="support">¿Necesitas ayuda con tu acceso, pago o cancelación? Escríbenos a <a href="mailto:support.gelatinapp@gmail.com">support.gelatinapp@gmail.com</a>.</p>
+    <div class="footer-links">
+      <a href="/app/reembolso/">Reembolso</a>
+      <a href="/app/terminos/">Términos y Condiciones</a>
+      <a href="/app/privacidad/">Política de Privacidad</a>
+    </div>
+    <p class="legal">Gelatino ofrece orientación educativa y apoyo para utilizar el contenido de Gelatin App. No ofrece consejo médico, diagnóstico ni tratamiento y no sustituye la atención de un profesional de salud. Los resultados dependen de cada persona y no se garantizan resultados específicos. Consulta a un profesional antes de realizar cambios importantes en tu alimentación, actividad o medicación.</p>
+    <p class="legal">La suscripción se renueva mensualmente hasta su cancelación. Puedes darte de baja de correos de marketing en cualquier momento mediante el enlace incluido al final de cada mensaje o escribiendo a nuestro soporte. Los correos esenciales de compra, acceso y soporte pueden seguir enviándose.</p>
+    <p class="copy">© 2026 Gelatin App · Todos los derechos reservados · El cargo aparecerá como <strong>D24 - Order ID</strong></p>
+  </div>
+</footer>
+
+<script>
+  var planData = {
+    go:{name:'Gelatino Go',short:'Go',price:'US$17 / mes',copy:'Hasta 10 respuestas al día por texto, foto o audio.',url:'https://www.checkout-ds24.com/product/REEMPLAZAR_GO'},
+    plus:{name:'Gelatino Plus',short:'Plus',price:'US$27 / mes',copy:'Hasta 30 respuestas al día por texto, foto o audio.',url:'https://www.checkout-ds24.com/product/REEMPLAZAR_PLUS'},
+    pro:{name:'Gelatino Pro',short:'Pro',price:'US$47 / mes',copy:'Hasta 100 respuestas al día por texto, foto o audio.',url:'https://www.checkout-ds24.com/product/REEMPLAZAR_PRO'}
+  };
+  var planInputs = document.querySelectorAll('.plan-radio');
+  function selectPlan(value){
+    var data = planData[value];
+    if(!data)return;
+    document.querySelectorAll('.plan').forEach(function(card){card.classList.toggle('selected',card.dataset.plan===value);});
+    document.getElementById('selected-plan-name').textContent=data.name;
+    document.getElementById('selected-plan-price').textContent=data.price;
+    document.getElementById('selected-plan-copy').textContent=data.copy;
+    var button=document.getElementById('selected-plan-cta');
+    button.textContent='Continuar con '+data.short;
+    button.href=data.url;
+  }
+  planInputs.forEach(function(input){input.addEventListener('change',function(){selectPlan(input.value);});});
+
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:.10,rootMargin:'0px 0px -5% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(element){observer.observe(element);});
+</script>
+
+</body>
+</html>
