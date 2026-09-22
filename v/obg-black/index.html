@@ -54,8 +54,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* ── CARD base ── */
   .card{background:#fff;border-radius:20px;padding:20px;box-shadow:var(--sh-sm);margin-top:16px}
-  .card-label{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--rose);margin-bottom:10px;display:flex;align-items:center;gap:7px}
-  .card-label svg{width:17px;height:17px;flex-shrink:0}
+  /* Título de cada bloco: etiqueta cheia, maior e com contraste AA (branco sobre #D2335F→#B0264F = 4,8 a 6,5:1) */
+  .card-label{display:inline-flex;align-items:center;gap:9px;font-size:16px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;line-height:1.2;color:#fff;background:linear-gradient(135deg,#D2335F 0%,#B0264F 100%);padding:9px 18px 9px 13px;border-radius:22px;margin-bottom:14px;box-shadow:0 4px 12px rgba(176,38,79,.28)}
+  .card-label svg{width:21px;height:21px;flex-shrink:0}
   .card h2{font-size:21px;font-weight:800;color:var(--text);margin-bottom:8px;line-height:1.25}
   .card p{font-size:15px;color:#6b5b59;line-height:1.6}
 
