@@ -68,9 +68,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .billing .b-title{font-size:15px;font-weight:800;color:#9a6a09;line-height:1.25}
   .billing p{font-size:13.5px;color:#6b5b59;line-height:1.55;margin-bottom:12px}
   .descriptor{background:#fff;border:2px dashed var(--amber);border-radius:12px;padding:13px 14px;text-align:center}
-  .descriptor .d-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin-bottom:5px}
+  /* rótulo e nota em #6b5b59 sobre branco = 6,4:1 (o --muted dava 3,25:1) */
+  .descriptor .d-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:#6b5b59;font-weight:700;margin-bottom:5px}
   .descriptor .d-val{font-size:18px;font-weight:800;color:var(--text);font-family:ui-monospace,'Courier New',monospace;letter-spacing:.5px;word-break:break-all}
-  .descriptor .d-note{font-size:11.5px;color:var(--muted);margin-top:7px;font-style:italic}
+  .descriptor .d-note{font-size:11.5px;color:#6b5b59;margin-top:7px;font-style:italic}
   .descriptor .d-sub{font-size:13.5px;font-weight:700;color:#6b5b59;margin-top:2px}
   /* uma linha por cobrança — montada pelo script do fim da página a partir da URL */
   .cargo{text-align:left;padding:10px 0}
