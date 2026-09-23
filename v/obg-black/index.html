@@ -92,13 +92,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .cta:active{transform:translateY(0)}
 
   /* ── GUARANTEE ── */
-  .guarantee{background:rgba(82,201,127,.10);border:1.5px solid rgba(82,201,127,.35);border-radius:16px;padding:15px;margin-top:16px}
-  .guarantee .g-row{display:flex;align-items:center;gap:13px}
-  .guarantee .g-ic{width:46px;height:46px;flex-shrink:0}
-  .guarantee h4{font-size:14.5px;font-weight:800;color:#1F7A48;margin-bottom:2px}
-  .guarantee p{font-size:13px;color:#3d7a57;line-height:1.45}
-  /* "como pedir" na largura toda da caixa: o e-mail não cabe na coluna ao lado do ícone em 320px */
-  .guarantee .g-como{margin-top:10px;padding-top:10px;border-top:1px solid rgba(82,201,127,.35);font-size:13.5px}
+  .guarantee{background:#F2FBF5;border:1.5px solid rgba(82,201,127,.40);border-radius:20px;padding:22px 20px;margin-top:16px;text-align:center}
+  .guarantee .g-selo{width:132px;height:132px;margin:0 auto 12px}
+  .guarantee h4{font-size:17px;font-weight:800;color:#1F7A48;margin-bottom:6px;line-height:1.3}
+  .guarantee p{font-size:14px;color:#2f6b4b;line-height:1.5}
+  .guarantee .g-como{margin-top:14px;padding-top:14px;border-top:1px solid rgba(82,201,127,.40);font-size:14px}
   .guarantee a{color:#1F7A48;font-weight:800;overflow-wrap:anywhere}
 
   /* ── STEPS ── */
@@ -203,23 +201,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <a href="https://gelatin-app.vercel.app/login" class="cta">⚡ ABRIR MI PROTOCOLO</a>
     <p class="cta-nota">Entras con el correo de tu compra — <strong>sin contraseña</strong>.</p>
-
-    <!-- GARANTIA + REEMBOLSO -->
-    <div class="guarantee">
-      <div class="g-row">
-        <svg class="g-ic" viewBox="0 0 44 44" fill="none">
-          <circle cx="22" cy="22" r="22" fill="#BBF0CF"/>
-          <circle cx="22" cy="22" r="16" fill="#52C97F"/>
-          <path d="M15 22l4 4 8-8" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div>
-          <h4>Garantía de 14 días — sin preguntas</h4>
-          <p>Si no estás satisfecha, en los primeros 14 días te devolvemos el 100%, sin preguntas. Y estás cubierta hasta 90 días aplicando el método.</p>
-        </div>
-      </div>
-      <!-- <wbr> antes do @: em 320px o endereço quebra em "support.gelatinapp / @gmail.com", não no meio da palavra -->
-      <p class="g-como">Para pedir tu reembolso, escríbenos a <a href="mailto:support.gelatinapp@gmail.com">support.gelatinapp<wbr>@gmail.com</a> y lo procesamos. No necesitas llamar a tu banco.</p>
-    </div>
   </div>
 
   <!-- ═══ COMO ACESSAR (3 passos) ═══ -->
@@ -272,6 +253,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="faq-q" onclick="toggleFaq(this)"><span>¿Cómo accedo a mi protocolo?</span><span class="tg">+</span></div>
       <div class="faq-a">Haz clic en el botón <strong>"ABRIR MI PROTOCOLO"</strong> arriba en esta página. También puedes usar el enlace que enviamos a tu correo. Funciona en el navegador, sin descargas. Consejo: revisa tu carpeta de spam si no ves nuestro correo.</div>
     </div>
+  </div>
+
+  <!-- ═══ GARANTIA + REEMBOLSO ═══ -->
+  <div class="guarantee">
+    <img class="g-selo" src="/assets/selo-garantia-14-dias.webp" width="132" height="132" alt="Satisfacción garantizada: 14 días de reembolso" loading="lazy" decoding="async">
+    <h4>Garantía de 14 días — sin preguntas</h4>
+    <p>Si no estás satisfecha, en los primeros 14 días te devolvemos el 100%, sin preguntas. Y estás cubierta hasta 90 días aplicando el método.</p>
+    <!-- <wbr> antes do @: em 320px o endereço quebra em "support.gelatinapp / @gmail.com", não no meio da palavra -->
+    <p class="g-como">Para pedir tu reembolso, escríbenos a <a href="mailto:support.gelatinapp@gmail.com">support.gelatinapp<wbr>@gmail.com</a> y lo procesamos. No necesitas llamar a tu banco.</p>
   </div>
 
   <!-- ═══ SUPORTE ═══ -->
