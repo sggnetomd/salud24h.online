@@ -111,12 +111,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .faq{border-bottom:1px solid var(--border);padding:15px 0}
   .faq:first-of-type{padding-top:4px}
   .faq:last-child{border-bottom:none;padding-bottom:0}
-  .faq-q{font-size:15px;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  /* <details>/<summary>: abre pelo toque e pelo teclado, e a resposta nunca é cortada (sem max-height) */
+  .faq-q{font-size:15px;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;list-style:none}
+  .faq-q::-webkit-details-marker{display:none}
+  .faq-q:focus-visible{outline:2px solid var(--rose);outline-offset:4px;border-radius:6px}
   .faq-q .tg{width:24px;height:24px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;font-size:15px;color:var(--rose);font-weight:800}
-  .faq.open .faq-q .tg{transform:rotate(45deg)}
-  .faq-a{font-size:13.5px;color:var(--muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
-  .faq.open .faq-a{max-height:320px;padding-top:10px}
-  .faq-a strong{color:#6b5b59}
+  .faq[open] .faq-q .tg{transform:rotate(45deg)}
+  /* #6b5b59 sobre branco = 6,4:1 (o #9B8B8A de antes dava 3,25:1) */
+  .faq-a{font-size:14px;color:#6b5b59;line-height:1.6;padding-top:10px}
+  .faq-a strong{color:var(--text)}
 
   /* ── SUPPORT ── */
   .support{background:var(--card);border-radius:20px;padding:22px 20px;text-align:center;margin-top:16px}
@@ -234,25 +237,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- ═══ FAQ (curto) ═══ -->
+  <!-- ═══ FAQ — as dúvidas mais frequentes das compradoras, na ordem de frequência ═══ -->
   <div class="card">
     <div class="card-label">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       PREGUNTAS FRECUENTES
     </div>
 
-    <div class="faq">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>No reconozco un cargo en mi tarjeta. ¿Es fraude?</span><span class="tg">+</span></div>
-      <div class="faq-a">No. En tu extracto <span id="faq-verbo">aparece</span> como <strong class="js-descritor">D24* seguido del número de tu pedido</strong> — un cargo por cada compra, como ves arriba en esta página. Digistore24 es nuestro procesador de pago seguro — si ves este cargo, es de tu compra de hoy, no es un fraude. Si tienes dudas, escríbenos y te ayudamos enseguida.</div>
-    </div>
-    <div class="faq">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Me van a enviar algo por correo?</span><span class="tg">+</span></div>
-      <div class="faq-a">No: es digital y <strong>ya está activo</strong>. Todo vive dentro del app, que se abre en el navegador. Por eso mismo, al hacer tu compra, no hizo falta darnos ninguna dirección de envío: no hay nada que mandar por correo.</div>
-    </div>
-    <div class="faq">
-      <div class="faq-q" onclick="toggleFaq(this)"><span>¿Cómo accedo a mi protocolo?</span><span class="tg">+</span></div>
-      <div class="faq-a">Haz clic en el botón <strong>"ABRIR MI PROTOCOLO"</strong> arriba en esta página. También puedes usar el enlace que enviamos a tu correo. Funciona en el navegador, sin descargas. Consejo: revisa tu carpeta de spam si no ves nuestro correo.</div>
-    </div>
+    <details class="faq">
+      <summary class="faq-q"><span>¿Cuándo me llega el producto?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">Ya lo tienes: es una app, como dice su nombre, Gelatin App. Adentro están la fórmula coreana y tu plan de 30 días, armado con tus datos. La gelatina la preparas tú, con los pasos de cada día. Por eso mismo, al hacer tu compra, no hizo falta darnos ninguna dirección de envío: todo se abre en el navegador.</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>Veo más de un cargo en mi tarjeta. ¿Por qué?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">Tranquila, no es un error: cada programa que tienes es una compra aparte, con su propio cargo y su número de pedido. Por eso aparecen por separado en tu extracto, como te mostramos arriba. Cada cargo es un pago único. Y los 90 días son tu garantía: estás cubierta hasta 90 días aplicando el método.</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>¿Me van a cobrar cada mes? ¿Y después de los 90 días?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">No. Lo que compraste es un pago único: pagas una sola vez. No tiene mensualidad, ni renovación, ni cobro automático, tampoco después de los 90 días. No tienes nada que cancelar.</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>No reconozco un cargo en mi tarjeta. ¿Es fraude?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">No, no es un fraude. En tu extracto <span id="faq-verbo">aparece</span> como <strong class="js-descritor">D24* seguido del número de tu pedido</strong> — un cargo por cada compra, como ves arriba. Digistore24 es nuestro procesador de pago seguro: si ves este cargo, es de tu compra de hoy. ¿Tienes dudas? Escríbenos a <strong>support.gelatinapp<wbr>@gmail.com</strong>. No necesitas llamar a tu banco.</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>Ya pagué. ¿Cómo entro? No me llegó el correo.</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">Toca <strong>«ABRIR MI PROTOCOLO»</strong> y escribe el correo de tu compra: sin contraseña y sin descargar nada. La primera vez respondes unas preguntas sobre ti, y con ellas se arma tu plan. No necesitas esperar nuestro correo. Si te pide abrir en tu navegador, o te pide el correo otra vez, abre Safari o Chrome y escribe <strong>gelatin-app.vercel.app</strong>.</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>¿Dónde están los otros programas que compré?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">En la misma app y con el mismo correo: no hay otra app ni otro acceso. Abre la pestaña «Protocolos» y búscalo por la etiqueta con el nombre de tu factura: «NexGen Menopause» es el Protocolo Menopausia y «Anti-Drowsiness Lotion», el Protocolo Anti-Flacidez. Tócalo y empiézalo cuando quieras con «Añadir a mi día».</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>¿Qué tengo que comprar para empezar?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">Entra primero, antes de ir a la tienda: en la pantalla «Hoy», toca «Ver preparación». Ahí está tu receta de hoy, con cada ingrediente y su cantidad exacta: la proporción es parte de la fórmula. Y no compres para el mes entero: la fórmula cambia en los días 8, 15 y 22, y cada fase lleva sus propios ingredientes.</div>
+    </details>
+    <details class="faq">
+      <summary class="faq-q"><span>¿Y si no es para mí? ¿Me devuelven mi dinero?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">Sí. Si no estás satisfecha, en los primeros 14 días te devolvemos el 100%. Y estás cubierta hasta 90 días aplicando el método. Para pedir tu reembolso, escríbenos a <strong>support.gelatinapp<wbr>@gmail.com</strong> y lo procesamos. No necesitas llamar a tu banco. Antes de decidir, entra y mira tu plan: mirar no te quita nada.</div>
+    </details>
   </div>
 
   <!-- ═══ GARANTIA + REEMBOLSO ═══ -->
@@ -287,9 +310,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </div>
 
-<script>
-  function toggleFaq(el){ el.closest('.faq').classList.toggle('open'); }
-</script>
 
 <!-- Cargos por pedido (lidos da URL) e aviso de compra concluída -->
 <script>
