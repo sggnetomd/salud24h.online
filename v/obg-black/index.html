@@ -106,7 +106,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .step:last-child{padding-bottom:0}
   .step-n{width:36px;height:36px;background:var(--grad-cta);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;box-shadow:0 3px 8px rgba(232,64,112,.28)}
   .step-c h4{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px}
-  .step-c p{font-size:13.5px;color:var(--muted);line-height:1.5}
+  /* #6b5b59 sobre branco = 6,4:1 (o --muted dava 3,25:1) */
+  .step-c p{font-size:13.5px;color:#6b5b59;line-height:1.5}
 
   /* ── FAQ ── */
   .faq{border-bottom:1px solid var(--border);padding:15px 0}
@@ -126,8 +127,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .support{background:var(--card);border-radius:20px;padding:22px 20px;text-align:center;margin-top:16px}
   .support .s-emoji{font-size:30px;margin-bottom:8px}
   .support h4{font-size:16px;font-weight:800;color:var(--text);margin-bottom:5px}
-  .support p{font-size:13.5px;color:var(--muted);margin-bottom:14px;line-height:1.5}
-  .support a{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:11px 18px;font-size:14px;font-weight:700;color:var(--rose);text-decoration:none;transition:border-color .15s}
+  /* texto #6b5b59 = 5,8:1 no #FEF0E7; e-mail #C22D60 = 5,5:1 na pílula branca (--muted dava 2,92:1 e --rose 3,89:1) */
+  .support p{font-size:13.5px;color:#6b5b59;margin-bottom:14px;line-height:1.5}
+  .support a{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:11px 18px;font-size:14px;font-weight:700;color:#C22D60;text-decoration:none;transition:border-color .15s}
   .support a:hover{border-color:var(--rose)}
   .support a svg{width:16px;height:16px}
 
