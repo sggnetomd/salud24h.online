@@ -17,17 +17,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+  /*
+   * Página de obrigado — foco no APP (decisões do dono, 24/09):
+   *   «Colocar as cobranças lá gerou muito reembolso. Vamos tirar e focar no reforço do app, como
+   *   usar etc, vídeo de como acessar, o FAQ ta MUITO poluido e dando muita arma para elas. Vamos
+   *   colocar aquele negócio de "sigue bajando" igual tem no app.»
+   *   Sobre «Para pedir tu reembolso, escríbenos…»: «isso tem que sair, já tem o email ali embaixo
+   *   pra enviar em caso de dudas, reembolsos, etc».
+   * Saíram: o bloco de cobranças (D24* por pedido), o descritor do rodapé, a linha de como pedir
+   * reembolso na caixa da garantia e as perguntas de cobrança/reembolso do FAQ.
+   */
   :root{
-    /* Paleta */
-    --rose:#E84070; --blush:#FFA8BC; --coral:#E8634A; --amber:#F5A623; --blue:#4B7BEC; --green:#52C97F;
-    --cream:#FFF8F3; --card:#FEF0E7; --text:#2D1B1B; --muted:#9B8B8A; --border:#F0DDD4; --disabled:#C9B8B5;
-    /* Gradientes */
+    --rose:#E84070; --coral:#E8634A; --amber:#F5A623; --green:#52C97F;
+    --cream:#FFF8F3; --card:#FEF0E7; --text:#2D1B1B; --muted:#6b5b59; --border:#F0DDD4;
     --grad-cta:linear-gradient(135deg,#E8634A 0%,#E84070 100%);
     --grad-hero:linear-gradient(135deg,#F5A623 0%,#E84070 60%,#C22D60 100%);
-    --grad-mission:linear-gradient(160deg,#E84070 0%,#E8634A 100%);
-    /* Sombras */
     --sh-sm:0 2px 8px rgba(45,27,27,.08);
     --sh-md:0 4px 16px rgba(45,27,27,.12);
     --sh-btn:0 4px 14px rgba(232,64,112,.32);
@@ -36,110 +42,99 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--cream);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
   img{max-width:100%;height:auto;display:block}
 
-  /* coluna mobile (container do app = 428px) centralizada */
-  .wrap{max-width:428px;margin:0 auto;padding:0 20px 48px;min-height:100vh}
+  /* coluna mobile (container do app = 428px) centralizada; espaço no pé para a pílula não cobrir o rodapé */
+  .wrap{max-width:428px;margin:0 auto;padding:0 20px 72px;min-height:100vh}
 
   /* ── LOGO ── */
   .brand{text-align:center;padding:22px 0 6px}
   .brand img{width:118px;margin:0 auto}
 
-  /* ── HERO CELEBRAÇÃO (gradient-hero) ── */
+  /* ── HERO ── */
   .hero{background:var(--grad-hero);border-radius:24px;padding:30px 22px 26px;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh-md)}
   .hero::before{content:'';position:absolute;top:-50px;right:-40px;width:130px;height:130px;background:rgba(255,255,255,.12);border-radius:50%}
   .hero::after{content:'';position:absolute;bottom:-30px;left:-30px;width:90px;height:90px;background:rgba(255,255,255,.10);border-radius:50%}
   .hero .check{width:66px;height:66px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 6px 18px rgba(45,27,27,.18);position:relative}
   .hero .check svg{width:34px;height:34px}
   .hero h1{font-size:28px;font-weight:800;line-height:1.15;margin-bottom:6px;position:relative}
-  .hero .subtitle{font-size:15px;font-weight:600;color:rgba(255,255,255,.95);position:relative}
+  .hero .subtitle{font-size:16px;font-weight:600;color:rgba(255,255,255,.95);position:relative}
 
   /* ── CARD base ── */
-  .card{background:#fff;border-radius:20px;padding:20px;box-shadow:var(--sh-sm);margin-top:16px}
-  /* Título de cada bloco: texto grande em rosa escuro (#C22D60 sobre branco = 5,5:1) e o ícone numa bolinha em degradê */
+  .card{background:#fff;border-radius:20px;padding:20px;box-shadow:var(--sh-sm);border:1px solid var(--border);margin-top:16px}
+  /* Título de cada bloco: rosa escuro (#C22D60 sobre branco = 5,5:1) e o ícone numa bolinha em degradê */
   .card-label{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;line-height:1.2;color:#C22D60;margin-bottom:12px}
   .card-label svg{width:38px;height:38px;padding:8.5px;border-radius:50%;background:var(--grad-cta);color:#fff;stroke-width:2.4;box-shadow:0 3px 10px rgba(232,64,112,.30);flex-shrink:0}
   .card h2{font-size:21px;font-weight:800;color:var(--text);margin-bottom:8px;line-height:1.25}
-  .card p{font-size:15px;color:#6b5b59;line-height:1.6}
-
-  /* ── BILLING (Digistore24) ── */
-  .billing{background:#FFFAF0;border:2px solid var(--amber);border-radius:20px;padding:18px;margin-top:-14px;position:relative;z-index:2;box-shadow:var(--sh-md)}
-  .billing .b-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-  .billing .b-ic{width:38px;height:38px;background:var(--amber);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .billing .b-ic svg{width:21px;height:21px}
-  .billing .b-title{font-size:15px;font-weight:800;color:#9a6a09;line-height:1.25}
-  .billing p{font-size:13.5px;color:#6b5b59;line-height:1.55;margin-bottom:12px}
-  .descriptor{background:#fff;border:2px dashed var(--amber);border-radius:12px;padding:13px 14px;text-align:center}
-  /* rótulo e nota em #6b5b59 sobre branco = 6,4:1 (o --muted dava 3,25:1) */
-  .descriptor .d-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:#6b5b59;font-weight:700;margin-bottom:5px}
-  .descriptor .d-val{font-size:18px;font-weight:800;color:var(--text);font-family:ui-monospace,'Courier New',monospace;letter-spacing:.5px;word-break:break-all}
-  .descriptor .d-note{font-size:11.5px;color:#6b5b59;margin-top:7px;font-style:italic}
-  .descriptor .d-sub{font-size:13.5px;font-weight:700;color:#6b5b59;margin-top:2px}
-  /* uma linha por cobrança — montada pelo script do fim da página a partir da URL */
-  .cargo{text-align:left;padding:10px 0}
-  .cargo:first-child{padding-top:2px}
-  .cargo+.cargo{border-top:1px dashed var(--border)}
-  .cargo .c-top{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 10px}
-  .cargo .c-desc{font-size:17px;font-weight:800;color:var(--text);font-family:ui-monospace,'Courier New',monospace;letter-spacing:.3px;word-break:break-all}
-  .cargo .c-val{font-size:15px;font-weight:800;color:var(--text);white-space:nowrap}
-  .cargo .c-nom{font-size:14px;font-weight:700;color:#6b5b59;margin-top:3px}
-  .cargo .c-fac{font-size:13.5px;color:#6b5b59;margin-top:1px}
-  .billing .b-unico{font-size:13.5px;text-align:center;margin:10px 0 0}
-
-  /* notas curtas sob o botão */
-  .cta-nota{font-size:13.5px;color:var(--muted);text-align:center;margin-top:10px}
+  .card p{font-size:15.5px;color:var(--muted);line-height:1.6}
 
   /* ── CTA ── */
-  .cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;background:var(--grad-cta);color:#fff;font-size:17px;font-weight:800;text-align:center;border-radius:999px;text-decoration:none;box-shadow:var(--sh-btn);transition:transform .15s,box-shadow .15s;margin-top:18px;letter-spacing:.2px}
+  .cta{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:56px;background:var(--grad-cta);color:#fff;font-size:17px;font-weight:800;text-align:center;border-radius:999px;text-decoration:none;box-shadow:var(--sh-btn);transition:transform .15s,box-shadow .15s;margin-top:18px;letter-spacing:.2px}
   .cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,64,112,.42)}
   .cta:active{transform:translateY(0)}
+  .cta-nota{font-size:14px;color:var(--muted);text-align:center;margin-top:10px}
 
-  /* ── GUARANTEE ── */
-  .guarantee{background:#F2FBF5;border:1.5px solid rgba(82,201,127,.40);border-radius:20px;padding:22px 20px;margin-top:16px;text-align:center}
-  .guarantee .g-selo{width:132px;height:132px;margin:0 auto 12px}
-  .guarantee h4{font-size:17px;font-weight:800;color:#1F7A48;margin-bottom:6px;line-height:1.3}
-  .guarantee p{font-size:14px;color:#2f6b4b;line-height:1.5}
-  .guarantee .g-como{margin-top:14px;padding-top:14px;border-top:1px solid rgba(82,201,127,.40);font-size:14px}
-  .guarantee a{color:#1F7A48;font-weight:800;overflow-wrap:anywhere}
+  /* Plano B do navegador (o ticket nº 1 de acesso) */
+  .plano-b{background:#FFF8EA;border-left:4px solid var(--amber);border-radius:12px;padding:12px 14px;margin-top:16px;font-size:14.5px;color:var(--muted);line-height:1.55}
+  .plano-b strong{color:var(--text)}
 
-  /* ── STEPS ── */
+  /* ── VÍDEO (Google Drive, 16:9) ── */
+  .video{position:relative;width:100%;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#2D1B1B;margin-top:4px}
+  .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-link{display:block;text-align:center;margin-top:12px;font-size:14.5px;font-weight:800;color:#C22D60;text-decoration:none}
+
+  /* ── PASSOS ── */
   .step{display:flex;gap:14px;padding:14px 0}
   .step+.step{border-top:1px solid var(--border)}
   .step:last-child{padding-bottom:0}
   .step-n{width:36px;height:36px;background:var(--grad-cta);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;box-shadow:0 3px 8px rgba(232,64,112,.28)}
-  .step-c h4{font-size:15px;font-weight:800;color:var(--text);margin-bottom:3px}
-  /* #6b5b59 sobre branco = 6,4:1 (o --muted dava 3,25:1) */
-  .step-c p{font-size:13.5px;color:#6b5b59;line-height:1.5}
+  .step-c h4{font-size:16px;font-weight:800;color:var(--text);margin-bottom:3px}
+  .step-c p{font-size:14.5px;color:var(--muted);line-height:1.5}
 
   /* ── FAQ ── */
   .faq{border-bottom:1px solid var(--border);padding:15px 0}
   .faq:first-of-type{padding-top:4px}
   .faq:last-child{border-bottom:none;padding-bottom:0}
-  /* <details>/<summary>: abre pelo toque e pelo teclado, e a resposta nunca é cortada (sem max-height) */
-  .faq-q{font-size:15px;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;list-style:none}
+  .faq-q{font-size:15.5px;font-weight:700;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;list-style:none}
   .faq-q::-webkit-details-marker{display:none}
   .faq-q:focus-visible{outline:2px solid var(--rose);outline-offset:4px;border-radius:6px}
   .faq-q .tg{width:24px;height:24px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .2s;font-size:15px;color:var(--rose);font-weight:800}
   .faq[open] .faq-q .tg{transform:rotate(45deg)}
-  /* #6b5b59 sobre branco = 6,4:1 (o #9B8B8A de antes dava 3,25:1) */
-  .faq-a{font-size:14px;color:#6b5b59;line-height:1.6;padding-top:10px}
+  .faq-a{font-size:14.5px;color:var(--muted);line-height:1.6;padding-top:10px}
   .faq-a strong{color:var(--text)}
 
-  /* ── SUPPORT ── */
-  .support{background:var(--card);border-radius:20px;padding:22px 20px;text-align:center;margin-top:16px}
+  /* ── GARANTIA (sem o caminho do reembolso — o suporte, logo abaixo, cobre) ── */
+  .guarantee{background:#F2FBF5;border:1.5px solid rgba(82,201,127,.40);border-radius:20px;padding:22px 20px;margin-top:16px;text-align:center}
+  .guarantee .g-selo{width:132px;height:132px;margin:0 auto 12px}
+  .guarantee h4{font-size:17px;font-weight:800;color:#1F7A48;margin-bottom:6px;line-height:1.3}
+  .guarantee p{font-size:14.5px;color:#2f6b4b;line-height:1.5}
+
+  /* ── SUPORTE ── */
+  .support{background:var(--card);border:1px solid #F3D5C6;border-radius:20px;padding:22px 20px;text-align:center;margin-top:16px}
   .support .s-emoji{font-size:30px;margin-bottom:8px}
-  .support h4{font-size:16px;font-weight:800;color:var(--text);margin-bottom:5px}
-  /* texto #6b5b59 = 5,8:1 no #FEF0E7; e-mail #C22D60 = 5,5:1 na pílula branca (--muted dava 2,92:1 e --rose 3,89:1) */
-  .support p{font-size:13.5px;color:#6b5b59;margin-bottom:14px;line-height:1.5}
-  .support a{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:11px 18px;font-size:14px;font-weight:700;color:#C22D60;text-decoration:none;transition:border-color .15s}
+  .support h4{font-size:17px;font-weight:800;color:var(--text);margin-bottom:5px}
+  .support p{font-size:14.5px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+  .support a{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:999px;padding:11px 18px;font-size:14.5px;font-weight:700;color:#C22D60;text-decoration:none;transition:border-color .15s}
   .support a:hover{border-color:var(--rose)}
   .support a svg{width:16px;height:16px}
 
-  /* ── FOOTER ── */
+  /* ── RODAPÉ ── */
   .foot{text-align:center;padding:22px 8px 0}
-  /* sobre o creme: texto #6b5b59 = 6,1:1 e links #C22D60 = 5,2:1 (--muted dava 3,09:1 e --rose 3,70:1) */
-  .foot p{font-size:12px;color:#6b5b59;line-height:1.6}
+  .foot p{font-size:12.5px;color:var(--muted);line-height:1.6}
   .foot-links{margin-bottom:9px}
   .foot a{color:#C22D60;font-weight:700;text-decoration:none}
   .foot a:hover{text-decoration:underline}
+
+  /* ══ «SIGUE BAJANDO» — a mesma pílula da página de downsell (v/dw1-black) e do app (E0-C68) ══ */
+  /* Escondida por padrão: só o script a mostra, e só quando há página abaixo. Sem script, ou no fim
+     da página, não aparece — pedido do dono (24/09): «o sigue bajando continua quando chega no final». */
+  .cue{display:none;position:fixed;left:0;right:0;bottom:18px;z-index:45;text-align:center;pointer-events:none;transition:opacity .4s ease}
+  .cue.on{display:block}
+  .cue.gone{opacity:0}
+  .cue .pill{display:inline-block;background:var(--rose);color:#fff;font-size:14px;font-weight:800;letter-spacing:.3px;padding:9px 18px;border-radius:999px;box-shadow:0 4px 14px rgba(232,64,112,.35);animation:bob 1.5s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  @media(prefers-reduced-motion:reduce){
+    *{transition:none!important;animation:none!important}
+  }
 </style>
 
 <!-- Microsoft Clarity -->
@@ -159,42 +154,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<!-- ═══ «SIGUE BAJANDO» (some no primeiro scroll) ═══ -->
+<div class="cue" id="scrollCue" aria-hidden="true"><span class="pill">↓ Sigue bajando</span></div>
+
 <div class="wrap">
 
   <!-- ═══ LOGO ═══ -->
   <div class="brand">
-    <img src="https://media.atomicatmedia.net/u/u5XZPfchdMXmjwzkoItHcCxYRCq1/Pictures/JCkoLF4473864.webp" alt="Gelatin App" width="118" height="118">
+    <img src="/assets/email/logo.webp" alt="Gelatin App" width="118" height="118">
   </div>
 
-  <!-- ═══ HERO CELEBRAÇÃO ═══ -->
+  <!-- ═══ HERO ═══ -->
   <div class="hero">
     <div class="check">
       <svg viewBox="0 0 24 24" fill="none" stroke="#52C97F" stroke-width="3.2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
     </div>
     <h1>¡Felicidades! 🎉</h1>
     <div class="subtitle">Tu acceso a <strong>Gelatin App</strong> está activado</div>
-  </div>
-
-  <!-- ═══ ALERTA DE COBRANÇA (Digistore24) ═══ -->
-  <div class="billing">
-    <div class="b-head">
-      <div class="b-ic">
-        <svg fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-      </div>
-      <div class="b-title">Importante: guarda esto para tus registros</div>
-    </div>
-    <p id="cargos-uno">Tu compra aparecerá en tu tarjeta o extracto bancario con el nombre de abajo. <strong>Guárdalo para que reconozcas el cargo:</strong></p>
-    <p id="cargos-varios" hidden>Cada compra aparece como un cargo separado en tu tarjeta o extracto bancario. <strong>Guárdalos para que reconozcas cada cargo:</strong></p>
-    <div class="descriptor">
-      <div class="d-label" id="cargos-label">Nombre del cargo en tu extracto</div>
-      <!-- [ DESCRIPTOR DIGISTORE24 ] — texto genérico; o script troca por uma linha por pedido -->
-      <div id="cargos">
-        <div class="d-val">D24*</div>
-        <div class="d-sub">seguido del número de tu pedido</div>
-      </div>
-      <div class="d-note" id="cargos-nota">Es nuestro procesador de pago seguro (Digistore24) — no es un fraude, es tu compra.</div>
-    </div>
-    <p class="b-unico">Cada cargo es un <strong>pago único</strong> — no es una suscripción.</p>
   </div>
 
   <!-- ═══ ACESSO ═══ -->
@@ -208,9 +184,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <a href="https://gelatin-app.vercel.app/login" class="cta">⚡ ABRIR MI PROTOCOLO</a>
     <p class="cta-nota">Entras con el correo de tu compra — <strong>sin contraseña</strong>.</p>
+
+    <div class="plano-b">
+      <strong>Si el botón te pide el correo una y otra vez:</strong> abre Safari o Chrome y escribe
+      <strong>gelatin-app.vercel.app</strong> directamente. Entras con el mismo correo — sin contraseña, sin código, sin descargar nada.
+    </div>
   </div>
 
-  <!-- ═══ COMO ACESSAR (3 passos) ═══ -->
+  <!-- ═══ VÍDEO — como entrar e usar o app (link do dono, 24/09) ═══ -->
+  <div class="card">
+    <div class="card-label">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      VIDEO
+    </div>
+    <h2>Mira cómo entrar y usar la app</h2>
+    <div class="video">
+      <iframe src="https://drive.google.com/file/d/1bz4ER8-ONCorkiqXyBrn7cx1LaQMgb-y/preview"
+              title="Cómo entrar y usar Gelatin App" loading="lazy" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+    <a class="video-link" href="https://drive.google.com/file/d/1bz4ER8-ONCorkiqXyBrn7cx1LaQMgb-y/view?usp=sharing" target="_blank" rel="noopener">▶ Abrir el video en pantalla completa</a>
+  </div>
+
+  <!-- ═══ COMO EMPEZAR (3 passos) ═══ -->
   <div class="card">
     <div class="card-label">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
@@ -241,7 +236,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- ═══ FAQ — as dúvidas mais frequentes das compradoras, na ordem de frequência ═══ -->
+  <!-- ═══ FAQ — só acesso e uso do app (dono, 24/09: tirar cobrança e reembolso) ═══ -->
   <div class="card">
     <div class="card-label">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -253,146 +248,85 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="faq-a">Ya lo tienes: es una app, como dice su nombre, Gelatin App. Adentro están la fórmula coreana y tu plan de 30 días, armado con tus datos. La gelatina la preparas tú, con los pasos de cada día. Por eso mismo, al hacer tu compra, no hizo falta darnos ninguna dirección de envío: todo se abre en el navegador.</div>
     </details>
     <details class="faq">
-      <summary class="faq-q"><span>Veo más de un cargo en mi tarjeta. ¿Por qué?</span><span class="tg" aria-hidden="true">+</span></summary>
-      <div class="faq-a">Tranquila, no es un error: cada programa que compraste es una compra aparte, con su propio cargo y su número de pedido. Por eso aparecen por separado en tu extracto, como te mostramos arriba. Cada cargo es un pago único. Y los 90 días son tu garantía: estás cubierta hasta 90 días aplicando el método.</div>
-    </details>
-    <details class="faq">
-      <summary class="faq-q"><span>¿Me van a cobrar cada mes? ¿Y después de los 90 días?</span><span class="tg" aria-hidden="true">+</span></summary>
-      <div class="faq-a">No. Lo que compraste es un pago único: pagas una sola vez. No tiene mensualidad, ni renovación, ni cobro automático, tampoco después de los 90 días. No tienes nada que cancelar.</div>
-    </details>
-    <details class="faq">
-      <summary class="faq-q"><span>No reconozco un cargo en mi tarjeta. ¿Es fraude?</span><span class="tg" aria-hidden="true">+</span></summary>
-      <div class="faq-a">No, no es un fraude. En tu extracto <span id="faq-verbo">aparece</span> como <strong class="js-descritor">D24* seguido del número de tu pedido</strong> — un cargo por cada compra, como ves arriba. Digistore24 es nuestro procesador de pago seguro: cada cargo D24* con el número de tu pedido es de tu compra en Gelatin App. ¿Tienes dudas? Escríbenos a <strong>support.gelatinapp<wbr>@gmail.com</strong>. No necesitas llamar a tu banco.</div>
-    </details>
-    <details class="faq">
       <summary class="faq-q"><span>Ya pagué. ¿Cómo entro? No me llegó el correo.</span><span class="tg" aria-hidden="true">+</span></summary>
       <div class="faq-a">Toca <strong>«ABRIR MI PROTOCOLO»</strong> y escribe el correo de tu compra: sin contraseña y sin descargar nada. La primera vez respondes unas preguntas sobre ti, y con ellas se arma tu plan. No necesitas esperar nuestro correo. Si te pide abrir en tu navegador, o te pide el correo otra vez, abre Safari o Chrome y escribe <strong>gelatin-app.vercel.app</strong>.</div>
     </details>
     <details class="faq">
       <summary class="faq-q"><span>¿Dónde están los otros programas que compré?</span><span class="tg" aria-hidden="true">+</span></summary>
-      <div class="faq-a">En la misma app y con el mismo correo: no hay otra app ni otro acceso. Abre la pestaña «Protocolos» y búscalo por la etiqueta con el nombre de tu factura: «NexGen Menopause» es el Protocolo Menopausia y «Anti-Drowsiness Lotion», el Protocolo Anti-Flacidez. Tócalo y empiézalo cuando quieras con «Añadir a mi día».</div>
+      <div class="faq-a">En la misma app y con el mismo correo: no hay otra app ni otro acceso. Abre la pestaña «Protocolos»: ahí están el Protocolo Menopausia y el Protocolo Anti-Flacidez. Tócalo y empiézalo cuando quieras con «Añadir a mi día».</div>
     </details>
     <details class="faq">
       <summary class="faq-q"><span>¿Qué tengo que comprar para empezar?</span><span class="tg" aria-hidden="true">+</span></summary>
       <div class="faq-a">Entra primero, antes de ir a la tienda: en la pantalla «Hoy», toca «Ver preparación». Ahí está tu receta de hoy, con cada ingrediente y su cantidad exacta: la proporción es parte de la fórmula. Y no compres para el mes entero: la fórmula cambia en los días 8, 15 y 22, y cada fase lleva sus propios ingredientes.</div>
     </details>
-    <details class="faq">
-      <summary class="faq-q"><span>¿Y si no es para mí? ¿Me devuelven mi dinero?</span><span class="tg" aria-hidden="true">+</span></summary>
-      <div class="faq-a">Sí. Si no estás satisfecha, en los primeros 14 días te devolvemos el 100%, sin preguntas. Y estás cubierta hasta 90 días aplicando el método. Para pedir tu reembolso, escríbenos a <strong>support.gelatinapp<wbr>@gmail.com</strong> y lo procesamos. No necesitas llamar a tu banco. Antes de decidir, entra y mira tu plan: mirar no te quita nada.</div>
-    </details>
   </div>
 
-  <!-- ═══ GARANTIA + REEMBOLSO ═══ -->
+  <!-- ═══ GARANTIA — sem a linha «Para pedir tu reembolso…» (dono, 24/09) ═══ -->
   <div class="guarantee">
     <img class="g-selo" src="/assets/selo-garantia-14-dias.webp" width="132" height="132" alt="Satisfacción garantizada: 14 días de reembolso" loading="lazy" decoding="async">
     <h4>Garantía de 14 días — sin preguntas</h4>
     <p>Si no estás satisfecha, en los primeros 14 días te devolvemos el 100%, sin preguntas. Y estás cubierta hasta 90 días aplicando el método.</p>
-    <!-- <wbr> antes do @: em 320px o endereço quebra em "support.gelatinapp / @gmail.com", não no meio da palavra -->
-    <p class="g-como">Para pedir tu reembolso, escríbenos a <a href="mailto:support.gelatinapp@gmail.com">support.gelatinapp<wbr>@gmail.com</a> y lo procesamos. No necesitas llamar a tu banco.</p>
   </div>
 
-  <!-- ═══ SUPORTE ═══ -->
+  <!-- ═══ SUPORTE — o e-mail para dúvidas, acesso e reembolso ═══ -->
   <div class="support">
     <div class="s-emoji">💚</div>
     <h4>Estamos para ayudarte</h4>
     <p>¿Tienes una duda, necesitas ayuda con el acceso o quieres un reembolso? Respondemos en 24 horas.</p>
-    <!-- [ E-MAIL DE SUPORTE ] -->
     <a href="mailto:support.gelatinapp@gmail.com">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
       support.gelatinapp@gmail.com
     </a>
   </div>
 
-  <!-- ═══ FOOTER ═══ -->
+  <!-- ═══ RODAPÉ ═══ -->
   <div class="foot">
-    <!-- links legais (caminhos absolutos) -->
     <p class="foot-links"><a href="/reembolso/">Reembolso</a> · <a href="/terminos/">Términos</a> · <a href="/privacidad/">Privacidad</a></p>
-    <!-- [ DESCRIPTOR DIGISTORE24 ] -->
-    <p>© 2026 Gelatin App · Todos los derechos reservados<br>
-    <span id="rodape-rotulo">Nombre del cargo en tu extracto:</span> <strong class="js-descritor">D24* seguido del número de tu pedido</strong></p>
+    <p>© 2026 Gelatin App · Todos los derechos reservados</p>
   </div>
 
 </div>
 
 
-<!-- Cargos por pedido (lidos da URL) e aviso de compra concluída -->
 <script>
 (function () {
   'use strict';
 
+  /* ── «Sigue bajando»: aparece só se há página abaixo; some no primeiro rolar e, de todo modo,
+        antes do fim — nunca fica parada sobre o rodapé ── */
+  var cue = document.getElementById('scrollCue');
+  var cueGone = false;
+  function temMaisAbaixo() {
+    var doc = document.documentElement;
+    return doc.scrollHeight - (window.pageYOffset + window.innerHeight) > 80;
+  }
+  function hideCue() {
+    if (cueGone || !cue) return;
+    if (window.pageYOffset > 60 || !temMaisAbaixo()) {
+      cueGone = true;
+      cue.classList.add('gone');
+      setTimeout(function () { cue.classList.remove('on'); }, 450);
+    }
+  }
+  if (cue && window.pageYOffset <= 60 && temMaisAbaixo()) cue.classList.add('on');
+  window.addEventListener('scroll', hideCue, { passive: true });
+  window.addEventListener('resize', hideCue);
+
+  /* ── Aviso à fila do e-mail de acesso (Story C10 do jello) ──
+     A página não mostra mais cobrança nenhuma. Só avisa a welcome-obg que o funil terminou, para o
+     e-mail de acesso sair em segundos. Vai SÓ o pedido que a Digistore já marcou como pago na própria
+     URL (tem transaction_id): o código de um upsell recusado vinha junto até a /obg e segurava a via
+     rápida até o relógio de 15 min (investigação de 23/09, wf_a34a9b61-31d). */
   var ENDPOINT = 'https://nlanmjctvyniesxstfad.supabase.co/functions/v1/welcome-obg';
   var CODIGO = /^[A-Z0-9]{8,10}$/;
-  var VALOR = /^\d{1,6}(\.\d{1,2})?$/;
-  var VALOR_MAX = 500; // fora de 0 < valor ≤ 500, o valor não aparece
-  var MAX_PASSOS = 4; // upsell_N_*: N é o passo da oferta, não a contagem de compras
+  var TRANSACAO = /^\d{1,15}$/;
+  var MAX_PEDIDOS = 4; // upsell_N_*: N é a ordem de criação dos pedidos
 
-  // Nenhum texto da URL aparece na página: o nome de cada cargo sai desta lista.
-  // Produto não reconhecido → SEM_NOME. Mesmos nomes do e-mail de acesso: mudar os dois juntos.
-  // Casa por trecho: o nome chega com prefixo de posição e às vezes truncado.
-  var GELATINA = { app: 'Protocolo de la Gelatina', fatura: 'GelatinApp' };
-  var MENOPAUSIA = { app: 'Protocolo Menopausia', fatura: 'NexGen Menopause' };
-  var ANTI_FLACIDEZ = { app: 'Protocolo Anti-Flacidez', fatura: 'Anti-drowsiness Lotion' };
-  var NOMES = [
-    ['nexgen', MENOPAUSIA],
-    ['menopause', MENOPAUSIA],
-    ['drowsiness', ANTI_FLACIDEZ],
-    ['flacidez', ANTI_FLACIDEZ],
-    ['gelatinapp', GELATINA]
-  ];
-  var SEM_NOME = 'Tu compra';
-
-  function produtoConhecido(nome) {
-    var alvo = nome.toLowerCase();
-    for (var i = 0; i < NOMES.length; i++) {
-      if (alvo.indexOf(NOMES[i][0]) !== -1) return NOMES[i][1];
-    }
-    return null;
-  }
-
-  // Tudo entra no DOM por textContent — nunca innerHTML.
-  function el(tag, classe, texto) {
-    var e = document.createElement(tag);
-    if (classe) e.className = classe;
-    if (texto != null) e.textContent = texto;
-    return e;
-  }
-
-  // Ponto decimal e 2 casas, sem separador de milhar: «US$ 30.18».
-  function valorFormatado(valor, moeda) {
-    if (moeda !== 'USD' || !VALOR.test(valor)) return null;
-    var n = Number(valor);
-    if (!(n > 0 && n <= VALOR_MAX)) return null;
-    return 'US$ ' + n.toFixed(2);
-  }
-
-  function lerCobranca(params, prefixo) {
+  function pedidoPago(params, prefixo) {
     var codigo = (params.get(prefixo + 'order_id') || '').trim().toUpperCase();
     if (!CODIGO.test(codigo)) return null;
-    return {
-      codigo: codigo,
-      valor: valorFormatado(
-        (params.get(prefixo + 'amount') || '').trim(),
-        (params.get(prefixo + 'currency') || '').trim().toUpperCase()
-      ),
-      produto: produtoConhecido(params.get(prefixo + 'product_name') || '')
-    };
-  }
-
-  // Juntar em espanhol: «A», «A y B», «A, B y C».
-  function juntar(lista) {
-    if (lista.length < 2) return lista.join('');
-    return lista.slice(0, -1).join(', ') + ' y ' + lista[lista.length - 1];
-  }
-
-  function linhaCobranca(c) {
-    var box = el('div', 'cargo');
-    var topo = el('div', 'c-top');
-    topo.appendChild(el('span', 'c-desc', 'D24*' + c.codigo));
-    if (c.valor) topo.appendChild(el('span', 'c-val', c.valor));
-    box.appendChild(topo);
-    box.appendChild(el('div', 'c-nom', c.produto ? c.produto.app : SEM_NOME));
-    if (c.produto) box.appendChild(el('div', 'c-fac', 'En tu factura aparece como «' + c.produto.fatura + '»'));
-    return box;
+    if (!TRANSACAO.test((params.get(prefixo + 'transaction_id') || '').trim())) return null;
+    return codigo;
   }
 
   function avisarFila(codigos) {
@@ -419,51 +353,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   try {
     if (!window.URLSearchParams) return;
     var params = new URLSearchParams(window.location.search);
-
-    var cobrancas = [];
-    var vistos = {};
+    var codigos = [];
     var grupo = null;
     var prefixos = [''];
-    for (var n = 1; n <= MAX_PASSOS; n++) prefixos.push('upsell_' + n + '_');
+    for (var n = 1; n <= MAX_PEDIDOS; n++) prefixos.push('upsell_' + n + '_');
     for (var i = 0; i < prefixos.length; i++) {
-      var c = lerCobranca(params, prefixos[i]);
-      if (!c || vistos[c.codigo]) continue;
+      var c = pedidoPago(params, prefixos[i]);
+      if (!c || codigos.indexOf(c) !== -1) continue;
       // Pedidos da mesma compra têm os mesmos 8 primeiros caracteres; outro grupo é ignorado.
-      var g = c.codigo.slice(0, 8);
+      var g = c.slice(0, 8);
       if (grupo === null) grupo = g;
       if (g !== grupo) continue;
-      vistos[c.codigo] = true;
-      cobrancas.push(c);
+      codigos.push(c);
     }
-    if (!cobrancas.length) return; // sem pedido na URL: fica o texto genérico
-
-    // Monta tudo antes de trocar: se algo falhar no meio, o texto genérico continua na tela.
-    var linhas = document.createDocumentFragment();
-    for (var j = 0; j < cobrancas.length; j++) linhas.appendChild(linhaCobranca(cobrancas[j]));
-    var lista = document.getElementById('cargos');
-    lista.textContent = '';
-    lista.appendChild(linhas);
-
-    if (cobrancas.length > 1) {
-      document.getElementById('cargos-uno').hidden = true;
-      document.getElementById('cargos-varios').hidden = false;
-      document.getElementById('cargos-label').textContent = 'Así aparecen en tu extracto';
-      document.getElementById('cargos-nota').textContent =
-        'Es nuestro procesador de pago seguro (Digistore24) — no son un fraude, son tus compras.';
-      document.getElementById('faq-verbo').textContent = 'aparecen';
-      document.getElementById('rodape-rotulo').textContent = 'Nombres de los cargos en tu extracto:';
-    }
-
-    var descritores = [];
-    for (var k = 0; k < cobrancas.length; k++) descritores.push('D24*' + cobrancas[k].codigo);
-    var alvos = document.querySelectorAll('.js-descritor');
-    for (var m = 0; m < alvos.length; m++) alvos[m].textContent = juntar(descritores);
-
-    var codigos = [];
-    for (var q = 0; q < cobrancas.length; q++) codigos.push(cobrancas[q].codigo);
-    avisarFila(codigos);
+    if (codigos.length) avisarFila(codigos);
   } catch (e) {
-    // Qualquer falha aqui deixa a página como veio do servidor: texto genérico, nunca placeholder.
+    // O aviso é opcional: sem ele, o e-mail sai pelo relógio de 15 min.
   }
 })();
 </script>
