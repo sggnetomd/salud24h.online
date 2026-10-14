@@ -112,6 +112,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   @media(prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
   }
+  /* Cobranca no extrato — reposto em 13/10 (saiu em 95bba14, entrou em 55c62af/e3588ab).
+     Sem o `margin-top:-14px` do original: la o bloco colava no hero, aqui ele vem DEPOIS
+     do acesso, porque o foco da pagina passou a ser o app. */
+  .billing{background:#FFFAF0;border:2px solid var(--amber);border-radius:20px;padding:18px;box-shadow:var(--sh-md);margin-bottom:16px}
+  .billing .b-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .billing .b-ic{width:38px;height:38px;background:var(--amber);border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .billing .b-ic svg{width:21px;height:21px}
+  .billing .b-title{font-size:15px;font-weight:800;color:#9a6a09;line-height:1.25}
+  .billing p{font-size:13.5px;color:#6b5b59;line-height:1.55;margin-bottom:12px}
+  .descriptor{background:#fff;border:2px dashed var(--amber);border-radius:12px;padding:13px 14px;text-align:center}
+  .descriptor .d-label{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:#6b5b59;font-weight:700;margin-bottom:5px}
+  .descriptor .d-val{font-size:18px;font-weight:800;color:var(--text);font-family:ui-monospace,'Courier New',monospace;letter-spacing:.5px;word-break:break-all}
+  .descriptor .d-sub{font-size:13.5px;font-weight:700;color:#6b5b59;margin-top:2px}
+  .descriptor .d-note{font-size:11.5px;color:#6b5b59;margin-top:7px;font-style:italic}
+  .cargo{text-align:left;padding:9px 0}
+  .cargo:first-child{padding-top:2px}
+  .cargo+.cargo{border-top:1px dashed var(--border)}
+  .cargo .c-desc{font-size:17px;font-weight:800;color:var(--text);font-family:ui-monospace,'Courier New',monospace;letter-spacing:.3px;word-break:break-all}
+  .billing .b-unico{font-size:13.5px;text-align:center;margin:10px 0 0}
 </style>
 
 <!-- Microsoft Clarity -->
@@ -162,6 +181,32 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <strong>Si el botón te pide el correo una y otra vez:</strong> abre Safari o Chrome y escribe
       <strong>gelatin-app.vercel.app</strong> directamente. Entras con el mismo correo — sin contraseña, sin código, sin descargar nada.
     </div>
+  </div>
+
+  <!-- ═══ COBRANCA NO EXTRATO ═══
+       Reposto em 13/10 a pedido do dono. Existiu entre 22/09 (55c62af) e 24/09 (95bba14).
+       Nao e a peca que move o numero de alertas — medido: 1,96% nas compras com o bloco
+       (11/08-23/09) contra 1,43% sem ele (24/09-05/10), e a queda coincide com o welcome
+       novo, entao nao da para atribuir nada ao bloco. Repor e barato e nao mexe em venda. -->
+  <div class="billing">
+    <div class="b-head">
+      <div class="b-ic">
+        <svg fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+      </div>
+      <div class="b-title">Para que reconozcas el cargo en tu banco</div>
+    </div>
+    <p id="cargos-uno">Tu compra aparecerá en tu tarjeta o extracto bancario con el nombre de abajo. <strong>Guárdalo:</strong></p>
+    <p id="cargos-varios" hidden>Cada compra aparece como un cargo separado en tu tarjeta o extracto bancario. <strong>Guárdalos:</strong></p>
+    <div class="descriptor">
+      <div class="d-label" id="cargos-label">Nombre del cargo en tu extracto</div>
+      <!-- Texto generico; o script troca por uma linha por pedido quando a URL os traz. -->
+      <div id="cargos">
+        <div class="d-val">D24*</div>
+        <div class="d-sub">seguido del número de tu pedido</div>
+      </div>
+      <div class="d-note" id="cargos-nota">Es nuestro procesador de pago seguro (Digistore24) — no es un fraude, es tu compra.</div>
+    </div>
+    <p class="b-unico">Cada cargo es un <strong>pago único</strong> — no es una suscripción.</p>
   </div>
 
   <div class="card">
@@ -220,6 +265,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <details class="faq">
       <summary class="faq-q"><span>Ya pagué. ¿Cómo entro? No me llegó el correo.</span><span class="tg" aria-hidden="true">+</span></summary>
       <div class="faq-a">Toca <strong>«ABRIR MI PROTOCOLO»</strong> y escribe el correo de tu compra: sin contraseña y sin descargar nada. La primera vez respondes unas preguntas sobre ti, y con ellas se arma tu plan. No necesitas esperar nuestro correo. Si te pide abrir en tu navegador, o te pide el correo otra vez, abre Safari o Chrome y escribe <strong>gelatin-app.vercel.app</strong>.<br><a class="faq-go" href="https://gelatin-app.vercel.app/login">Abrir mi protocolo →</a></div>
+    </details>
+
+    <details class="faq">
+      <summary class="faq-q"><span>No reconozco un cargo en mi tarjeta. ¿Es fraude?</span><span class="tg" aria-hidden="true">+</span></summary>
+      <div class="faq-a">No, no es un fraude. En tu extracto <span id="faq-verbo">aparece</span> como <strong class="js-descritor">D24* seguido del número de tu pedido</strong> — un cargo por cada compra, como ves arriba. Digistore24 es nuestro procesador de pago seguro. ¿Tienes dudas? Escríbenos a <strong>support.gelatinapp<wbr>@gmail.com</strong>. No necesitas llamar a tu banco.</div>
     </details>
   </div>
 
@@ -304,6 +354,61 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     try { window.sessionStorage.setItem(chave, '1'); } catch (e) {  }
   }
 
+  /**
+   * Troca o texto generico do bloco de cobranca por uma linha por pedido.
+   *
+   * Os codigos ja vieram validados por `pedidoPago` (formato do pedido + transaction_id
+   * presente) e agrupados pelos 8 primeiros caracteres — ou seja, sao os pedidos DESTA
+   * compradora, nao o que alguem digitou na URL. Mesmo assim nada vai para o HTML por
+   * innerHTML: so textContent, porque o valor vem da barra de enderecos.
+   *
+   * Monta tudo antes de trocar: se algo falhar no meio, o texto generico continua na tela.
+   * O pior caso aceitavel e ela ver "D24* seguido del numero de tu pedido"; o inaceitavel
+   * seria o bloco ficar vazio.
+   */
+  function mostrarCargos(codigos) {
+    try {
+      var lista = document.getElementById('cargos');
+      if (!lista) return;
+
+      var linhas = document.createDocumentFragment();
+      for (var i = 0; i < codigos.length; i++) {
+        var box = document.createElement('div');
+        box.className = 'cargo';
+        var desc = document.createElement('div');
+        desc.className = 'c-desc';
+        desc.textContent = 'D24*' + codigos[i];
+        box.appendChild(desc);
+        linhas.appendChild(box);
+      }
+      lista.textContent = '';
+      lista.appendChild(linhas);
+
+      // Plural: quem comprou upsell ve 2 ou 3 linhas quase iguais no extrato, com valores
+      // diferentes e nenhuma dizendo o que e. E o caso que mais gera "por que me cobraram
+      // 3 vezes?" — o texto tem de falar disso antes de ela abrir o app do banco.
+      if (codigos.length > 1) {
+        var uno = document.getElementById('cargos-uno');
+        var varios = document.getElementById('cargos-varios');
+        if (uno) uno.hidden = true;
+        if (varios) varios.hidden = false;
+        var label = document.getElementById('cargos-label');
+        if (label) label.textContent = 'Así aparecen en tu extracto';
+        var nota = document.getElementById('cargos-nota');
+        if (nota) nota.textContent = 'Es nuestro procesador de pago seguro (Digistore24) — no son un fraude, son tus compras.';
+      }
+
+      // A FAQ do fraude repete os mesmos descritores: quem chega nela ja rolou para longe
+      // do bloco de cima, e mandar "ve arriba" sem repetir o dado nao ajuda ninguem.
+      var verbo = document.getElementById('faq-verbo');
+      if (verbo && codigos.length > 1) verbo.textContent = 'aparecen';
+      var descritores = [];
+      for (var k = 0; k < codigos.length; k++) descritores.push('D24*' + codigos[k]);
+      var alvos = document.querySelectorAll('.js-descritor');
+      for (var m = 0; m < alvos.length; m++) alvos[m].textContent = descritores.join(' · ');
+    } catch (e) {  }
+  }
+
   try {
     if (!window.URLSearchParams) return;
     var params = new URLSearchParams(window.location.search);
@@ -320,7 +425,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (g !== grupo) continue;
       codigos.push(c);
     }
-    if (codigos.length) avisarFila(codigos);
+    if (codigos.length) {
+      avisarFila(codigos);
+      mostrarCargos(codigos);
+    }
   } catch (e) {
 
   }
