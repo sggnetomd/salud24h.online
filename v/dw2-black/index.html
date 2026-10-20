@@ -46,142 +46,220 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=IBM+Plex+Mono:wght@500;600&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
+<!-- REDESENHO VISUAL (20/10/2026): mesma copy, mesmos links e mesmos scripts do DW02 black.
+     Muda só a apresentação, para não parecer a mesma página do DW01:
+     sem 🛑 e sem faixa vermelha (entra uma barra de etapas), títulos em serifa,
+     linha do tempo vertical, foto em moldura, preço em formato de recibo,
+     preço em formato de EXTRATO (os itens e os regalos imprimem um por um, o total soma e
+     o $19 só aparece no fim; CTA e garantia ficam travados até lá), botão rosa, garantia em carta
+     (90 dias, igual ao DW1) e o popup das duas frases no primeiro "No".
+     Ampliação (20/10): espelho + flacidez, celulitis e estrías em sequência (fotos juntas), copy do VSL do UP2. -->
 <style>
   :root{
-    --bg:#0A1F3D; --bg-2:#071730; --panel:#12305A; --line:#1E4478;
-    --white:#FFFFFF; --soft:#C8D8EE; --rose:#FF5E8A;
-    --neon:#3BFF7D; --yellow:#FFD400; --yellow-dk:#C9A400;
-    --gold:#E8C25A; --alert:#D92020;
+    --paper:#FBF4F0; --card:#FFFFFF; --ink:#2B1A22; --ink-2:#5B4650; --muted:#98838D;
+    --line:#ECD9DF; --blush:#F7E4EA; --plum:#4A1631; --rose:#C8366E; --rose-dk:#9A2353;
+    --green:#2E8B57; --amber:#B06A00; --red:#C23A3A;
+    --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+    --mono:'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
-  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--bg);color:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:104px}
+  body{font-family:'Nunito',ui-rounded,system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:104px}
   img{max-width:100%;height:auto;display:block}
   a{color:inherit}
-  :focus-visible{outline:3px solid var(--yellow);outline-offset:3px;border-radius:6px}
+  :focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:6px}
 
-  .progress{position:fixed;top:0;left:0;right:0;z-index:60;height:4px;background:rgba(255,255,255,.12)}
-  .progress span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--neon),var(--yellow));transition:width .1s linear}
+  .progress{position:fixed;top:0;left:0;right:0;z-index:60;height:3px;background:rgba(74,22,49,.08)}
+  .progress span{display:block;height:100%;width:0%;background:var(--rose);transition:width .1s linear}
 
-  body.js-reveal .rv{opacity:0;transform:translateY(20px);transition:opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1)}
+  body.js-reveal .rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease, transform .55s cubic-bezier(.16,1,.3,1)}
   body.js-reveal .rv.on{opacity:1;transform:none}
 
-  .alertbar{background:var(--alert);color:#fff;text-align:center;padding:12px 16px;font-size:15.5px;font-weight:900;letter-spacing:.4px;line-height:1.3}
-  @media(max-width:480px){ .alertbar{font-size:13.5px} }
+  /* ══ TOPO: barra de etapas no lugar do 🛑 ══ */
+  .topbar{background:var(--plum);color:#F7E4EA;text-align:center;padding:10px 16px;font-size:12.5px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;line-height:1.35}
+  .steps{list-style:none;display:flex;align-items:flex-start;max-width:330px;margin:18px auto 0;padding:0 16px}
+  .step{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;position:relative;font-size:11px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.2}
+  .step::before{content:"";position:absolute;top:11px;left:-50%;right:50%;height:2px;background:var(--line)}
+  .step:first-child::before{display:none}
+  .step .dot{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);background:var(--paper);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff}
+  .step.done{color:var(--ink-2)}
+  .step.done .dot{background:var(--green);border-color:var(--green)}
+  .step.now::before{background:var(--green)}
+  .step.now{color:var(--rose)}
+  .step.now .dot{border-color:var(--rose);background:#fff;box-shadow:0 0 0 5px rgba(200,54,110,.14)}
+  .step.now .dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--rose);animation:beat 1.6s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(.55)}}
 
-  .wrap{max-width:600px;margin:0 auto;padding:26px 20px 36px;text-align:center}
+  .wrap{max-width:600px;margin:0 auto;padding:6px 22px 36px}
 
-  .stop{font-size:88px;line-height:1;margin-bottom:6px;animation:pulse 1.6s ease-in-out infinite}
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.09)}}
-  @media(max-width:480px){ .stop{font-size:72px} }
+  .hero{text-align:center;margin:26px 0 22px}
+  h1{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.08;letter-spacing:-.8px;color:var(--ink)}
+  h1 em{display:block;font-style:italic;font-weight:500;color:var(--rose)}
+  @media(max-width:480px){ h1{font-size:35px} }
+  .sub{display:inline-block;margin-top:14px;font-size:15px;font-weight:800;color:var(--ink-2);padding:7px 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 
-  h1{font-size:34px;font-weight:900;line-height:1.14;letter-spacing:-.6px;margin-bottom:8px}
-  h1 .hi{color:var(--yellow)}
-  @media(max-width:480px){ h1{font-size:27px} }
-  .sub{font-size:18px;color:var(--soft);font-weight:700;margin-bottom:26px}
+  p.copy{font-size:18.5px;color:var(--ink-2);margin-bottom:15px}
+  p.copy strong{color:var(--ink);font-weight:800}
+  .mark{color:var(--ink);font-weight:800;background:linear-gradient(transparent 58%, rgba(200,54,110,.22) 58%)}
+  @media(max-width:480px){ p.copy{font-size:17.5px} }
 
-  p.copy{font-size:19px;color:var(--soft);margin-bottom:15px;text-align:left}
-  p.copy strong{color:var(--white);font-weight:800}
-  p.copy .mark{color:var(--yellow);font-weight:800}
-  @media(max-width:480px){ p.copy{font-size:18px} }
+  .sec{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.2;color:var(--ink);margin-bottom:14px}
+  .center{text-align:center}
 
-  .punch{font-size:24px;font-weight:900;line-height:1.22;margin:26px 0;color:var(--white)}
-  @media(max-width:480px){ .punch{font-size:21px} }
+  .punch{font-family:var(--serif);font-weight:600;font-size:29px;line-height:1.16;letter-spacing:-.3px;text-align:center;margin:30px 0;color:var(--ink)}
+  .punch em{font-style:italic;font-weight:500;color:var(--rose)}
+  @media(max-width:480px){ .punch{font-size:26px} }
 
-  /* ══ LINHA DO TEMPO ══ */
-  .timing{background:var(--bg-2);border:2px solid var(--line);border-radius:20px;padding:20px 16px;margin:24px 0}
-  .timing h4{font-size:13.5px;font-weight:900;text-transform:uppercase;letter-spacing:1.3px;color:#8FA6C4;margin-bottom:14px}
-  .timing .row{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line);text-align:left}
-  .timing .row:last-child{border-bottom:0;padding-bottom:0}
-  .timing .when{flex:0 0 78px;font-size:15px;font-weight:900;color:var(--yellow);line-height:1.25}
-  .timing .row.bad .when{color:var(--rose)}
-  .timing .what{font-size:16.5px;color:var(--soft);line-height:1.45}
-  .timing .what strong{color:var(--white);font-weight:800}
+  /* ══ LINHA DO TEMPO VERTICAL ══ */
+  .tl{background:var(--card);border-radius:20px;padding:22px 18px 6px;margin:22px 0;box-shadow:0 1px 0 var(--line), 0 12px 30px rgba(74,22,49,.06)}
+  .tl-list{list-style:none;position:relative;padding-left:28px}
+  .tl-list::before{content:"";position:absolute;left:7px;top:8px;bottom:28px;width:2px;background:linear-gradient(var(--green),var(--amber),var(--red))}
+  .tl-list li{position:relative;padding:0 0 18px}
+  .tl-list li::before{content:"";position:absolute;left:-28px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--green)}
+  .tl-list li.mid::before{border-color:var(--amber)}
+  .tl-list li.bad::before{border-color:var(--red)}
+  .tl-when{display:block;font-size:13px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+  .mid .tl-when{color:var(--amber)}
+  .bad .tl-when{color:var(--red)}
+  .here{font-style:normal;margin-left:6px;font-size:10.5px;letter-spacing:.5px;background:var(--green);color:#fff;padding:2px 8px;border-radius:999px;vertical-align:1px}
+  .tl-list p{font-size:16.5px;color:var(--ink-2);line-height:1.5}
+  .tl-list strong{color:var(--ink);font-weight:800}
 
-  .pricebox{background:var(--bg-2);border:2px solid var(--line);border-radius:22px;padding:26px 18px;margin:26px 0}
-  .pricebox .was{font-size:19px;font-weight:800;color:var(--soft)}
-  .pricebox .was s{color:#8FA6C4}
-  .pricebox .now-label{font-size:15px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:var(--soft);margin-top:12px}
-  .pricebox .now{font-size:82px;font-weight:900;line-height:1;color:var(--neon);letter-spacing:-3px;text-shadow:0 0 26px rgba(59,255,125,.45)}
-  @media(max-width:480px){ .pricebox .now{font-size:66px} }
-  .pricebox .once{font-size:20px;font-weight:900;margin-top:10px}
-  .pricebox .never{font-size:16px;color:var(--soft);margin-top:12px;line-height:1.5}
+  /* ══ FOTO EM MOLDURA ══ */
+  .photo{margin:28px 0 8px}
+  .frame{background:#fff;padding:10px 10px 14px;border-radius:6px;box-shadow:0 14px 34px rgba(74,22,49,.14);transform:rotate(-.7deg)}
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;text-align:center}
+  .tabs span{font-size:11.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;padding:4px 2px 6px;border-bottom:3px solid var(--line);color:var(--muted)}
+  .tabs .t2{color:var(--red);border-color:var(--red)}
+  .tabs .t3{color:var(--green);border-color:var(--green)}
+  .frame img{border-radius:3px;background:var(--blush)}
+  .brace{display:grid;grid-template-columns:1fr 2fr;margin-top:6px}
+  .brace .bk{height:10px;border-bottom:2px solid var(--line);border-left:2px solid var(--line);border-right:2px solid var(--line);border-radius:0 0 10px 10px}
+  .brace .bt{font-size:12.5px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:6px;text-align:center}
+  .photo figcaption{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;color:var(--ink-2);margin-top:20px;text-align:center}
+  .photo figcaption strong{font-style:normal;font-weight:700;color:var(--ink)}
 
-  .stack-head{font-size:22px;font-weight:900;margin:6px 0 16px}
-  .bonus{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;text-align:left}
-  .bonus .thumb{flex:0 0 72px;width:72px;height:72px;border-radius:10px;background:var(--bg-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:30px;overflow:hidden}
-  .bonus .thumb img{width:72px;height:72px;object-fit:cover}
-  .bonus h3{font-size:17.5px;font-weight:900;line-height:1.25;margin-bottom:4px}
-  .bonus p{font-size:15.5px;color:var(--soft);line-height:1.45}
-  .bonus .val{display:inline-block;margin-top:7px;font-size:12.5px;font-weight:900;color:var(--bg);background:var(--gold);padding:3px 9px;border-radius:999px}
-  @media(max-width:390px){ .bonus{flex-direction:column} .bonus .thumb{flex-basis:auto} }
+  /* ══ EXTRATO: os itens imprimem um por um e o $19 aparece no fim ══ */
+  .receipt{position:relative;background:var(--card);margin:6px 0 40px;padding:22px 18px 22px;border-radius:14px 14px 0 0;box-shadow:0 14px 34px rgba(74,22,49,.10)}
+  .receipt::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:12px;background:radial-gradient(circle at 10px 0, var(--card) 10px, transparent 10.5px) 0 0/20px 12px repeat-x}
+  .rc-top{text-align:center;padding-bottom:14px;margin-bottom:4px;border-bottom:2px dashed var(--line)}
+  .rc-title{font-family:var(--serif);font-weight:700;font-size:22px;line-height:1.2;color:var(--ink)}
+  .rc-meta{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  .rc-lines{list-style:none}
+  .rc-line{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;padding:14px 0;border-bottom:1px dotted #DCC3CB}
+  .rc-name{flex:1;min-width:0}
+  .rc-name em{display:inline-block;font-style:normal;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:#fff;background:var(--rose);padding:2px 7px;border-radius:4px;margin-bottom:6px}
+  .rc-name b{display:block;font-family:var(--serif);font-weight:600;font-size:18.5px;line-height:1.2;color:var(--ink)}
+  .rc-name span{display:block;font-size:14.5px;color:var(--ink-2);line-height:1.45;margin-top:4px}
+  .rc-name span strong{color:var(--ink)}
+  .rc-val{font-family:var(--mono);font-weight:600;font-size:16px;color:var(--ink);padding-top:1px;white-space:nowrap}
+  .rc-line.gift .rc-val{color:var(--rose-dk)}
+  .rc-total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 14px;font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+  .rc-total s{font-size:21px;color:var(--red);text-decoration-thickness:2px;font-variant-numeric:tabular-nums}
+  .rc-today{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:2px dashed var(--line);padding-top:18px}
+  .rc-today-l{font-family:var(--mono);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink);line-height:1.3}
+  .rc-price{display:inline-block;font-family:var(--serif);font-size:62px;font-weight:700;line-height:1;color:var(--rose)}
+  .rc-price.pending{color:#D9C4CC}
+  .rc-foot{text-align:center;margin-top:16px}
+  .rc-foot .once{font-size:18px;font-weight:900;color:var(--ink);margin-bottom:4px}
+  .rc-foot p{font-size:15.5px;color:var(--ink-2);line-height:1.5}
+  .rc-status{text-align:center;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+  .rc-status:not(:empty){margin-top:14px}
+  body.js-receipt .rc-line{opacity:0;transform:translateY(-6px)}
+  body.js-receipt .rc-line.in{opacity:1;transform:none;transition:opacity .35s ease, transform .35s ease}
+  body.js-receipt .rc-foot{opacity:0}
+  body.js-receipt .rc-foot.in{opacity:1;transition:opacity .4s ease .25s}
+  body.js-receipt .rc-price.stamp{animation:stamp .6s cubic-bezier(.2,1.4,.4,1) both}
+  @keyframes stamp{0%{transform:scale(2.3) rotate(-10deg);opacity:0}100%{transform:none;opacity:1}}
+  body.price-locked .after-price{display:none}
 
-  /* ══ COMPARATIVO VISUAL (3 painéis) ══ */
-  .compare{margin:22px 0 6px}
-  .compare .labels{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
-  .compare .labels span{
-    font-size:12.5px;font-weight:900;letter-spacing:.4px;text-transform:uppercase;
-    padding:7px 4px;border-radius:9px;line-height:1.2;display:flex;align-items:center;justify-content:center;
-  }
-  @media(max-width:420px){ .compare .labels span{font-size:11px;padding:6px 2px} }
-  .compare .l1{background:var(--panel);color:var(--soft);border:1px solid var(--line)}
-  .compare .l2{background:rgba(255,94,138,.16);color:var(--rose);border:1px solid rgba(255,94,138,.45)}
-  .compare .l3{background:rgba(59,255,125,.14);color:var(--neon);border:1px solid rgba(59,255,125,.45)}
-  .compare img{width:100%;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
-  .compare .brace{display:grid;grid-template-columns:1fr 2fr;margin-top:6px}
-  .compare .brace .bk{
-    height:11px;border-bottom:2px solid var(--line);
-    border-left:2px solid var(--line);border-right:2px solid var(--line);
-    border-radius:0 0 10px 10px;
-  }
-  .compare .brace .bt{
-    font-size:13.5px;font-weight:900;color:#8FA6C4;
-    text-transform:uppercase;letter-spacing:.8px;margin-top:7px;
-  }
-  .compare .cap{font-size:17px;color:var(--soft);line-height:1.45;margin-top:16px;text-align:left}
-  .compare .cap strong{color:var(--white);font-weight:800}
+  .fair{border-left:3px solid var(--muted);padding:4px 0 4px 14px;margin:22px 0}
+  .fair h4{font-size:12.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .fair p{font-size:15.5px;color:var(--ink-2);line-height:1.5}
+  .fair strong{color:var(--ink)}
 
-  .excluded{border:1px dashed var(--line);border-radius:14px;padding:15px 16px;margin:20px 0;text-align:left}
-  .excluded h4{font-size:13.5px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#8FA6C4;margin-bottom:5px}
-  .excluded p{font-size:15.5px;color:var(--soft);line-height:1.5}
+  /* ══ CTA ══ */
+  .cta{margin:24px 0 4px;text-align:center}
+  .cta .punch{margin:18px 0 20px}
+  .btn{display:block;width:100%;background:var(--rose);color:#fff;font-family:inherit;font-weight:900;font-size:21px;line-height:1.2;letter-spacing:.2px;padding:19px 16px;border-radius:999px;border:0;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 12px 26px rgba(200,54,110,.32), inset 0 -3px 0 rgba(0,0,0,.14);transition:transform .12s ease, background-color .12s ease}
+  .btn:hover{background:var(--rose-dk)}
+  .btn:active{transform:translateY(2px)}
+  .cta .btn{animation:ring 2.2s ease-in-out infinite}
+  @keyframes ring{0%,100%{box-shadow:0 12px 26px rgba(200,54,110,.32), 0 0 0 0 rgba(200,54,110,.35), inset 0 -3px 0 rgba(0,0,0,.14)}50%{box-shadow:0 12px 26px rgba(200,54,110,.32), 0 0 0 10px rgba(200,54,110,0), inset 0 -3px 0 rgba(0,0,0,.14)}}
+  @media(max-width:480px){ .btn{font-size:19px;padding:18px 12px} }
+  .btn-note{font-size:14.5px;color:var(--ink-2);margin-top:12px}
+  .cards{font-size:12px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .decline{display:block;margin-top:22px;font-size:15px;color:var(--muted);text-decoration:underline;line-height:1.4}
 
-  .cta{margin:26px 0 4px}
-  .arrows{font-size:34px;line-height:1;margin-bottom:2px;color:var(--alert);letter-spacing:22px;padding-left:22px}
-  .btn{
-    display:block;width:100%;
-    background:linear-gradient(180deg,#FFE24D 0%,var(--yellow) 55%,#F0C400 100%);
-    color:#1A1200;font-family:inherit;font-weight:900;font-size:22px;line-height:1.2;letter-spacing:.3px;
-    padding:20px 16px;border-radius:14px;border:0;text-align:center;text-decoration:none;cursor:pointer;
-    box-shadow:0 6px 0 var(--yellow-dk), 0 12px 26px rgba(0,0,0,.4);
-    text-transform:uppercase;transition:transform .12s ease, box-shadow .12s ease;
-  }
-  .btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--yellow-dk)}
-  @media(max-width:480px){ .btn{font-size:18.5px;padding:18px 12px} }
-  .btn-note{font-size:14.5px;color:var(--soft);margin-top:12px}
+  /* ══ GARANTIA EM CARTA ══ */
+  .promise{margin:30px 0 8px;padding:24px 20px 22px;background:var(--card);border:1.5px dashed var(--rose);border-radius:18px;text-align:center}
+  .promise .env{font-size:34px;line-height:1;margin-bottom:10px}
+  .promise h4{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.2;margin-bottom:8px;color:var(--ink)}
+  .promise p{font-size:16px;color:var(--ink-2);line-height:1.55}
 
-  .cards{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:16px 0 4px}
-  .cards span{font-size:11.5px;font-weight:900;letter-spacing:.6px;background:#fff;color:#0A1F3D;padding:6px 10px;border-radius:5px}
-
-  .decline{display:block;margin-top:22px;font-size:15px;color:#8FA6C4;text-decoration:underline;line-height:1.4}
-
-  .guar{background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:24px 20px;margin:28px 0 8px}
-  .seal{width:112px;height:112px;margin:0 auto 14px;border-radius:50%;background:radial-gradient(circle at 50% 35%, #F6DE9A 0%, var(--gold) 45%, #A8802B 100%);border:4px solid #F3E2AE;color:#3A2A00;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.45)}
-  .seal .n{font-size:38px;font-weight:900;line-height:1}
-  .seal .t{font-size:12.5px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase}
-  .guar h4{font-size:20px;font-weight:900;margin-bottom:8px}
-  .guar p{font-size:16px;color:var(--soft);line-height:1.5}
-
-  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(7,23,48,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(251,244,240,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
   .sticky .inner{max-width:600px;margin:0 auto}
-  .sticky .btn{font-size:17.5px;padding:16px 12px;box-shadow:0 4px 0 var(--yellow-dk)}
+  .sticky .btn{font-size:17.5px;padding:15px 12px;box-shadow:0 6px 16px rgba(200,54,110,.3)}
+
+  /* ══ ESPELHO (future pacing negativo do VSL do UP2) — fotos que "desembaçam" ══ */
+  .mirror{margin:26px 0 8px;background:linear-gradient(180deg,#FFFFFF,#F6EEF1);border:2px solid var(--line);border-radius:170px 170px 22px 22px;padding:40px 14px 18px;text-align:center;box-shadow:inset 0 0 0 6px #fff, 0 12px 30px rgba(74,22,49,.08)}
+  .mirror .m-kick{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;color:var(--ink)}
+  .mirror .m-kick em{display:block;font-style:italic;color:var(--green)}
+  .mirror .m-sub{font-size:16px;color:var(--ink-2);margin:12px 0 14px}
+  .m-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 10px;text-align:left}
+  .m-card{display:flex;flex-direction:column;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .m-card.wide{grid-column:1 / -1}
+  .m-card figcaption{flex:1;display:flex;align-items:flex-end;padding:0 2px 8px;font-family:var(--serif);font-weight:600;font-size:16px;line-height:1.25;color:var(--ink)}
+  .m-card.wide figcaption{font-size:18.5px}
+  .m-ph{position:relative;display:block;border-radius:14px;overflow:hidden;background:#3A2530;aspect-ratio:3/4;box-shadow:0 8px 20px rgba(74,22,49,.18)}
+  .m-card.wide .m-ph{aspect-ratio:4/3}
+  .m-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter 1.3s ease, transform 1.8s ease}
+  .m-emoji{display:none}
+  body.js-fog .m-ph img{filter:blur(14px) saturate(.6) brightness(1.15);transform:scale(1.08)}
+  body.js-fog .m-ph::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.38);transition:opacity 1.3s ease;pointer-events:none}
+  body.js-fog .m-card.clear .m-ph img{filter:none;transform:none}
+  body.js-fog .m-card.clear .m-ph::after{opacity:0}
+  /* sem a foto: volta a ser o cartão de texto com emoji */
+  .m-card.noimg{grid-column:1 / -1;flex-direction:row;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;cursor:default}
+  .m-card.noimg .m-ph{display:none}
+  .m-card.noimg .m-emoji{display:block;order:-2;font-size:24px;line-height:1;flex:0 0 28px;text-align:center}
+  .m-card.noimg figcaption{flex:1;padding:0;font-family:inherit;font-weight:700;font-size:16px;line-height:1.4}
+  .mirror .m-end{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-2);margin-top:16px;line-height:1.35}
+  .mirror .note-ill{margin-top:6px}
+  .mirror:not(:has(.m-card:not(.noimg))) .note-ill{display:none}
+
+  /* ══ FOTOS EM SEQUÊNCIA: flacidez, celulitis e estrías juntas, mesmas colunas ══ */
+  .three{margin:30px 0 8px}
+  .three .frame{transform:rotate(-.4deg)}
+  .row-img{position:relative;margin-top:6px}
+  .row-img:first-of-type{margin-top:0}
+  .row-tag{position:absolute;top:8px;left:8px;z-index:1;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;background:rgba(255,255,255,.92);color:var(--ink);padding:3px 8px;border-radius:4px}
+  .note-ill{font-size:12px;color:var(--muted);font-style:italic;text-align:center;margin-top:10px}
+
+  /* ══ POPUP DAS DUAS FRASES (abre no 1º clique em "No") ══ */
+  .pop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(42,19,32,.82);padding:14px;overflow-y:auto;opacity:0;transition:opacity .2s ease}
+  .pop[hidden]{display:none}
+  .pop.open{opacity:1}
+  .pop-box{width:100%;max-width:440px;margin:auto;background:var(--paper);color:var(--ink);border-radius:20px;padding:26px 20px 20px;text-align:center;box-shadow:0 26px 70px rgba(0,0,0,.45)}
+  .pop-title{font-family:var(--serif);font-weight:600;font-size:23px;line-height:1.22;margin-bottom:16px}
+  .pop-q{text-align:left;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 15px;margin-bottom:10px}
+  .pop-q b{display:block;font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+  .pop-q p{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.35;color:var(--ink)}
+  .pop-q.bad{border-left:4px solid var(--red)} .pop-q.bad b{color:var(--red)}
+  .pop-q.good{border-left:4px solid var(--green)} .pop-q.good b{color:var(--green)}
+  .pop-txt{font-size:15.5px;color:var(--ink-2);line-height:1.55;margin:12px 0 0}
+  .pop-txt strong{color:var(--ink)}
+  .pop .btn{margin-top:16px;font-size:19px;animation:none}
+  .pop-no{display:block;margin-top:14px;font-size:14.5px;color:var(--muted);text-decoration:underline}
 
   @media(prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
     body.js-reveal .rv{opacity:1!important;transform:none!important}
   }
 </style>
+
 
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
@@ -202,91 +280,115 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="progress"><span id="progressFill"></span></div>
 
-<div class="alertbar">ÚLTIMA PÁGINA — DESPUÉS DE ESTO VAS DIRECTO A TU ACCESO</div>
+<div class="topbar">Última página — después de esto vas directo a tu acceso</div>
+
+<ol class="steps" aria-label="Tu pedido">
+  <li class="step done"><span class="dot" aria-hidden="true">✓</span>Tu compra</li>
+  <li class="step now"><span class="dot" aria-hidden="true"></span>Esta página</li>
+  <li class="step"><span class="dot" aria-hidden="true"></span>Tu acceso</li>
+</ol>
 
 <div class="wrap">
 
-  <div class="stop" role="img" aria-label="Alto">🛑</div>
-  <h1>«Eso lo veo<br><span class="hi">cuando adelgace.»</span></h1>
-  <p class="sub">Es lo que estás pensando. Y es justo.</p>
+  <div class="hero">
+    <h1>«Eso lo veo <em>cuando adelgace.»</em></h1>
+    <p class="sub">Es lo que estás pensando. Y es justo.</p>
+  </div>
 
   <p class="copy">Por eso quiero robarte <strong>30 segundos</strong>, y después te suelto.</p>
 
   <!-- ═══ LINHA DO TEMPO ═══ -->
-  <div class="timing rv">
-    <h4>Por qué el momento lo decide todo</h4>
-    <div class="row">
-      <div class="when">Días<br>1–21</div>
-      <div class="what">La piel <strong>todavía se encoge contigo</strong>. Aquí es donde se adapta sola.</div>
-    </div>
-    <div class="row">
-      <div class="when">Día<br>30</div>
-      <div class="what">Ya perdiste los primeros kilos. La piel empieza a quedarse atrás.</div>
-    </div>
-    <div class="row bad">
-      <div class="when">Día<br>60+</div>
-      <div class="what">La piel ya se quedó donde estaba. <strong>Aquí ya no se adapta: se corrige.</strong></div>
-    </div>
-  </div>
+  <section class="tl rv">
+    <h2 class="sec">Por qué el momento lo decide todo</h2>
+    <ol class="tl-list">
+      <li><span class="tl-when">Días 1–21 <i class="here">estás aquí</i></span><p>La piel <strong>todavía se encoge contigo</strong>. Aquí es donde se adapta sola.</p></li>
+      <li class="mid"><span class="tl-when">Día 30</span><p>Ya perdiste los primeros kilos. La piel empieza a quedarse atrás.</p></li>
+      <li class="bad"><span class="tl-when">Día 60+</span><p>La piel ya se quedó donde estaba. <strong>Aquí ya no se adapta: se corrige.</strong></p></li>
+    </ol>
+  </section>
 
   <p class="copy">Ese es el problema. Cuando por fin veas la flacidez en el espejo, <span class="mark">ya pasó el momento en que se podía evitar</span>.</p>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       COMPARATIVO VISUAL — imagem hospedada e servida
-
-       Fica em /assets/ do proprio repo (mesma pasta do favicon).
-       NAO usa jsDelivr: o site ja e servido pelo proprio dominio
-       (GitHub Pages atras do Cloudflare), entao caminho relativo e
-       melhor — mesma origem, cache do CF, zero dependencia externa.
-       O Worker so intercepta /up1 /dw1 /up2 /dw2 /obg, logo
-       /assets/* passa direto pro Pages.
-
-       Original: 1536x1024 PNG, 2656 KB (no Drive,
-       .../GelatinApp/PAGINAS/3b285155-...png)
-       Servida:  1000x667 webp, 77 KB (ffmpeg, lanczos, q85)
-       width/height batem com o arquivo real -> sem CLS.
-
-       NAO alterar os rotulos. A ordem de leitura dos paineis 2 e 3
-       e o argumento da pagina: sao dois DESFECHOS da mesma perda de
-       peso, nao uma linha do tempo.
-       ═══════════════════════════════════════════════════════════ -->
-  <div class="compare rv">
-    <div class="labels">
-      <span class="l1">Antes</span>
-      <span class="l2">Sin la loción</span>
-      <span class="l3">Con la loción</span>
+  <!-- ═══ ESPELHO — [FONTE] VSL do UP2 (loção): "Imagine o seguinte cenário: você finalmente
+       conseguiu emagrecer... 10, 15, 20, até 30 quilos desapareceram. Mas, ao se olhar no espelho,
+       você ainda está insatisfeita... A pele do seu abdômen, braços e costas estará flácida e solta.
+       Seu rosto parecerá derretido, envelhecido, sem vida. E, ao vestir shorts, você notará a
+       celulite aparecendo. Você ainda evitará usar biquínis e shorts curtos por vergonha...
+       Mas isso não precisa acontecer". ═══ -->
+  <section class="mirror" id="mirror">
+    <p class="m-kick rv">Imagina: <em>10, 15, 20, hasta 30 kilos menos.</em></p>
+    <p class="m-sub rv">Pero te miras al espejo y todavía no te gusta lo que ves:</p>
+    <!-- FOTOS DO ESPELHO — começam embaçadas e "desembaçam" quando entram na tela (ou num toque).
+         A frase fica EM CIMA da foto, como título (não sobreposta).
+         Sem a foto, o cartão volta a ser texto com emoji, então dá para subir antes de ter as imagens.
+         Briefing (mesma modelo, mesma luz e mesmo tratamento de cor do comparativo-flacidez;
+         reflexo no espelho do banheiro; realista, sem ser grotesco):
+           · /assets/espejo-cuerpo.webp  1200x900  — tronco de top e short pretos, de lado, pinçando a
+             pele solta da barriga; braços com pele caída. Rosto cortado.
+           · /assets/espejo-cara.webp    900x1200  — close do rosto no espelho: bochechas fundas,
+             papada e pescoço caídos, pele opaca; expressão de decepção.
+           · /assets/espejo-piernas.webp 900x1200  — espelho de corpo inteiro, parte de trás das coxas
+             e glúteos de short curto, celulite e pele seca; ela puxando o short para baixo. Sem rosto. -->
+    <div class="m-grid">
+      <figure class="m-card wide">
+        <figcaption>La piel del abdomen, los brazos y la espalda: flácida y suelta.</figcaption>
+        <span class="m-ph"><img src="/assets/espejo-cuerpo.webp" alt="Reflejo en el espejo: piel suelta en el abdomen y los brazos después de adelgazar" width="1200" height="900" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
+        <span class="m-emoji" aria-hidden="true">👚</span>
+      </figure>
+      <figure class="m-card">
+        <figcaption>La cara: derretida, envejecida, sin vida.</figcaption>
+        <span class="m-ph"><img src="/assets/espejo-cara.webp" alt="Reflejo en el espejo: rostro con mejillas hundidas y piel caída" width="900" height="1200" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
+        <span class="m-emoji" aria-hidden="true">🪞</span>
+      </figure>
+      <figure class="m-card">
+        <figcaption>Te pones un short… y aparece la celulitis.</figcaption>
+        <span class="m-ph"><img src="/assets/espejo-piernas.webp" alt="Reflejo en el espejo: celulitis en la parte de atrás de las piernas con un short" width="900" height="1200" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
+        <span class="m-emoji" aria-hidden="true">🩳</span>
+      </figure>
     </div>
+    <p class="m-end rv">Y sigues evitando el bikini y el short corto, por vergüenza.</p>
+    <p class="note-ill">Imágenes ilustrativas.</p>
+  </section>
 
-    <img
-      src="/assets/comparativo-flacidez.webp"
-      alt="Comparación: antes de adelgazar, y los dos resultados posibles de la misma pérdida de peso"
-      width="1000" height="667" loading="lazy" decoding="async">
+  <p class="punch rv">No tiene que pasar.</p>
 
-    <div class="brace" aria-hidden="true">
-      <div></div>
-      <div>
-        <div class="bk"></div>
-        <p class="bt">Los mismos kilos perdidos</p>
+  <!-- ═══ FLACIDEZ, CELULITIS E ESTRÍAS — em sequência, sem abas: as três fotos aparecem juntas,
+       nas mesmas colunas (Antes / Sin la loción / Con la loción).
+       [FONTE] VSL do UP2: "a pele não tem tempo suficiente para se adaptar ao novo formato do
+       corpo. É como um elástico..."; "você terá pele flácida e, consequentemente, seca, com muita
+       celulite"; "proteja-se da flacidez, celulite e estrias que virão com o seu novo corpo".
+       👉 ESPAÇO RESERVADO: estatística do VSL ("New England Journal of Medicine... 9 em cada 10
+          mulheres") e o "149%" — texto do Sidney.
+
+       IMAGENS (mesmo formato da de flacidez: 1000x667 webp, 3 painéis, mesma modelo e luz, em /assets/):
+         · /assets/comparativo-celulitis.webp — parte de trás das coxas e glúteos
+         · /assets/comparativo-estrias.webp   — abdômen e quadris
+       Enquanto não existirem, a linha delas some e fica só a de flacidez.
+       No painel "Con la loción", pele melhor mas não perfeita (marcas leves): é ilustrativa e
+       não pode prometer que estrias somem.
+       NAO alterar os rotulos das colunas: os paineis 2 e 3 sao dois DESFECHOS da mesma perda de
+       peso, nao uma linha do tempo. ═══ -->
+  <section class="three">
+    <h2 class="sec center rv">La flacidez, la celulitis y las estrías vienen con el cuerpo nuevo.</h2>
+    <p class="copy rv">Cuando quemas grasa rápido, la piel no tiene tiempo de adaptarse a la nueva forma del cuerpo. Es como un elástico que estuvo estirado mucho tiempo: se queda flácida, se queda seca… <span class="mark">y ahí aparecen la celulitis y las estrías.</span></p>
+    <figure class="photo rv">
+      <div class="frame">
+        <div class="tabs"><span class="t1">Antes</span><span class="t2">Sin la loción</span><span class="t3">Con la loción</span></div>
+        <div class="row-img"><span class="row-tag">Flacidez</span><img src="/assets/comparativo-flacidez.webp" alt="Flacidez: antes de adelgazar, y los dos resultados posibles de la misma pérdida de peso" width="1000" height="667" loading="lazy" decoding="async"></div>
+        <div class="row-img"><span class="row-tag">Celulitis</span><img src="/assets/comparativo-celulitis.webp" alt="Celulitis en las piernas: antes de adelgazar, y los dos resultados posibles de la misma pérdida de peso" width="1000" height="667" loading="lazy" decoding="async" onerror="this.parentNode.style.display='none'"></div>
+        <div class="row-img"><span class="row-tag">Estrías</span><img src="/assets/comparativo-estrias.webp" alt="Estrías en el abdomen: antes de adelgazar, y los dos resultados posibles de la misma pérdida de peso" width="1000" height="667" loading="lazy" decoding="async" onerror="this.parentNode.style.display='none'"></div>
+        <div class="brace" aria-hidden="true"><div></div><div><div class="bk"></div><p class="bt">Los mismos kilos perdidos</p></div></div>
       </div>
-    </div>
+      <figcaption><strong>La loción no repara piel flácida.</strong> La acompaña mientras se encoge, para que nunca llegue a colgar.</figcaption>
+    </figure>
+    <p class="note-ill">Imágenes ilustrativas. Los resultados varían de persona a persona.</p>
+  </section>
 
-    <p class="cap"><strong>La loción no repara piel flácida.</strong> La acompaña mientras se encoge, para que nunca llegue a colgar.</p>
-  </div>
-
-
-  <p class="punch rv">Por eso no se empieza<br><span style="color:var(--yellow)">cuando aparece.</span></p>
+  <p class="punch rv">Por eso no se empieza<br><em>cuando aparece.</em></p>
 
   <p class="copy">Dijiste que no a la prueba de 90 días. Lo entiendo — otra decisión pendiente en el calendario. Así que aquí no hay prueba.</p>
 
-  <div class="pricebox rv">
-    <p class="was">En la página anterior: <s>$37</s></p>
-    <p class="now-label">Hoy, pago único</p>
-    <p class="now">$19</p>
-    <p class="once">Una sola vez.</p>
-    <p class="never">Sin cobro dentro de 90 días.<br>Sin nada esperándote después.</p>
-  </div>
-
-  <p class="copy">Son <strong>4 ingredientes</strong> que probablemente ya tienes en la cocina. Los mezclas una vez y los aplicas donde estás perdiendo volumen. Dos minutos al día.</p>
+  <p class="copy">Son <strong>4 ingredientes</strong> que probablemente ya tienes en la cocina. Los mezclas una vez y los aplicas en las piernas y en cualquier zona con flacidez, celulitis o estrías. Dos minutos al día.</p>
 
   <!-- 👉 TROCAR "Loción Piel Firme" pelo nome definitivo, aqui e no VSL do Upsell 02.
        ATENCAO: o nome que fica na Digistore e o que o comprador ve na fatura.
@@ -295,60 +397,108 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        produto nao bater com a pagina, o comprador nao reconhece a cobranca.
        Foi exatamente esse o bug do descritor "Kiwify" na pagina de obrigado. -->
 
-  <p class="stack-head rv">Y te llevas estos dos:</p>
+  <p class="sec center rv">Esto es lo que te llevas hoy:</p>
 
-  <div class="bonus rv">
-    <!-- 👉 mockup real -->
-    <div class="thumb">🪞</div>
-    <div>
-      <h3>Protocolo Piel Ya Flácida</h3>
-      <p>Para la flacidez que <strong>ya tienes</strong> — de embarazos, de dietas anteriores, de los años. No solo la que viene: la del espejo de hoy.</p>
-      <span class="val">Valor $47</span>
+  <!-- ═══ EXTRATO
+       Os itens "imprimem" um por um quando o extrato entra na tela, o valor total soma,
+       e só no fim aparece o $19. "Para ser justos", o CTA e a garantia ficam escondidos
+       até o preço aparecer (body.price-locked). Se ela rolar direto, revela tudo na hora.
+       Sem JS ou com movimento reduzido, tudo aparece de uma vez.
+
+       REGALOS (nomes tirados do acervo: eBook Terapia de Choque Térmico, Adeus Celulites
+       do VSL do Acelerador, Creme da Juventude Proibida do Stylo Maison, tratamentos
+       coreanos para estrias do FitBurn). Nenhum repete o DW1.
+       ✅ JÁ EXISTEM no Protocolo Anti-Flacidez do app: Terapia de Choque Térmico
+          (cubos de té verde e de aloe) e Cóctel Anticelulitis.
+       ⚠️ PRECISAM EXISTIR NO APP antes de subir: Crema de la Juventud Prohibida e
+          Tratamiento Coreano para Estrías. Piel Ya Flácida já estava na página anterior.
+       ⛔ "Lista de Compras Exacta" saiu: está na lista do que NÃO existe no app. ═══ -->
+  <section class="receipt" id="receipt" aria-label="Tu pedido">
+    <div class="rc-top">
+      <p class="rc-title">Tu pedido</p>
+      <p class="rc-meta">Última página · pago único</p>
     </div>
-  </div>
-
-  <div class="bonus rv">
-    <!-- 👉 mockup real -->
-    <div class="thumb">🛒</div>
-    <div>
-      <h3>Lista de Compras Exacta</h3>
-      <p>Los 4 ingredientes con marca y pasillo. Lo imprimes, lo llevas al súper, sales en diez minutos. Sin buscar nada en internet.</p>
-      <span class="val">Valor $27</span>
+    <ol class="rc-lines">
+      <li class="rc-line" data-val="37">
+        <div class="rc-name"><b>La loción</b><span>En la página anterior</span></div>
+        <span class="rc-val">$37</span>
+      </li>
+      <li class="rc-line gift" data-val="47">
+        <div class="rc-name"><em>Regalo 1</em><b>Protocolo Piel Ya Flácida</b><span>Para la flacidez que <strong>ya tienes</strong> — de embarazos, de dietas anteriores, de los años. No solo la que viene: la del espejo de hoy.</span></div>
+        <span class="rc-val">$47</span>
+      </li>
+      <li class="rc-line gift" data-val="47">
+        <div class="rc-name"><em>Regalo 2</em><b>Terapia de Choque Térmico</b><span>Cubos de té verde y de aloe que pasas por la piel antes de la loción. El frío despierta el colágeno y la elastina, las dos proteínas que sostienen la firmeza.</span></div>
+        <span class="rc-val">$47</span>
+      </li>
+      <li class="rc-line gift" data-val="37">
+        <div class="rc-name"><em>Regalo 3</em><b>Cóctel Anticelulitis</b><span>Piña, jengibre y leche de soya. Trabaja por dentro la circulación y la retención que la loción trabaja por fuera.</span></div>
+        <span class="rc-val">$37</span>
+      </li>
+      <li class="rc-line gift" data-val="77">
+        <div class="rc-name"><em>Regalo 4</em><b>Tratamiento Coreano para Estrías</b><span>Recetas caseras para las marcas que aparecen cuando el cuerpo cambia de tamaño rápido.</span></div>
+        <span class="rc-val">$77</span>
+      </li>
+      <li class="rc-line gift" data-val="57">
+        <div class="rc-name"><em>Regalo 5</em><b>Crema de la Juventud Prohibida</b><span>La fórmula casera para la cara y el cuello: firmeza, líneas de expresión y patas de gallo. Porque cuando adelgazas, la cara también lo siente.</span></div>
+        <span class="rc-val">$57</span>
+      </li>
+    </ol>
+    <div class="rc-total"><span>Valor total</span><s id="rcTotal">$302</s></div>
+    <div class="rc-today">
+      <span class="rc-today-l">Hoy,<br>pago único</span>
+      <b class="rc-price" id="rcPrice">$19</b>
     </div>
-  </div>
+    <div class="rc-foot">
+      <p class="once">Una sola vez.</p>
+      <p>Sin cobro dentro de 90 días.<br>Sin nada esperándote después.</p>
+    </div>
+    <p class="rc-status" id="rcStatus" aria-live="polite"></p>
+  </section>
 
-  <div class="excluded rv">
+  <div class="fair rv after-price">
     <h4>Para ser justos</h4>
     <p>Esta versión <strong>no incluye la Guía Firm Fit</strong> de Sarah Miller. Esa queda solo para quienes entraron al paquete VIP completo.</p>
   </div>
 
-  <div class="cta rv">
-    <p class="punch" style="margin:18px 0 10px">Tu cuerpo va a cambiar en las próximas semanas.<br>Esto decide cómo se ve cuando termine.</p>
-
-    <div class="arrows" aria-hidden="true">⬇⬇⬇</div>
+  <div class="cta rv after-price">
+    <p class="punch">Tu cuerpo va a cambiar en las próximas semanas.<br><em>Esto decide cómo se ve cuando termine.</em></p>
 
     <!-- 👉 SIM (aceitar) — o digistore.js reescreve pra /answer/<session_id>/yes
          SEM payplan: a query string sobrevive a reescrita e vira plano de cobranca. -->
     <a class="btn" href="https://www.checkout-ds24.com/answer/yes?template=light">
       Sí, la quiero por $19
     </a>
-    <p class="btn-note">Un solo clic. No vuelves a poner tu tarjeta.</p>
-
-    <div class="cards" aria-label="Métodos de pago">
-      <span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>DISCOVER</span>
-    </div>
+    <p class="btn-note">🔒 Un solo clic. No vuelves a poner tu tarjeta.</p>
+    <p class="cards" aria-label="Métodos de pago">Visa · Mastercard · Amex · Discover</p>
 
     <!-- 👉 NÃO (recusar) — precisa existir: se a pagina tiver "yes" e nenhum "no",
          o proprio digistore.js injeta um iframe flutuante de recusa por cima. -->
-    <a class="decline" href="https://www.checkout-ds24.com/answer/no">No, aunque sé que no tendré otra oportunidad.</a>
+    <a class="decline" id="declineLink" href="https://www.checkout-ds24.com/answer/no">No, aunque sé que no tendré otra oportunidad.</a>
   </div>
 
-  <div class="guar rv">
-    <div class="seal"><span class="n">30</span><span class="t">Días</span></div>
-    <h4>30 días para arrepentirte</h4>
-    <p>Si sientes que no era para ti, escribes una línea a nuestro correo y te devolvemos los $19 completos. Te quedas con los dos bonos igual.</p>
+  <div class="promise rv after-price">
+    <div class="env" aria-hidden="true">✉️</div>
+    <h4>90 días para arrepentirte</h4>
+    <p>Si sientes que no era para ti, escribes una línea a nuestro correo y te devolvemos los $19 completos. Te quedas con los 5 regalos igual.</p>
   </div>
 
+</div>
+
+<!-- ═══ POPUP DAS DUAS FRASES ═══
+     Abre no PRIMEIRO clique em "No, aunque sé…". O segundo "no" (dentro do popup) recusa de verdade.
+     Os dois links também são reescritos pelo digistore.js (ele varre todos os <a> da página).
+     SEM payplan no "sim", igual aos outros botões. -->
+<div class="pop" id="exitPop" hidden role="dialog" aria-modal="true" aria-labelledby="popTitle">
+  <div class="pop-box" tabindex="-1">
+    <p class="pop-title" id="popTitle">Dentro de unos meses te van a decir una de estas dos frases.</p>
+    <div class="pop-q bad"><b>Si cierras esta página</b><p>«Bajaste de peso… pero la piel te quedó colgando y con estrías.»</p></div>
+    <div class="pop-q good"><b>Si agregas la loción</b><p>«¿Bajaste de peso? ¡Y con la piel tan firme! ¿Qué hiciste?»</p></div>
+    <p class="pop-txt">Los kilos se van a ir igual: la gelatina se encarga. <strong>Lo único que se decide aquí es cómo se ve tu piel cuando se vayan.</strong></p>
+    <p class="pop-txt"><strong>$19</strong>, una sola vez, con los 5 regalos. Y esta página no vuelve.</p>
+    <a class="btn" href="https://www.checkout-ds24.com/answer/yes?template=light">Quiero la segunda frase</a>
+    <a class="pop-no" href="https://www.checkout-ds24.com/answer/no">No, me arriesgo con la primera.</a>
+  </div>
 </div>
 
 <!-- ═══ BARRA FIXA ═══
@@ -364,6 +514,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO = 'IntersectionObserver' in window;
 
   var fill = document.getElementById('progressFill');
   function progress(){
@@ -373,10 +524,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   var bar = document.getElementById('stickyBar');
-  var anchor = document.querySelector('.pricebox');
+  var anchor = document.getElementById('receipt');
   var mainBtn = document.querySelector('.cta .btn');
   function sticky(){
     if(!bar || !anchor) return;
+    if(document.body.classList.contains('price-locked') || (typeof popOpen !== 'undefined' && popOpen)){ bar.hidden = true; return; }
     var passed = anchor.getBoundingClientRect().bottom < 0;
     var vis = false;
     if(mainBtn){
@@ -386,12 +538,121 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     bar.hidden = !(passed && !vis);
   }
 
-  window.addEventListener('scroll', function(){ progress(); sticky(); }, {passive:true});
+  /* ═══ Extrato: imprime item por item, soma o total e só no fim mostra o $19 ═══ */
+  var receipt = document.getElementById('receipt');
+  var rcLines = receipt ? receipt.querySelectorAll('.rc-line') : [];
+  var rcTotal = document.getElementById('rcTotal');
+  var rcPrice = document.getElementById('rcPrice');
+  var rcFoot = receipt ? receipt.querySelector('.rc-foot') : null;
+  var rcStatus = document.getElementById('rcStatus');
+  var totalFinal = 0;
+  for(var t=0;t<rcLines.length;t++) totalFinal += parseInt(rcLines[t].getAttribute('data-val'),10) || 0;
+  var revealed = false, printing = false, shown = 0;
+
+  function countTo(target){
+    var start = shown, t0 = null, dur = 380;
+    shown = target;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      rcTotal.textContent = '$' + Math.round(start + (target - start) * p);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function revealPrice(){
+    if(revealed) return;
+    revealed = true;
+    for(var i=0;i<rcLines.length;i++) rcLines[i].classList.add('in');
+    if(rcTotal) rcTotal.textContent = '$' + totalFinal;
+    if(rcStatus) rcStatus.textContent = '';
+    if(rcPrice){ rcPrice.textContent = '$19'; rcPrice.classList.remove('pending'); rcPrice.classList.add('stamp'); }
+    if(rcFoot) rcFoot.classList.add('in');
+    document.body.classList.remove('price-locked');
+    progress(); sticky();
+  }
+  function printAll(){
+    if(printing || revealed) return;
+    printing = true;
+    if(rcStatus) rcStatus.textContent = 'Sumando lo que te llevas…';
+    var running = 0;
+    for(var k=0;k<rcLines.length;k++){
+      (function(el, idx){
+        setTimeout(function(){
+          if(revealed) return;
+          el.classList.add('in');
+          running += parseInt(el.getAttribute('data-val'),10) || 0;
+          countTo(running);
+        }, 250 + idx * 520);
+      })(rcLines[k], k);
+    }
+    setTimeout(revealPrice, 250 + rcLines.length * 520 + 700);
+  }
+  if(receipt && rcTotal && rcPrice && !reduce && hasIO){
+    document.body.classList.add('js-receipt', 'price-locked');
+    rcTotal.textContent = '$0';
+    rcPrice.textContent = '$??';
+    rcPrice.classList.add('pending');
+    var rio = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ rio.disconnect(); printAll(); } });
+    }, {threshold:0.2});
+    rio.observe(receipt);
+  }
+
+  window.addEventListener('scroll', function(){
+    progress(); sticky();
+    /* segurança: se ela passar do extrato rolando rápido, revela tudo na hora */
+    if(!revealed && receipt && document.body.classList.contains('price-locked') && receipt.getBoundingClientRect().bottom < window.innerHeight * 0.35) revealPrice();
+  }, {passive:true});
   window.addEventListener('resize', progress, {passive:true});
   progress(); sticky();
 
+  /* ═══ Popup das duas frases: o 1º "No" abre, o 2º recusa ═══ */
+  var pop = document.getElementById('exitPop');
+  var declineLink = document.getElementById('declineLink');
+  var popShown = false, popOpen = false;
+  function openPop(){
+    pop.hidden = false; popOpen = true;
+    requestAnimationFrame(function(){ pop.classList.add('open'); });
+    var box = pop.querySelector('.pop-box'); if(box) box.focus();
+    document.body.style.overflow = 'hidden';
+    if(bar) bar.hidden = true;
+  }
+  function closePop(){
+    pop.classList.remove('open'); popOpen = false;
+    document.body.style.overflow = '';
+    setTimeout(function(){ pop.hidden = true; sticky(); }, 200);
+  }
+  if(pop && declineLink){
+    declineLink.addEventListener('click', function(e){
+      if(popShown) return;
+      e.preventDefault(); popShown = true; openPop();
+    });
+    pop.addEventListener('click', function(e){ if(e.target === pop) closePop(); });
+    document.addEventListener('keydown', function(e){ if(popOpen && e.key === 'Escape') closePop(); });
+  }
+
+  /* ═══ Espelho: as fotos começam embaçadas e ficam nítidas quando entram na tela (ou num toque) ═══ */
+  var mcards = document.querySelectorAll('.m-card');
+  function clearCard(el){ el.classList.add('clear'); }
+  if(mcards.length && !reduce && hasIO){
+    document.body.classList.add('js-fog');
+    var mio = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var el = e.target; mio.unobserve(el);
+        var idx = Array.prototype.indexOf.call(mcards, el);
+        setTimeout(function(){ clearCard(el); }, 500 + (idx === 2 ? 450 : 0));
+      });
+    }, {threshold:0.55});
+    for(var mc=0;mc<mcards.length;mc++){
+      mio.observe(mcards[mc]);
+      mcards[mc].addEventListener('click', function(){ clearCard(this); });
+    }
+  }
+
   var blocks = document.querySelectorAll('.rv');
-  if(reduce || !('IntersectionObserver' in window)){
+  if(reduce || !hasIO){
     for(var i=0;i<blocks.length;i++) blocks[i].classList.add('on');
     return;
   }
@@ -401,9 +662,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }, {rootMargin:'0px 0px -10% 0px', threshold:0.05});
   for(var j=0;j<blocks.length;j++) io.observe(blocks[j]);
 
-  setTimeout(function(){ for(var k=0;k<blocks.length;k++) blocks[k].classList.add('on'); }, 3000);
+  setTimeout(function(){ for(var m=0;m<blocks.length;m++) blocks[m].classList.add('on'); }, 3000);
 })();
 </script>
+
 
 <!-- UTMify — pixel + propagador de UTM.
      RESTAURADO em 2026-08-14. O pixel envia ao Facebook o Purchase dos upsells
