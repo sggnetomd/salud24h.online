@@ -55,7 +55,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      preço em formato de EXTRATO (os itens e os regalos imprimem um por um, o total soma e
      o $19 só aparece no fim; CTA e garantia ficam travados até lá), botão rosa, garantia em carta
      (90 dias, igual ao DW1) e o popup das duas frases no primeiro "No".
-     Ampliação (20/10): espelho + flacidez, celulitis e estrías em sequência (fotos juntas), copy do VSL do UP2. -->
+     Ampliação (20/10): flacidez, celulitis e estrías em sequência (fotos juntas), copy do VSL do UP2.
+     21/10: abre com as fotos de choque no lugar da headline. -->
 <style>
   :root{
     --paper:#FBF4F0; --card:#FFFFFF; --ink:#2B1A22; --ink-2:#5B4650; --muted:#98838D;
@@ -94,11 +95,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   .wrap{max-width:600px;margin:0 auto;padding:6px 22px 36px}
 
-  .hero{text-align:center;margin:26px 0 22px}
-  h1{font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.08;letter-spacing:-.8px;color:var(--ink)}
-  h1 em{display:block;font-style:italic;font-weight:500;color:var(--rose)}
-  @media(max-width:480px){ h1{font-size:35px} }
-  .sub{display:inline-block;margin-top:14px;font-size:15px;font-weight:800;color:var(--ink-2);padding:7px 14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .shock{margin:18px 0 26px}
+  .sh-kick{font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.12;letter-spacing:-.5px;color:var(--ink);text-align:center;margin-bottom:16px}
+  .sh-kick em{display:block;font-style:italic;font-weight:600;color:var(--red)}
+  @media(max-width:480px){ .sh-kick{font-size:27px} }
+  .sh-turn{font-family:var(--serif);font-weight:600;font-size:31px;line-height:1.12;letter-spacing:-.5px;text-align:center;color:var(--ink);margin:26px 0 0}
+  .sh-turn em{font-style:italic;color:var(--green)}
+  @media(max-width:480px){ .sh-turn{font-size:28px} }
 
   p.copy{font-size:18.5px;color:var(--ink-2);margin-bottom:15px}
   p.copy strong{color:var(--ink);font-weight:800}
@@ -120,10 +123,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .tl-list li::before{content:"";position:absolute;left:-28px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--green)}
   .tl-list li.mid::before{border-color:var(--amber)}
   .tl-list li.bad::before{border-color:var(--red)}
-  .tl-when{display:block;font-size:13px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+  .tl-intro{font-size:16.5px;color:var(--ink-2);line-height:1.5;margin:-4px 0 16px}
+  .tl-intro strong{color:var(--ink);font-weight:800}
+  .tl-head{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-bottom:4px}
+  .tl-when{font-size:13px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;color:var(--green)}
   .mid .tl-when{color:var(--amber)}
   .bad .tl-when{color:var(--red)}
-  .here{font-style:normal;margin-left:6px;font-size:10.5px;letter-spacing:.5px;background:var(--green);color:#fff;padding:2px 8px;border-radius:999px;vertical-align:1px}
+  .win{font-style:normal;font-size:10.5px;font-weight:900;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:999px;color:#fff;background:var(--green)}
+  .mid .win{background:var(--amber)}
+  .bad .win{background:var(--red)}
+  .tl-list li.ok::after{content:"";position:absolute;left:-31px;top:0;width:22px;height:22px;border-radius:50%;border:2px solid var(--green);opacity:0;animation:ping 1.8s ease-out infinite}
+  @keyframes ping{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+  body.js-tl .tl-list::before{transform:scaleY(0);transform-origin:top}
+  body.js-tl .tl.go .tl-list::before{transform:scaleY(1);transition:transform 1.8s ease}
+  body.js-tl .tl-list li{opacity:0;transform:translateY(8px)}
+  body.js-tl .tl.go .tl-list li{opacity:1;transform:none;transition:opacity .5s ease, transform .5s ease}
+  body.js-tl .tl.go .tl-list li.mid{transition-delay:.6s}
+  body.js-tl .tl.go .tl-list li.bad{transition-delay:1.2s}
+  .tl-photo{margin:6px 0 10px;border-radius:12px;overflow:hidden;border:2px solid var(--red);box-shadow:0 8px 18px rgba(194,58,58,.18)}
+  .tl-photo img{display:block;width:100%;height:auto}
+  .tl-list p.tl-bari{margin-top:8px;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.4;color:var(--ink)}
   .tl-list p{font-size:16.5px;color:var(--ink-2);line-height:1.5}
   .tl-list strong{color:var(--ink);font-weight:800}
 
@@ -204,10 +223,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .sticky .btn{font-size:17.5px;padding:15px 12px;box-shadow:0 6px 16px rgba(200,54,110,.3)}
 
   /* ══ ESPELHO (future pacing negativo do VSL do UP2) — fotos que "desembaçam" ══ */
-  .mirror{margin:26px 0 8px;background:linear-gradient(180deg,#FFFFFF,#F6EEF1);border:2px solid var(--line);border-radius:170px 170px 22px 22px;padding:40px 14px 18px;text-align:center;box-shadow:inset 0 0 0 6px #fff, 0 12px 30px rgba(74,22,49,.08)}
-  .mirror .m-kick{font-family:var(--serif);font-weight:600;font-size:24px;line-height:1.2;color:var(--ink)}
-  .mirror .m-kick em{display:block;font-style:italic;color:var(--green)}
-  .mirror .m-sub{font-size:16px;color:var(--ink-2);margin:12px 0 14px}
   .m-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 10px;text-align:left}
   .m-card{display:flex;flex-direction:column;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
   .m-card.wide{grid-column:1 / -1}
@@ -215,7 +230,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .m-card.wide figcaption{font-size:18.5px}
   .m-ph{position:relative;display:block;border-radius:14px;overflow:hidden;background:#3A2530;aspect-ratio:3/4;box-shadow:0 8px 20px rgba(74,22,49,.18)}
   .m-card.wide .m-ph{aspect-ratio:4/3}
-  .m-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter 1.3s ease, transform 1.8s ease}
+  .m-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:filter .9s ease, transform 1.2s ease}
   .m-emoji{display:none}
   body.js-fog .m-ph img{filter:blur(14px) saturate(.6) brightness(1.15);transform:scale(1.08)}
   body.js-fog .m-ph::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.38);transition:opacity 1.3s ease;pointer-events:none}
@@ -226,7 +241,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .m-card.noimg .m-ph{display:none}
   .m-card.noimg .m-emoji{display:block;order:-2;font-size:24px;line-height:1;flex:0 0 28px;text-align:center}
   .m-card.noimg figcaption{flex:1;padding:0;font-family:inherit;font-weight:700;font-size:16px;line-height:1.4}
-  .mirror .m-end{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-2);margin-top:16px;line-height:1.35}
 
   /* ══ FOTOS EM SEQUÊNCIA: flacidez, celulitis e estrías juntas, mesmas colunas ══ */
   .three{margin:30px 0 8px}
@@ -257,7 +271,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 </style>
 
-
 <!-- Microsoft Clarity -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -287,66 +300,60 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="wrap">
 
-  <div class="hero">
-    <h1>«Eso lo veo <em>cuando adelgace.»</em></h1>
-    <p class="sub">Es lo que estás pensando. Y es justo.</p>
-  </div>
-
-  <p class="copy">Por eso quiero robarte <strong>30 segundos</strong>, y después te suelto.</p>
-
-  <!-- ═══ LINHA DO TEMPO ═══ -->
-  <section class="tl rv">
-    <h2 class="sec">Por qué el momento lo decide todo</h2>
-    <ol class="tl-list">
-      <li><span class="tl-when">Días 1–21 <i class="here">estás aquí</i></span><p>La piel <strong>todavía se encoge contigo</strong>. Aquí es donde se adapta sola.</p></li>
-      <li class="mid"><span class="tl-when">Día 30</span><p>Ya perdiste los primeros kilos. La piel empieza a quedarse atrás.</p></li>
-      <li class="bad"><span class="tl-when">Día 60+</span><p>La piel ya se quedó donde estaba. <strong>Aquí ya no se adapta: se corrige.</strong></p></li>
-    </ol>
-  </section>
-
-  <p class="copy">Ese es el problema. Cuando por fin veas la flacidez en el espejo, <span class="mark">ya pasó el momento en que se podía evitar</span>.</p>
-
-  <!-- ═══ ESPELHO — [FONTE] VSL do UP2 (loção): "Imagine o seguinte cenário: você finalmente
-       conseguiu emagrecer... 10, 15, 20, até 30 quilos desapareceram. Mas, ao se olhar no espelho,
-       você ainda está insatisfeita... A pele do seu abdômen, braços e costas estará flácida e solta.
-       Seu rosto parecerá derretido, envelhecido, sem vida. E, ao vestir shorts, você notará a
-       celulite aparecendo. Você ainda evitará usar biquínis e shorts curtos por vergonha...
-       Mas isso não precisa acontecer". ═══ -->
-  <section class="mirror" id="mirror">
-    <p class="m-kick rv">Imagina: <em>10, 15, 20, hasta 30 kilos menos.</em></p>
-    <p class="m-sub rv">Pero te miras al espejo y todavía no te gusta lo que ves:</p>
-    <!-- FOTOS DO ESPELHO — começam embaçadas e "desembaçam" quando entram na tela (ou num toque).
-         A frase fica EM CIMA da foto, como título (não sobreposta).
-         Sem a foto, o cartão volta a ser texto com emoji, então dá para subir antes de ter as imagens.
-         Briefing (mesma modelo, mesma luz e mesmo tratamento de cor do comparativo-flacidez;
-         reflexo no espelho do banheiro; realista, sem ser grotesco):
-           · /assets/espejo-cuerpo.webp  1200x900  — tronco de top e short pretos, de lado, pinçando a
-             pele solta da barriga; braços com pele caída. Rosto cortado.
-           · /assets/espejo-cara.webp    900x1200  — close do rosto no espelho: bochechas fundas,
-             papada e pescoço caídos, pele opaca; expressão de decepção.
-           · /assets/espejo-piernas.webp 900x1200  — espelho de corpo inteiro, parte de trás das coxas
-             e glúteos de short curto, celulite e pele seca; ela puxando o short para baixo. Sem rosto. -->
+  <!-- ═══ ABERTURA DE CHOQUE (21/10, pedido do Sidney): no lugar da headline, as fotos
+       logo de cara. "Algumas mulheres ficam assim — você não precisa ficar."
+       [FONTE] VSL do UP2: "perder 10, 20 ou até 30 quilos"; "A pele do seu abdômen, braços e
+       costas estará flácida e solta. Seu rosto parecerá derretido, envelhecido, sem vida. E, ao
+       vestir shorts, você notará a celulite aparecendo"; "Mas isso não precisa acontecer".
+       Fotos em /assets/espejo-*.webp; sem foto, cada cartão vira texto com emoji. ═══ -->
+  <section class="shock">
+    <h1 class="sh-kick">Algunas mujeres bajan 10, 15, 20 kilos… <em>y quedan así.</em></h1>
     <div class="m-grid">
       <figure class="m-card wide">
         <figcaption>La piel del abdomen, los brazos y la espalda: flácida y suelta.</figcaption>
-        <span class="m-ph"><img src="/assets/espejo-cuerpo.webp" alt="Reflejo en el espejo: piel suelta en el abdomen y los brazos después de adelgazar" width="1200" height="900" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
+        <span class="m-ph"><img src="/assets/espejo-cuerpo.webp" fetchpriority="high" alt="Reflejo en el espejo: piel suelta en el abdomen y los brazos después de adelgazar" width="1200" height="900" loading="eager" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
         <span class="m-emoji" aria-hidden="true">👚</span>
       </figure>
       <figure class="m-card">
         <figcaption>La cara: derretida, envejecida, sin vida.</figcaption>
-        <span class="m-ph"><img src="/assets/espejo-cara.webp" alt="Reflejo en el espejo: rostro con mejillas hundidas y piel caída" width="900" height="1200" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
+        <span class="m-ph"><img src="/assets/espejo-cara.webp" alt="Reflejo en el espejo: rostro con mejillas hundidas y piel caída" width="900" height="1200" loading="eager" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
         <span class="m-emoji" aria-hidden="true">🪞</span>
       </figure>
       <figure class="m-card">
         <figcaption>Te pones un short… y aparece la celulitis.</figcaption>
-        <span class="m-ph"><img src="/assets/espejo-piernas.webp" alt="Reflejo en el espejo: celulitis en la parte de atrás de las piernas con un short" width="900" height="1200" loading="lazy" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
+        <span class="m-ph"><img src="/assets/espejo-piernas.webp" alt="Reflejo en el espejo: celulitis en la parte de atrás de las piernas con un short" width="900" height="1200" loading="eager" decoding="async" onerror="this.closest('figure').classList.add('noimg')"></span>
         <span class="m-emoji" aria-hidden="true">🩳</span>
       </figure>
     </div>
-    <p class="m-end rv">Y sigues evitando el bikini y el short corto, por vergüenza.</p>
+    <p class="sh-turn">Tú <em>no</em> tienes que quedar así.</p>
   </section>
 
-  <p class="punch rv">No tiene que pasar.</p>
+  <p class="copy">Por eso quiero robarte <strong>30 segundos</strong>, y después te suelto.</p>
+
+  <!-- ═══ LINHA DO TEMPO ═══ -->
+  <!-- ═══ LINHA DO TEMPO — a "janela" da pele.
+       [FONTE] VSL do UP2: "quando você queima gordura rapidamente, a pele não tem tempo suficiente
+       para se adaptar ao novo formato do corpo. É como um elástico que foi esticado por muito tempo
+       e perdeu sua forma original"; "A pele do seu abdômen, braços e costas estará flácida e solta";
+       "Você terá que recorrer a uma cirurgia cara e perigosa para remover o excesso de pele";
+       "proteja-se... antes que o dano seja irreparável"; "Pense em alguém que você conhece que fez
+       cirurgia bariátrica... Será que é necessária outra cirurgia para removê-la?".
+       Foto do Dia 60+: /assets/piel-dia60.webp (close da barriga da foto do espelho).
+       A linha se desenha de verde a vermelho quando entra na tela e as etapas aparecem em ordem. ═══ -->
+  <section class="tl rv" id="timeline">
+    <h2 class="sec">Por qué el momento lo decide todo</h2>
+    <p class="tl-intro">Tu piel es como un elástico: si la acompañas mientras se encoge, vuelve a su forma. <strong>Si se queda estirada mucho tiempo, la pierde.</strong></p>
+    <ol class="tl-list">
+      <li class="ok"><div class="tl-head"><span class="tl-when">Días 1–21</span><i class="win">Ventana abierta · estás aquí</i></div><p>Empiezas con la gelatina y los primeros kilos se van. La piel <strong>todavía se encoge contigo</strong>: es el único momento en que se adapta sola — si la ayudas.</p></li>
+      <li class="mid"><div class="tl-head"><span class="tl-when">Día 30</span><i class="win">Se está cerrando</i></div><p>La ropa ya te queda grande y te empiezan a felicitar. Pero cuando levantas el brazo para saludar, algo cuelga. <strong>La piel empieza a quedarse atrás</strong>: en la barriga, los brazos, las piernas.</p></li>
+      <li class="bad"><div class="tl-head"><span class="tl-when">Día 60+</span><i class="win">Cerrada</i></div>
+        <figure class="tl-photo"><img src="/assets/piel-dia60.webp" alt="Piel suelta y colgando en el abdomen después de adelgazar" width="800" height="600" loading="lazy" decoding="async" onerror="this.closest('figure').style.display='none'"></figure>
+        <p>La piel ya se quedó colgando. Y aquí ninguna loción, ninguna crema y ningún ejercicio la vuelve a subir. <strong>La única salida es el quirófano</strong>: una cirugía cara y peligrosa para cortar la piel que sobra.</p>
+        <p class="tl-bari">Piensa en alguien que se hizo la bariátrica: bajó todo… y ahora necesita otra cirugía para quitarse la piel.</p></li>
+    </ol>
+  </section>
+
+  <p class="copy">Ese es el problema. Cuando por fin veas la flacidez en el espejo, <span class="mark">ya pasó el momento en que se podía evitar</span>.</p>
 
   <!-- ═══ FLACIDEZ, CELULITIS E ESTRÍAS — em sequência, sem abas: as três fotos aparecem juntas,
        nas mesmas colunas (Antes / Sin la loción / Con la loción).
@@ -366,7 +373,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        peso, nao uma linha do tempo. ═══ -->
   <section class="three">
     <h2 class="sec center rv">La flacidez, la celulitis y las estrías vienen con el cuerpo nuevo.</h2>
-    <p class="copy rv">Cuando quemas grasa rápido, la piel no tiene tiempo de adaptarse a la nueva forma del cuerpo. Es como un elástico que estuvo estirado mucho tiempo: se queda flácida, se queda seca… <span class="mark">y ahí aparecen la celulitis y las estrías.</span></p>
+    <p class="copy rv">Cuando quemas grasa rápido, la piel no tiene tiempo de adaptarse a la nueva forma del cuerpo: se queda flácida, se queda seca… <span class="mark">y ahí aparecen la celulitis y las estrías.</span></p>
     <figure class="photo rv">
       <div class="frame">
         <div class="tabs"><span class="t1">Antes</span><span class="t2">Sin la loción</span><span class="t3">Con la loción</span></div>
@@ -406,7 +413,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ✅ JÁ EXISTEM no Protocolo Anti-Flacidez do app: Terapia de Choque Térmico
           (cubos de té verde e de aloe) e Cóctel Anticelulitis.
        ⚠️ PRECISAM EXISTIR NO APP antes de subir: Crema de la Juventud Prohibida e
-          Tratamiento Coreano para Estrías. Piel Ya Flácida já estava na página anterior.
+          Tratamiento Coreano para Estrías.
+       ⛔ "Protocolo Piel Ya Flácida" saiu (21/10): prometia corrigir a flacidez que já existe, o que
+          contradiz o Día 60+ da linha do tempo ("ninguna loción... la vuelve a subir").
        ⛔ "Lista de Compras Exacta" saiu: está na lista do que NÃO existe no app. ═══ -->
   <section class="receipt" id="receipt" aria-label="Tu pedido">
     <div class="rc-top">
@@ -419,27 +428,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="rc-val">$37</span>
       </li>
       <li class="rc-line gift" data-val="47">
-        <div class="rc-name"><em>Regalo 1</em><b>Protocolo Piel Ya Flácida</b><span>Para la flacidez que <strong>ya tienes</strong> — de embarazos, de dietas anteriores, de los años. No solo la que viene: la del espejo de hoy.</span></div>
-        <span class="rc-val">$47</span>
-      </li>
-      <li class="rc-line gift" data-val="47">
-        <div class="rc-name"><em>Regalo 2</em><b>Terapia de Choque Térmico</b><span>Cubos de té verde y de aloe que pasas por la piel antes de la loción. El frío despierta el colágeno y la elastina, las dos proteínas que sostienen la firmeza.</span></div>
+        <div class="rc-name"><em>Regalo 1</em><b>Terapia de Choque Térmico</b><span>Cubos de té verde y de aloe que pasas por la piel antes de la loción. El frío despierta el colágeno y la elastina, las dos proteínas que sostienen la firmeza.</span></div>
         <span class="rc-val">$47</span>
       </li>
       <li class="rc-line gift" data-val="37">
-        <div class="rc-name"><em>Regalo 3</em><b>Cóctel Anticelulitis</b><span>Piña, jengibre y leche de soya. Trabaja por dentro la circulación y la retención que la loción trabaja por fuera.</span></div>
+        <div class="rc-name"><em>Regalo 2</em><b>Cóctel Anticelulitis</b><span>Piña, jengibre y leche de soya. Trabaja por dentro la circulación y la retención que la loción trabaja por fuera.</span></div>
         <span class="rc-val">$37</span>
       </li>
       <li class="rc-line gift" data-val="77">
-        <div class="rc-name"><em>Regalo 4</em><b>Tratamiento Coreano para Estrías</b><span>Recetas caseras para las marcas que aparecen cuando el cuerpo cambia de tamaño rápido.</span></div>
+        <div class="rc-name"><em>Regalo 3</em><b>Tratamiento Coreano para Estrías</b><span>Recetas caseras para las marcas que aparecen cuando el cuerpo cambia de tamaño rápido.</span></div>
         <span class="rc-val">$77</span>
       </li>
       <li class="rc-line gift" data-val="57">
-        <div class="rc-name"><em>Regalo 5</em><b>Crema de la Juventud Prohibida</b><span>La fórmula casera para la cara y el cuello: firmeza, líneas de expresión y patas de gallo. Porque cuando adelgazas, la cara también lo siente.</span></div>
+        <div class="rc-name"><em>Regalo 4</em><b>Crema de la Juventud Prohibida</b><span>La fórmula casera para acompañar la piel de la cara y el cuello mientras adelgazas: firmeza, líneas de expresión y patas de gallo. Porque la cara también lo siente.</span></div>
         <span class="rc-val">$57</span>
       </li>
     </ol>
-    <div class="rc-total"><span>Valor total</span><s id="rcTotal">$302</s></div>
+    <div class="rc-total"><span>Valor total</span><s id="rcTotal">$255</s></div>
     <div class="rc-today">
       <span class="rc-today-l">Hoy,<br>pago único</span>
       <b class="rc-price" id="rcPrice">$19</b>
@@ -475,7 +480,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="promise rv after-price">
     <div class="env" aria-hidden="true">✉️</div>
     <h4>90 días para arrepentirte</h4>
-    <p>Si sientes que no era para ti, escribes una línea a nuestro correo y te devolvemos los $19 completos. Te quedas con los 5 regalos igual.</p>
+    <p>Si sientes que no era para ti, escribes una línea a nuestro correo y te devolvemos los $19 completos. Te quedas con los 4 regalos igual.</p>
   </div>
 
 </div>
@@ -490,7 +495,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="pop-q bad"><b>Si cierras esta página</b><p>«Bajaste de peso… pero la piel te quedó colgando y con estrías.»</p></div>
     <div class="pop-q good"><b>Si agregas la loción</b><p>«¿Bajaste de peso? ¡Y con la piel tan firme! ¿Qué hiciste?»</p></div>
     <p class="pop-txt">Los kilos se van a ir igual: la gelatina se encarga. <strong>Lo único que se decide aquí es cómo se ve tu piel cuando se vayan.</strong></p>
-    <p class="pop-txt"><strong>$19</strong>, una sola vez, con los 5 regalos. Y esta página no vuelve.</p>
+    <p class="pop-txt"><strong>$19</strong>, una sola vez, con los 4 regalos. Y esta página no vuelve.</p>
     <a class="btn" href="https://www.checkout-ds24.com/answer/yes?template=light">Quiero la segunda frase</a>
     <a class="pop-no" href="https://www.checkout-ds24.com/answer/no">No, me arriesgo con la primera.</a>
   </div>
@@ -637,13 +642,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if(!e.isIntersecting) return;
         var el = e.target; mio.unobserve(el);
         var idx = Array.prototype.indexOf.call(mcards, el);
-        setTimeout(function(){ clearCard(el); }, 500 + (idx === 2 ? 450 : 0));
+        setTimeout(function(){ clearCard(el); }, 250 + idx * 180);
       });
-    }, {threshold:0.55});
+    }, {threshold:0.35});
     for(var mc=0;mc<mcards.length;mc++){
       mio.observe(mcards[mc]);
       mcards[mc].addEventListener('click', function(){ clearCard(this); });
     }
+  }
+
+  /* ═══ Linha do tempo: desenha a linha e mostra as etapas em ordem ═══ */
+  var tl = document.getElementById('timeline');
+  if(tl && !reduce && hasIO){
+    document.body.classList.add('js-tl');
+    var tio = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ tio.disconnect(); setTimeout(function(){ tl.classList.add('go'); }, 200); } });
+    }, {threshold:0.3});
+    tio.observe(tl);
   }
 
   var blocks = document.querySelectorAll('.rv');
@@ -660,7 +675,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   setTimeout(function(){ for(var m=0;m<blocks.length;m++) blocks[m].classList.add('on'); }, 3000);
 })();
 </script>
-
 
 <!-- UTMify — pixel + propagador de UTM.
      RESTAURADO em 2026-08-14. O pixel envia ao Facebook o Purchase dos upsells
