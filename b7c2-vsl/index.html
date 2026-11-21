@@ -27,9 +27,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>GApp VSL BM07 CA02</title>
 <meta name="description" content="-">
 <meta property="og:type" content="website">
-<meta property="og:title" content="CNN International | CNN">
-<meta property="og:url" content="https://www.exemplo.com/">
-<meta property="og:image" content="">
 
 <style>
   :root{ --news-bg:#020202; --red:#b42d1f; --fb-blue:#385898; --fb-link:#4267b2; --fb-time:#90949c; --ink:#1c1e21; --gray:#efefef; }
@@ -41,13 +38,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .wrap{max-width:100%;margin:0 auto;padding:0 16px}
 
   /* ── [HEADER] barra de notícias ── */
-  .news-bar{background:var(--news-bg);color:#fff;display:flex;align-items:center;gap:12px;padding:12px 16px}
+  .news-bar{background:#b42d1f;color:#fff;display:flex;align-items:center;gap:12px;padding:12px 16px}
   .news-bar .nav-icon{background:none;border:none;color:#fff;cursor:pointer;display:inline-flex;align-items:center;padding:4px}
   .news-bar .nav-icon svg{height:22px;width:auto;fill:currentColor}
   .news-bar .menu svg{height:20px}
   .news-bar .logo{flex:1;display:flex;justify-content:center;font-weight:800;font-size:22px;letter-spacing:-.5px}
   .news-bar .logo .ph{border:1px dashed #555;color:#777;font-weight:500;font-size:12px;padding:8px 22px;border-radius:4px}
   .news-bar .logo img{height:30px;width:auto;display:block}
+  .news-bar .logo .brand-salud{font-weight:800;font-size:22px;letter-spacing:.5px;color:#fff;text-transform:uppercase}
   /* header sempre em modo mobile: hambúrguer visível + logo centralizado (sem override de desktop) */
 
   /* ── [HEADLINE] copy principal ── */
@@ -123,7 +121,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <header class="news-bar">
   <button class="nav-icon menu" aria-label="Menu"><svg viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32h384c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h384c17.7 0 32 14.3 32 32z"/></svg></button>
   <!-- [LOGO] -->
-  <div class="logo"><img src="img/logo-cnn.webp" alt="CNN" width="150" height="150"></div>
+  <div class="logo"><span class="brand-salud">Salud</span></div>
   <button class="nav-icon search" aria-label="Buscar"><svg viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0s208 93.1 208 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg></button>
 </header>
 
@@ -141,10 +139,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- [VIEWERS] número automático (400–700) -->
     <p class="viewers"><b id="viewers">430</b> personas están mirando ahora.</p>
 
-    <!-- [LOGOS] "Fue noticia también en" — a legenda já vem embutida na própria imagem -->
-    <div class="media-row">
-      <div class="media-logos"><img src="img/logo-emissoras.webp" alt="Fue noticia también en" width="1080" height="185"></div>
-    </div>
   </div>
 </div>
 
